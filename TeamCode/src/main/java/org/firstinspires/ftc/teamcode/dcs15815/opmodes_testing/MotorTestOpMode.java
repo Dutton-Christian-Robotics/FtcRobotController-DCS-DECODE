@@ -13,7 +13,7 @@ public class MotorTestOpMode extends LinearOpMode {
     @Override
     public void runOpMode() {
 
-        motor = hardwareMap.dcMotor.get("lift_servo_left");
+        motor = hardwareMap.dcMotor.get("motor_big_wheel");
         motor.setDirection(DcMotor.Direction.FORWARD);
         double power = 0;
 

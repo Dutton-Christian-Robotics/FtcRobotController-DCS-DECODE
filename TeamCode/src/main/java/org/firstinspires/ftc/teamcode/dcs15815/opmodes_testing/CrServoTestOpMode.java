@@ -12,7 +12,7 @@ public class CrServoTestOpMode extends LinearOpMode {
     @Override
     public void runOpMode() {
 
-        servo = hardwareMap.crservo.get("lift_servo_left");
+        servo = hardwareMap.crservo.get("intake_servo_lower");
         double power = 0;
 
         waitForStart();
@@ -20,9 +20,15 @@ public class CrServoTestOpMode extends LinearOpMode {
         while (!isStopRequested()) {
             if (gamepad1.dpad_up) {
                 power += 0.1;
+                if (power > 1) {
+                    power = 1;
+                }
                 servo.setPower(power);
             } else if (gamepad1.dpad_down) {
                 power -= 0.1;
+                if (power < -1) {
+                    power = -1;
+                }
                 servo.setPower(power);
             } else if (gamepad1.dpad_left || gamepad1.dpad_right) {
                 power = 0;
