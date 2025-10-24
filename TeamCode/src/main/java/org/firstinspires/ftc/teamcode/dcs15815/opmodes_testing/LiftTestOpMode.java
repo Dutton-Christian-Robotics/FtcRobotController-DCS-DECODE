@@ -11,8 +11,8 @@ public class LiftTestOpMode extends LinearOpMode {
     @Override
     public void runOpMode() {
 
-        leftServo = hardwareMap.servo.get("servo_lift_left");
-        rightServo = hardwareMap.servo.get("servo_lift_right");
+        leftServo = hardwareMap.servo.get("lift_servo_left");
+        rightServo = hardwareMap.servo.get("lift_servo_right");
         double position = 0;
 
         waitForStart();
@@ -22,7 +22,7 @@ public class LiftTestOpMode extends LinearOpMode {
                 leftServo.setPosition(1);
                 rightServo.setPosition(0);
             } else if (gamepad1.dpad_down) {
-                leftServo.setPosition(0);
+                leftServo.setPosition(-0.5);
                 rightServo.setPosition(1);
 
             }

@@ -16,7 +16,7 @@ public class ColorSensorTestOpMode extends LinearOpMode {
     @Override
     public void runOpMode() {
 
-        sensor = hardwareMap.get(ColorRangeSensor.class, "sensor_shooter_ball_color");
+        sensor = hardwareMap.get(ColorRangeSensor.class, "sensor_color_ball");
         waitForStart();
 
         while (!isStopRequested()) {

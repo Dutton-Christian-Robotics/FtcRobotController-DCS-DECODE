@@ -12,10 +12,10 @@ public class ComplexDriveRobot {
 
     ComplexDriveRobot(HardwareMap hm) {
         hwMap = hm;
-        backLeft = hwMap.dcMotor.get("back_left_motor");
-        frontLeft = hwMap.dcMotor.get("front_left_motor");
-        frontRight = hwMap.dcMotor.get("front_right_motor");
-        backRight = hwMap.dcMotor.get("back_right_motor");
+        backLeft = hwMap.dcMotor.get("motor_back_left");
+        frontLeft = hwMap.dcMotor.get("motor_front_left");
+        frontRight = hwMap.dcMotor.get("motor_front_right");
+        backRight = hwMap.dcMotor.get("motor_back_right");
 
         setMotorDirection(DcMotorSimple.Direction.FORWARD, DcMotorSimple.Direction.FORWARD, DcMotorSimple.Direction.REVERSE, DcMotorSimple.Direction.REVERSE);
     }

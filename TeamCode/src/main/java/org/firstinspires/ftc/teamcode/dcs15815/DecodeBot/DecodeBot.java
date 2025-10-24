@@ -15,6 +15,7 @@ import java.util.function.BooleanSupplier;
 
 public class DecodeBot extends  DefenderBot {
 
+    public DecodeIntake intake;
 //    public NautilusMecanumDrivetrain drivetrain;
 //    public NautilusShoulder shoulder;
 //    public NautilusArm arm;
@@ -31,6 +32,7 @@ public class DecodeBot extends  DefenderBot {
     public DecodeBot(HardwareMap hm, Class configClass, Telemetry t) {
         super(hm, configClass, t);
 
+        intake = addSystem(DecodeIntake.class);
 //        drivetrain = addSystem(NautilusMecanumDrivetrain.class);
 //        shoulder = addSystem(NautilusShoulder.class);
 //        arm = addSystem(NautilusArm.class);

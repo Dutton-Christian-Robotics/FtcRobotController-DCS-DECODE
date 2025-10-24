@@ -12,7 +12,7 @@ public class CrServoTestOpMode extends LinearOpMode {
     @Override
     public void runOpMode() {
 
-        servo = hardwareMap.crservo.get("intake_servo_lower");
+        servo = hardwareMap.crservo.get("intake_upper_left");
         double power = 0;
 
         waitForStart();
