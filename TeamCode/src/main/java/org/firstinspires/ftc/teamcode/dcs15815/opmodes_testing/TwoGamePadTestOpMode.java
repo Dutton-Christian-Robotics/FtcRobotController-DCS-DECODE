@@ -16,10 +16,6 @@ public class TwoGamePadTestOpMode extends LinearOpMode {
 	ComplexDriveRobot bot;
 	public double currentShooterPower = 1;
 
-	DefenderDebouncer xDebouncer = new DefenderDebouncer(500, () -> {
-		shoot();
-	});
-
 	DefenderDebouncer yDebouncer = new DefenderDebouncer(500, () -> {
 		motorBigWheel.setPower(-0.3);
 		sleep(500);
@@ -27,30 +23,50 @@ public class TwoGamePadTestOpMode extends LinearOpMode {
 
 	});
 
-	DefenderDebouncer aDebouncer = new DefenderDebouncer(500, () -> {
+	DefenderDebouncer startShooterDebouncer = new DefenderDebouncer(500, () -> {
 		startShooter();
 	});
 
-	DefenderDebouncer bDebouncer = new DefenderDebouncer(500, () -> {
+	DefenderDebouncer stopShooterDebouncer = new DefenderDebouncer(500, () -> {
 		stopShooter();
 	});
 
-	DefenderDebouncer bumperLeftDebouncer = new DefenderDebouncer(500, () -> {
+	DefenderDebouncer shooterSpeedLowDebouncer = new DefenderDebouncer(500, () -> {
 //		currentShooterPower = Math.max(0.1, currentShooterPower - 0.1);
 		currentShooterPower = 0.9;
 		startShooter();
 	});
 
-	DefenderDebouncer bumperRightDebouncer = new DefenderDebouncer(500, () -> {
+	DefenderDebouncer shooterSpeedFullDebouncer = new DefenderDebouncer(500, () -> {
 //		currentShooterPower = Math.min(1, currentShooterPower + 0.1);
 		currentShooterPower = 1;
 		startShooter();
 	});
 
-	DefenderDebouncer triggerRightDebouncer = new DefenderDebouncer(500, () -> {
-//		motorBigWheel.setPower(0.3);
-//		sleep(500);
-//		motorBigWheel.setPower(0);
+
+	DefenderDebouncer startIntakeDebouncer = new DefenderDebouncer(500, () -> {
+		startIntake();
+	});
+
+	DefenderDebouncer stopIntakeDebouncer = new DefenderDebouncer(500, () -> {
+		stopIntake();
+	});
+
+	DefenderDebouncer reverseIntakeDebouncer = new DefenderDebouncer(500, () -> {
+		reverseIntake();
+	});
+
+
+
+	DefenderDebouncer shootDebouncer = new DefenderDebouncer(500, () -> {
+		shoot();
+	});
+
+	DefenderDebouncer advanceCarouselDebouncer = new DefenderDebouncer(500, () -> {
+		motorBigWheel.setPower(-0.3);
+		sleep(500);
+		motorBigWheel.setPower(0);
+
 	});
 
 
@@ -131,41 +147,42 @@ public class TwoGamePadTestOpMode extends LinearOpMode {
 		waitForStart();
 
 		while (opModeIsActive()) {
-			if (gamepad2.dpad_up) {
-				startIntake();
+//			if (gamepad2.dpad_up) {
+			if (gamepad2.left_stick_y != 0 || gamepad2.left_stick_x != 0) {
+				startIntakeDebouncer.run();
 
-			} else if (gamepad2.dpad_down) {
-				reverseIntake();
+			} else if (gamepad2.x) {
+				reverseIntakeDebouncer.run();
 
-			} else if (gamepad2.dpad_left || gamepad2.dpad_right) {
-				stopIntake();
-
-			}
-			if (gamepad2.x) {
-				xDebouncer.run();
+			} else if (gamepad2.right_stick_y != 0 || gamepad2.right_stick_x != 0) {
+				stopIntakeDebouncer.run();
 
 			}
+
+			if (gamepad2.left_trigger > 0) {
+				advanceCarouselDebouncer.run();
+			}
+
+			if (gamepad2.right_trigger > 0) {
+				shootDebouncer.run();
+			}
+
 			if (gamepad2.a) {
-				aDebouncer.run();
+				startShooterDebouncer.run();
 
 			} else if (gamepad2.b) {
-				bDebouncer.run();
+				stopShooterDebouncer.run();
 			}
 
 			if (gamepad2.left_bumper) {
-				bumperLeftDebouncer.run();
+				shooterSpeedLowDebouncer.run();
 			} else if (gamepad2.right_bumper) {
-				bumperRightDebouncer.run();
+				shooterSpeedFullDebouncer.run();
 			}
 
 			if (gamepad2.y) {
 				yDebouncer.run();
 			}
-
-			if (gamepad2.right_trigger > 0) {
-				triggerRightDebouncer.run();
-			}
-
 
 			bot.drive(-1 * gamepad1.left_stick_y, (gamepad1.right_trigger - gamepad1.left_trigger), gamepad1.right_stick_x);
 
