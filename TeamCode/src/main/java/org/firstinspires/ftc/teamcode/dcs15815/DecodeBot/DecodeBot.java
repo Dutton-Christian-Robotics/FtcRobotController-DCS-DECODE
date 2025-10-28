@@ -16,12 +16,11 @@ import java.util.function.BooleanSupplier;
 public class DecodeBot extends  DefenderBot {
 
     public DecodeIntake intake;
-//    public NautilusMecanumDrivetrain drivetrain;
-//    public NautilusShoulder shoulder;
-//    public NautilusArm arm;
-//    public NautilusIntake intake;
-//    public NautilusWrist wrist;
-//    public NautilusEffects effects;
+    public DecodeEffects effects;
+    public DecodeShooter shooter;
+    public DecodeMecanumDrivetrain drivetrain;
+
+
 //    public NautilusNavigation navigation;
     private boolean useDebugging = false;
     public BooleanSupplier abortOpMode = () -> false;
@@ -33,12 +32,14 @@ public class DecodeBot extends  DefenderBot {
         super(hm, configClass, t);
 
         intake = addSystem(DecodeIntake.class);
-//        drivetrain = addSystem(NautilusMecanumDrivetrain.class);
-//        shoulder = addSystem(NautilusShoulder.class);
+        effects = addSystem(DecodeEffects.class);
+        shooter = addSystem(DecodeShooter.class);
+        drivetrain = addSystem(DecodeMecanumDrivetrain.class);
+
+        //        shoulder = addSystem(NautilusShoulder.class);
 //        arm = addSystem(NautilusArm.class);
 //        intake = addSystem(NautilusIntake.class);
 //        wrist = addSystem(NautilusWrist.class);
-//        effects = addSystem(NautilusEffects.class);
 //        navigation = addSystem(NautilusNavigation.class);
     }
 

@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.dcs15815.DecodeBot;
 import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderBot.DefenderBot;
 import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderBot.DefenderBotSystem;
@@ -7,19 +8,32 @@ import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderBot.Def
 public class DecodeIntake extends DefenderBotSystem {
 	HardwareMap hwMap;
 	public CRServo servoUpperLeft, servoUpperRight, servoMiddleLeft, servoMiddleRight, servoLower;
-	private final double maxPower = 1.0;
+	public DcMotor motorCarousel;
 
 	DecodeIntake(HardwareMap hm, DefenderBot b) {
 		super(hm, b);
 
-		servoUpperLeft = hwMap.crservo.get("intake_upper_right");
-		servoUpperRight = hwMap.crservo.get("intake_upper_left");
-		servoMiddleLeft = hwMap.crservo.get("intake_medium_left");
-		servoMiddleRight = hwMap.crservo.get("intake_medium_right");
-		servoLower = hwMap.crservo.get("intake_servo_lower");
+		servoUpperLeft = hm.crservo.get(DecodeConfiguration.INTAKE_SERVO_UPPER_LEFT_NAME);
+		servoUpperRight = hm.crservo.get(DecodeConfiguration.INTAKE_SERVO_UPPER_RIGHT_NAME);
+		servoMiddleLeft = hm.crservo.get(DecodeConfiguration.INTAKE_SERVO_MIDDLE_LEFT_NAME);
+		servoMiddleRight = hm.crservo.get(DecodeConfiguration.INTAKE_SERVO_MIDDLE_RIGHT_NAME);
+		servoLower = hm.crservo.get(DecodeConfiguration.INTAKE_SERVO_LOWER_NAME);
+
+		motorCarousel = hm.dcMotor.get(DecodeConfiguration.INTAKE_MOTOR_CAROUSEL_NAME);
+		motorCarousel.setDirection(DecodeConfiguration.INTAKE_MOTOR_CAROUSEL_DIRECTION);
 	}
 
-	public void setPower(double ul, double ur, double ml, double mr, double l) {
+	public void setServoPower(double p) {
+		setServoPowerForEach(
+			   p * DecodeConfiguration.INTAKE_SERVO_UPPER_LEFT_DIRECTION,
+			   p * DecodeConfiguration.INTAKE_SERVO_UPPER_RIGHT_DIRECTION,
+			   p * DecodeConfiguration.INTAKE_SERVO_MIDDLE_LEFT_DIRECTION,
+			   p * DecodeConfiguration.INTAKE_SERVO_MIDDLE_RIGHT_DIRECTION,
+			   p * DecodeConfiguration.INTAKE_SERVO_LOWER_DIRECTION
+		);
+	}
+
+	public void setServoPowerForEach(double ul, double ur, double ml, double mr, double l) {
 		servoUpperLeft.setPower(ul);
 		servoUpperRight.setPower(ur);
 		servoMiddleLeft.setPower(ml);
@@ -28,15 +42,36 @@ public class DecodeIntake extends DefenderBotSystem {
 	}
 
 	public void stopIntake() {
-		setPower(0, 0, 0, 0, 0);
+		setServoPower(0);
+		stopCarousel();
 	}
 
 	public void startIntake() {
-		setPower(1, -1, -1, 1, 1);
+		setServoPower(DecodeConfiguration.INTAKE_SERVO_POWER_MAX);
+		startCarousel();
 	}
 
 	public void reverseIntake() {
-		setPower(-1, 1, 1, -1, -1);
+		setServoPower(- 1 * DecodeConfiguration.INTAKE_SERVO_POWER_MAX);
+		reverseCarousel();
+	}
+
+	public void startCarousel() {
+		motorCarousel.setPower(DecodeConfiguration.INTAKE_MOTOR_CAROUSEL_POWER);
+	}
+
+	public void reverseCarousel() {
+		motorCarousel.setPower(-1 * DecodeConfiguration.INTAKE_MOTOR_CAROUSEL_POWER);
+	}
+
+	public void stopCarousel() {
+		motorCarousel.setPower(0);
+	}
+
+	public void advanceCarousel() {
+		startCarousel();
+		sleep(DecodeConfiguration.INTAKE_MOTOR_CAROUSEL_TIME_ADVANCE);
+		stopCarousel();
 	}
 
 
