@@ -184,7 +184,7 @@ public class TwoGamePadTestOpMode extends LinearOpMode {
 				yDebouncer.run();
 			}
 
-			bot.drive(-1 * gamepad1.left_stick_y, (gamepad1.right_trigger - gamepad1.left_trigger), gamepad1.right_stick_x);
+			bot.drive(gamepad1.left_stick_y, (gamepad1.right_trigger - gamepad1.left_trigger), gamepad1.right_stick_x);
 
 			telemetry.addData("Shooter Power", currentShooterPower);
 			telemetry.update();

@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderUtiliti
 
 import java.util.function.BooleanSupplier;
 
-public class DecodeBot extends  DefenderBot {
+public class DecodeBot extends DefenderBot {
 
     public DecodeIntake intake;
     public DecodeEffects effects;
@@ -21,12 +21,9 @@ public class DecodeBot extends  DefenderBot {
     public DecodeMecanumDrivetrain drivetrain;
 
 
-//    public NautilusNavigation navigation;
     private boolean useDebugging = false;
     public BooleanSupplier abortOpMode = () -> false;
 
-    //    public DefenderPresets<SBBArmPosition> armPresets;
-//    public DefenderDelayedSequence grabPixelSequence;
 
     public DecodeBot(HardwareMap hm, Class configClass, Telemetry t) {
         super(hm, configClass, t);
@@ -34,6 +31,7 @@ public class DecodeBot extends  DefenderBot {
         intake = addSystem(DecodeIntake.class);
         effects = addSystem(DecodeEffects.class);
         shooter = addSystem(DecodeShooter.class);
+
         drivetrain = addSystem(DecodeMecanumDrivetrain.class);
 
         //        shoulder = addSystem(NautilusShoulder.class);

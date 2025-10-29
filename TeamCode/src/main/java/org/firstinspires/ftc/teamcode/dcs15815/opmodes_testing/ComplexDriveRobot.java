@@ -10,7 +10,7 @@ public class ComplexDriveRobot {
     public DcMotor backLeft, frontLeft, frontRight, backRight;
     private final double maxPower = 1.0;
 
-    ComplexDriveRobot(HardwareMap hm) {
+    public ComplexDriveRobot(HardwareMap hm) {
         hwMap = hm;
         backLeft = hwMap.dcMotor.get("motor_back_left");
         frontLeft = hwMap.dcMotor.get("motor_front_left");
