@@ -41,22 +41,22 @@ public class DecodeIntake extends DefenderBotSystem {
 		servoLower.setPower(l);
 	}
 
-	public void stopIntake() {
+	public void turnOff() {
 		setServoPower(0);
-		stopCarousel();
+		turnOffCarousel();
 	}
 
-	public void startIntake() {
+	public void turnOn() {
 		setServoPower(DecodeConfiguration.INTAKE_SERVO_POWER_MAX);
-		startCarousel();
+		turnOnCarousel();
 	}
 
-	public void reverseIntake() {
+	public void reverse() {
 		setServoPower(- 1 * DecodeConfiguration.INTAKE_SERVO_POWER_MAX);
 		reverseCarousel();
 	}
 
-	public void startCarousel() {
+	public void turnOnCarousel() {
 		motorCarousel.setPower(DecodeConfiguration.INTAKE_MOTOR_CAROUSEL_POWER);
 	}
 
@@ -64,14 +64,14 @@ public class DecodeIntake extends DefenderBotSystem {
 		motorCarousel.setPower(-1 * DecodeConfiguration.INTAKE_MOTOR_CAROUSEL_POWER);
 	}
 
-	public void stopCarousel() {
+	public void turnOffCarousel() {
 		motorCarousel.setPower(0);
 	}
 
 	public void advanceCarousel() {
-		startCarousel();
+		turnOnCarousel();
 		sleep(DecodeConfiguration.INTAKE_MOTOR_CAROUSEL_TIME_ADVANCE);
-		stopCarousel();
+		turnOffCarousel();
 	}
 
 

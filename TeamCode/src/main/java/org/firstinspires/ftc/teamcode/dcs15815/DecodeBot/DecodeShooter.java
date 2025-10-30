@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.dcs15815.DecodeBot;
 
-import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -28,12 +27,12 @@ public class DecodeShooter extends DefenderBotSystem {
 		servoRight = hm.servo.get(DecodeConfiguration.SHOOTER_SERVO_LIFT_RIGHT_NAME);
 	}
 
-	public void startShooter() {
+	public void turnOn() {
 		motorLeft.setPower(currentShooterPower);
 		motorRight.setPower(currentShooterPower);
 	}
 
-	public void stopShooter() {
+	public void turnOff() {
 		motorLeft.setPower(0);
 		motorRight.setPower(0);
 	}
@@ -46,7 +45,7 @@ public class DecodeShooter extends DefenderBotSystem {
 			   ),
 			   DecodeConfiguration.SHOOTER_MOTOR_POWER_MAX
 		);
-		startShooter();
+		turnOn();
 
 	}
 

@@ -92,32 +92,32 @@ public class DecodeConfiguration extends DefenderBotConfiguration {
 //    public static String IMU_SENSOR_NAME = "imu";
 //    public static AxesOrder IMU_AXES_ORDER = AxesOrder.XYZ;
 //
-//    public static double NAVIGATION_TOLERANCE = 1.0;
+    public static double NAVIGATION_TOLERANCE = 1.0;
 //
     public static double NAVIGATION_ANGULAR_SCALE = 0.997;
     public static double NAVIGATION_LINEAR_SCALE = 0.978;
-//
-//    public static double NAVIGATION_TOLERANCE_R = 1.0;
-//    public static double NAVIGATION_TOLERANCE_X = 1.0;
-//    public static double NAVIGATION_TOLERANCE_Y = 7.0; // in degrees
-//
-//    public static double NAVIGATION_X_KP = 0.2;
-//    public static double NAVIGATION_X_KI = 0.4;
-//    public static double NAVIGATION_X_KD = 0.03;
-//
-//    public static double NAVIGATION_Y_KP = 0.5;
-//    public static double NAVIGATION_Y_KI = 4.5;
-//    public static double NAVIGATION_Y_KD = 0.12;
-//
-//    public static double NAVIGATION_R_KP = 0.2;
-//    public static double NAVIGATION_R_KI = 1.0;
-//    public static double NAVIGATION_R_KD = 0.003;
-//
-//    public static double NAVIGATION_X_MAXPOWER = 0.6; // was 0.6
-//    public static double NAVIGATION_Y_MAXPOWER = 0.3; // was .4
-//    public static double NAVIGATION_R_MAXPOWER = 0.4; // was 0.3
-//
-//    public static long NAVIGATION_SETTLING_TIME = 500;
+
+    public static double NAVIGATION_TOLERANCE_R = 1.0;
+    public static double NAVIGATION_TOLERANCE_X = 1.0;
+    public static double NAVIGATION_TOLERANCE_Y = 7.0; // in degrees
+
+    public static double NAVIGATION_X_KP = 0.2;
+    public static double NAVIGATION_X_KI = 0.4;
+    public static double NAVIGATION_X_KD = 0.03;
+
+    public static double NAVIGATION_Y_KP = 0.5;
+    public static double NAVIGATION_Y_KI = 4.5;
+    public static double NAVIGATION_Y_KD = 0.12;
+
+    public static double NAVIGATION_R_KP = 0.2;
+    public static double NAVIGATION_R_KI = 1.0;
+    public static double NAVIGATION_R_KD = 0.003;
+
+    public static double NAVIGATION_X_MAXPOWER = 0.6; // was 0.6
+    public static double NAVIGATION_Y_MAXPOWER = 0.3; // was .4
+    public static double NAVIGATION_R_MAXPOWER = 0.4; // was 0.3
+
+    public static long NAVIGATION_SETTLING_TIME = 500;
 
 
 

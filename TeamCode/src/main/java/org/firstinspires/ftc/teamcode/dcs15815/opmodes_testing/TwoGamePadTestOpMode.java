@@ -33,7 +33,7 @@ public class TwoGamePadTestOpMode extends LinearOpMode {
 
 	DefenderDebouncer shooterSpeedLowDebouncer = new DefenderDebouncer(500, () -> {
 //		currentShooterPower = Math.max(0.1, currentShooterPower - 0.1);
-		currentShooterPower = 0.9;
+		currentShooterPower = 0.8;
 		startShooter();
 	});
 

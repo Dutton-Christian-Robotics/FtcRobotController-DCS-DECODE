@@ -57,6 +57,11 @@ public class DefenderBot {
         }
     }
 
+    public <T extends DefenderBotSystem> T addSystem(T system) {
+        systems.add(system);
+        return system;
+    }
+
     // This method uses generics in order to instantiate and add system classes to the bot. The
     // method works by being called with the class object for a DefenderBotSystem child class.
     // The method then uses the reflection API to find the constructor for the class that can be
