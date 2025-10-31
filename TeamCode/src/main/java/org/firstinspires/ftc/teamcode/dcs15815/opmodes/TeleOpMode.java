@@ -11,6 +11,7 @@ import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderUtiliti
 public class TeleOpMode extends LinearOpMode {
 	DecodeBot bot;
 	public double currentShooterPower = 1;
+	public boolean changeArtifactCount = false;
 
 //	DefenderDebouncer yDebouncer = new DefenderDebouncer(500, () -> {
 //		motorBigWheel.setPower(-0.3);
@@ -120,6 +121,8 @@ public class TeleOpMode extends LinearOpMode {
 		bot = new DecodeBot(hardwareMap, DecodeConfiguration.class, telemetry);
 		bot.intake.startMonitoringCapture();
 		bot.intake.setNumberOfArtifactsLoaded(0);
+		bot.effects.startLiveStatus();
+
 
 		waitForStart();
 
@@ -148,6 +151,25 @@ public class TeleOpMode extends LinearOpMode {
 				bot.shooter.turnOff();
 			}
 
+			if (gamepad2.dpadLeftWasPressed() && changeArtifactCount) {
+				bot.intake.setNumberOfArtifactsLoaded(0);
+				bot.intake.setNumberOfArtifactsLoaded(0);
+
+			} else if (gamepad2.dpadRightWasPressed() && changeArtifactCount) {
+				bot.intake.setNumberOfArtifactsLoaded(0);
+
+			} else if (gamepad2.dpadUpWasPressed() && changeArtifactCount) {
+				bot.intake.increaseArtifactCount();
+
+			} else if (gamepad2.dpadDownWasPressed() && changeArtifactCount) {
+				bot.intake.decreaseArtifactCount();
+			}
+
+			if (gamepad2.startWasPressed()) {
+				changeArtifactCount = !changeArtifactCount;
+			}
+
+
 			if (gamepad2.leftBumperWasPressed()) {
 				shooterSpeedLowDebouncer.run();
 			} else if (gamepad2.right_bumper) {
@@ -158,12 +180,21 @@ public class TeleOpMode extends LinearOpMode {
 				advanceCarouselDebouncer.run();
 //				yDebouncer.run();
 			}
+			if (gamepad2.backWasPressed()) {
+				bot.useSpeech = !bot.useSpeech;
+			}
 
 			bot.drivetrain.drive(gamepad1.left_stick_y, (gamepad1.right_trigger - gamepad1.left_trigger), gamepad1.right_stick_x);
 
 			telemetry.addData("Shooter Power", currentShooterPower);
 			telemetry.addData("Artifacts", bot.intake.numberOfArtifactsLoaded);
 			telemetry.addData("Color", bot.shooter.readyArtifactColor());
+			if (!bot.useSpeech) {
+				telemetry.addData("Voice", "OFF");
+			}
+			if (changeArtifactCount) {
+				telemetry.addData("Count", "Up | Down | Left | Right");
+			}
 			telemetry.update();
 
 		}

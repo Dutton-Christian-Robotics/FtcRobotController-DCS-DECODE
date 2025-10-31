@@ -3,6 +3,7 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.TouchSensor;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderBot.DefenderBot;
 import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderBot.DefenderBotSystem;
@@ -41,6 +42,10 @@ public class DecodeIntake extends DefenderBotSystem {
 
 	public void decreaseArtifactCount() {
 		numberOfArtifactsLoaded = Math.max(0, --numberOfArtifactsLoaded);
+	}
+
+	public void increaseArtifactCount() {
+		numberOfArtifactsLoaded++;
 	}
 
 	public boolean areTooManyArtifactsLoaded() {
@@ -93,6 +98,16 @@ public class DecodeIntake extends DefenderBotSystem {
 		reverseCarousel();
 	}
 
+	public String direction() {
+		if (motorCarousel.getPower() > 0) {
+			return "in";
+		} else if (motorCarousel.getPower() < 0) {
+			return "out";
+		} else {
+			return "";
+		}
+	}
+
 	public void turnOnCarousel() {
 		motorCarousel.setPower(DecodeConfiguration.INTAKE_MOTOR_CAROUSEL_POWER);
 	}
@@ -119,6 +134,19 @@ public class DecodeIntake extends DefenderBotSystem {
 		reverseCarousel();
 		sleep(Math.round(DecodeConfiguration.INTAKE_MOTOR_CAROUSEL_TIME_ADVANCE * timeFraction));
 		turnOffCarousel();
+	}
+
+	public void advanceCarouselUntilReady() {
+		ElapsedTime timer = new ElapsedTime();
+		DecodeShooter shooter = ((DecodeBot) bot).shooter;
+
+		turnOnCarousel();
+		while (!shooter.isReadyToShoot() && timer.milliseconds() < 3000) {
+			sleep(150);
+		}
+		turnOffCarousel();
+
+
 	}
 
 

@@ -9,48 +9,19 @@ import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderUtiliti
 
 
 @Autonomous(name = "Blue 0", group = "10", preselectTeleOp="Driver Operated")
-public class Blue0AutonomousOpMode extends LinearOpMode {
-	public DecodeBot bot;
+public class Blue0AutonomousOpMode extends DecodeAutonomousOpMode {
 
-	DefenderAlliance.Color allianceColor = DefenderAlliance.Color.UNKNOWN;
+	public void setAlliance() {
+		DefenderAlliance.getInstance().setColor(DefenderAlliance.Color.BLUE);
+	};
 
 
 	@Override
-	public void runOpMode() {
+	public void performAutonomous() {
 
-		bot = new DecodeBot(hardwareMap, DecodeConfiguration.class, telemetry);
-		bot.intake.setNumberOfArtifactsLoaded(3);
-//		bot.setUseDebugging(true);
-		bot.abortOpMode = () -> isStopRequested();
-
-
-
-//		setAlliance();
-//		if (DefenderAlliance.getInstance().isRed()) {
-//			telemetry.addData("Alliance", "RED");
-//		} else if (DefenderAlliance.getInstance().isBlue()) {
-//			telemetry.addData("Alliance", "BLUE");
-//		} else {
-//			telemetry.addData("Alliance", "unknown");
-//		}
-//		telemetry.update();
-//
-//		if (DefenderAlliance.getInstance().isRed()) {
-//			bot.effects.scanRed();
-//		} else if (DefenderAlliance.getInstance().isBlue()) {
-//			bot.effects.scanBlue();
-//		} else {
-//			bot.effects.wavesParty();
-//		}
-
-		waitForStart();
-
-		bot.driveToBotRelativePositionWithTimeout(0, -3, 0, 1000, 5000);
-
-//		bot.navigation.resetOtosAndResetOrigin();
-
-//		bot.shooter.startShooter();
-
+		bot.driveToBotRelativePositionWithTimeout(0, -10, 0, 1000, 5000);
+//		telemetry.speak("I am now out of the way.");
+		sleep(4000);
 
 	}
 

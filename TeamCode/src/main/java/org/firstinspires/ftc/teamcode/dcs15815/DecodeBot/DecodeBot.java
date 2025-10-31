@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderBot.DefenderBot;
+import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderUtilities.DefenderAlliance;
 import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderUtilities.DefenderPIDController;
 
 import java.util.function.BooleanSupplier;
@@ -25,16 +26,12 @@ public class DecodeBot extends DefenderBot {
 
 
     private boolean useDebugging = false;
+    public boolean useSpeech = true;
     public BooleanSupplier abortOpMode = () -> false;
 
 
     public DecodeBot(HardwareMap hm, Class configClass, Telemetry t) {
         super(hm, configClass, t);
-
-//        intake = addSystem(DecodeIntake.class);
-//        effects = addSystem(DecodeEffects.class);
-//        shooter = addSystem(DecodeShooter.class);
-//        drivetrain = addSystem(DecodeMecanumDrivetrain.class);
 
         intake = addSystem(new DecodeIntake(hm, this));
         effects = addSystem(new DecodeEffects(hm, this));
@@ -48,6 +45,10 @@ public class DecodeBot extends DefenderBot {
 
     public void setUseDebugging(boolean b) {
         useDebugging = b;
+    }
+
+    public void setUseSpeech(boolean b) {
+        useSpeech = b;
     }
 
     // On DecodeBot, the OTOS is mounted so that the y axis measures forward and backward

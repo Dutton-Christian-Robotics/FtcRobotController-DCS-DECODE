@@ -77,8 +77,12 @@ public class DecodeShooter extends DefenderBotSystem {
 	public void shootAndUpdateArtifactCount() {
 		shoot();
 		DecodeBot dbot = (DecodeBot) bot;
+		if (dbot.useSpeech) bot.telemetry.speak("Look out!");
 		if (!isReadyToShoot()) {
 			dbot.intake.decreaseArtifactCount();
+		}
+		if (dbot.useSpeech && !dbot.intake.hasArtifacts()) {
+			bot.telemetry.speak("Little Tut is so so hungry!");
 		}
 	}
 

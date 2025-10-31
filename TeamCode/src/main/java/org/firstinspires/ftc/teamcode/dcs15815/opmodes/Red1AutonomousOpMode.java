@@ -9,10 +9,7 @@ import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderUtiliti
 
 
 @Autonomous(name = "Red 1", group = "1", preselectTeleOp="Driver Operated")
-public class Red1AutonomousOpMode extends LinearOpMode {
-	public DecodeBot bot;
-
-	DefenderAlliance.Color allianceColor = DefenderAlliance.Color.UNKNOWN;
+public class Red1AutonomousOpMode extends DecodeAutonomousOpMode {
 
 	public void setAlliance() {
 		DefenderAlliance.getInstance().setColor(DefenderAlliance.Color.RED);
@@ -20,37 +17,7 @@ public class Red1AutonomousOpMode extends LinearOpMode {
 
 
 	@Override
-	public void runOpMode() {
-
-		bot = new DecodeBot(hardwareMap, DecodeConfiguration.class, telemetry);
-		bot.intake.setNumberOfArtifactsLoaded(3);
-		bot.intake.startMonitoringCapture();
-//		bot.setUseDebugging(true);
-		bot.abortOpMode = () -> isStopRequested();
-
-
-
-		setAlliance();
-		if (DefenderAlliance.getInstance().isRed()) {
-			telemetry.addData("Alliance", "RED");
-		} else if (DefenderAlliance.getInstance().isBlue()) {
-			telemetry.addData("Alliance", "BLUE");
-		} else {
-			telemetry.addData("Alliance", "unknown");
-		}
-		telemetry.update();
-
-		if (DefenderAlliance.getInstance().isRed()) {
-			bot.effects.scanRed();
-		} else if (DefenderAlliance.getInstance().isBlue()) {
-			bot.effects.scanBlue();
-		} else {
-			bot.effects.wavesParty();
-		}
-
-		waitForStart();
-
-		bot.navigation.resetOtosAndResetOrigin();
+	public void performAutonomous() {
 
 	// Backup from the goal
 
@@ -64,15 +31,12 @@ public class Red1AutonomousOpMode extends LinearOpMode {
 
 		bot.shooter.shootAndUpdateArtifactCount();
 
-		if (!bot.isReadyToShoot()) {
-			bot.intake.advanceCarousel();
-			bot.shooter.shootAndUpdateArtifactCount();
-		}
+		bot.intake.advanceCarouselUntilReady();
+		bot.shooter.shootAndUpdateArtifactCount();
 
-		if (!bot.isReadyToShoot()) {
-			bot.intake.advanceCarousel();
-			bot.shooter.shootAndUpdateArtifactCount();
-		}
+		bot.intake.advanceCarouselUntilReady();
+
+		bot.shooter.shootAndUpdateArtifactCount();
 
 		if (!bot.shooter.isReadyToShoot()) {
 			bot.intake.advanceCarousel();
@@ -129,15 +93,17 @@ public class Red1AutonomousOpMode extends LinearOpMode {
 
 		bot.shooter.shootAndUpdateArtifactCount();
 
-		if (!bot.isReadyToShoot()) {
-			bot.intake.advanceCarousel();
+//		if (!bot.isReadyToShoot()) {
+//			bot.intake.advanceCarousel();
+			bot.intake.advanceCarouselUntilReady();
 			bot.shooter.shootAndUpdateArtifactCount();
-		}
+//		}
 
-		if (!bot.isReadyToShoot()) {
-			bot.intake.advanceCarousel();
+//		if (!bot.isReadyToShoot()) {
+//			bot.intake.advanceCarousel();
+			bot.intake.advanceCarouselUntilReady();
 			bot.shooter.shootAndUpdateArtifactCount();
-		}
+//		}
 
 		if (!bot.shooter.isReadyToShoot()) {
 			bot.intake.advanceCarousel();
@@ -148,11 +114,6 @@ public class Red1AutonomousOpMode extends LinearOpMode {
 		bot.shooter.lowerLift();
 		sleep(500);
 
-
-
-//		bot.navigation.resetOtosAndResetOrigin();
-
-//		bot.shooter.startShooter();
 
 
 	}

@@ -70,7 +70,7 @@ public class DecodeConfiguration extends DefenderBotConfiguration {
     public static double SHOOTER_MOTOR_POWER_MAX = 1;
     public static double SHOOTER_MOTOR_POWER_MIN = 0.1;
     public static double SHOOTER_MOTOR_POWER_START = 0.90;
-    public static long SHOOTER_LIFT_TIME_SLEEP = 500;
+    public static long SHOOTER_LIFT_TIME_SLEEP = 600;
 
     public static String SHOOTER_SENSOR_READY_NAME = "sensor_lift_ball_color";
     public static double SHOOTER_SENSOR_READY_THRESHOLD_LIGHT = 0.3;
@@ -118,11 +118,11 @@ public class DecodeConfiguration extends DefenderBotConfiguration {
     public static double NAVIGATION_R_KI = 1.0;
     public static double NAVIGATION_R_KD = 0.003;
 
-    public static double NAVIGATION_X_MAXPOWER = 0.6; // was 0.6
-    public static double NAVIGATION_Y_MAXPOWER = 0.3; // was .4
-    public static double NAVIGATION_R_MAXPOWER = 0.3; // was 0.3
+    public static double NAVIGATION_X_MAXPOWER = 0.6;
+    public static double NAVIGATION_Y_MAXPOWER = 0.3;
+    public static double NAVIGATION_R_MAXPOWER = 0.3;
 
-    public static long NAVIGATION_SETTLING_TIME = 500;
+    public static long NAVIGATION_SETTLING_TIME = 400; //was 500
 
 
 

@@ -8,11 +8,29 @@ import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderBot.Def
 
 public class DecodeEffects extends DefenderBotSystem {
 	RevBlinkinLedDriver leds;
+	public DecodeEffectsLiveStatusRunnable liveStatusRunnable;
 
 	public DecodeEffects(HardwareMap hm, DefenderBot b) {
 		super(hm, b);
 		leds = hm.get(RevBlinkinLedDriver.class, DecodeConfiguration.EFFECTS_LEDS_NAME);
 
+	}
+
+	public void startLiveStatus() {
+		DecodeBot b = (DecodeBot)bot;
+		liveStatusRunnable = new DecodeEffectsLiveStatusRunnable();
+		liveStatusRunnable.setEffects(this);
+		liveStatusRunnable.setShooter(b.shooter);
+		liveStatusRunnable.setIntake(b.intake);
+		liveStatusRunnable.setEffects(this);
+		Thread monitorCaptureThread = new Thread(liveStatusRunnable);
+		monitorCaptureThread.start();
+	}
+
+	public void stopLiveStatus() {
+		if (liveStatusRunnable != null) {
+			liveStatusRunnable.doStop();
+		}
 	}
 
 	public void setPattern(RevBlinkinLedDriver.BlinkinPattern p) {
@@ -30,7 +48,18 @@ public class DecodeEffects extends DefenderBotSystem {
 
 	public void scanBlue() {
 		setPattern(RevBlinkinLedDriver.BlinkinPattern.SHOT_BLUE);
+	}
 
+	public void black() {
+		setPattern(RevBlinkinLedDriver.BlinkinPattern.BLACK);
+	}
+
+	public void solidOrange() {
+		setPattern(RevBlinkinLedDriver.BlinkinPattern.ORANGE);
+	}
+
+	public void solidPurple() {
+		setPattern(RevBlinkinLedDriver.BlinkinPattern.VIOLET);
 	}
 
 	public void scanRed() {
@@ -43,6 +72,9 @@ public class DecodeEffects extends DefenderBotSystem {
 
 	public void heartbeatRed() {
 		setPattern(RevBlinkinLedDriver.BlinkinPattern.HEARTBEAT_RED);
+	}
+	public void heartbeatGray() {
+		setPattern(RevBlinkinLedDriver.BlinkinPattern.HEARTBEAT_GRAY);
 	}
 
 	public void strobeGold() {

@@ -23,7 +23,18 @@ public class DecodeIntakeMonitorCaptureRunnable implements Runnable {
 	public void run() {
 		while (keepRunning()) {
 			if (!intake.sensorCapture.isPressed()) {
-				intake.numberOfArtifactsLoaded++;
+				DecodeBot bot = (DecodeBot) intake.bot;
+				if (!bot.intake.areTooManyArtifactsLoaded() && bot.intake.direction() == "in") {
+					bot.effects.beatsGreen();
+				}
+				if (bot.intake.direction() == "in") {
+					intake.numberOfArtifactsLoaded++;
+					if (bot.useSpeech) bot.telemetry.speak("Little Tut says yum yum yum!");
+				} else if (bot.intake.direction() == "out") {
+					intake.numberOfArtifactsLoaded--;
+					if (bot.useSpeech) bot.telemetry.speak("Little Tut does not like that one!");
+				}
+
 				try {
 					Thread.sleep(750);
 				} catch (InterruptedException e) {

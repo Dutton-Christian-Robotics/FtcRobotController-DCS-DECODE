@@ -55,12 +55,18 @@ public abstract class DecodeAutonomousOpMode extends LinearOpMode {
         }
 
         // DO SPECIFIC OPMODE STUFF HERE
-        performAutonomous();
+        bot.effects.startLiveStatus();
+        try {
+            performAutonomous();
+        } catch (Exception e) {
+
+        }
+
 
         if (DefenderAlliance.getInstance().isRed()) {
-            bot.effects.solidRed();
+            bot.effects.scanRed();
         } else if (DefenderAlliance.getInstance().isBlue()) {
-            bot.effects.solidBlue();
+            bot.effects.scanBlue();
         } else {
             bot.effects.wavesParty();
         }
