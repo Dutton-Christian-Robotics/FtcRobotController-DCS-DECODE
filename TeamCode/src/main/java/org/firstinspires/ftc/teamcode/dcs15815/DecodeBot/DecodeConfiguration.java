@@ -36,15 +36,17 @@ public class DecodeConfiguration extends DefenderBotConfiguration {
     public static String INTAKE_MOTOR_CAROUSEL_NAME = "motor_big_wheel";
     public static DcMotorSimple.Direction INTAKE_MOTOR_CAROUSEL_DIRECTION = DcMotorSimple.Direction.REVERSE;
     public static double INTAKE_MOTOR_CAROUSEL_POWER = 0.3;
-    public static long INTAKE_MOTOR_CAROUSEL_TIME_ADVANCE = 500;
+    public static long INTAKE_MOTOR_CAROUSEL_TIME_ADVANCE = 600; //was 500
 
-    public static int INTAKE_SERVO_UPPER_LEFT_DIRECTION = 1;
+    public static int INTAKE_SERVO_UPPER_LEFT_DIRECTION = -1;
     public static int INTAKE_SERVO_UPPER_RIGHT_DIRECTION = 1;
-    public static int INTAKE_SERVO_MIDDLE_LEFT_DIRECTION = 1;
+    public static int INTAKE_SERVO_MIDDLE_LEFT_DIRECTION = -1;
     public static int INTAKE_SERVO_MIDDLE_RIGHT_DIRECTION = 1;
     public static int INTAKE_SERVO_LOWER_DIRECTION = 1;
 
     public static double INTAKE_SERVO_POWER_MAX = 1;
+
+    public static String INTAKE_SENSOR_CAPTURE_NAME = "intake_sensor_capture";
 
     /* SHOOTER ---------------------------------------------------------- */
 
@@ -57,8 +59,8 @@ public class DecodeConfiguration extends DefenderBotConfiguration {
     public static DcMotorSimple.Direction SHOOTER_MOTOR_LEFT_DIRECTION = DcMotorSimple.Direction.FORWARD;
     public static DcMotorSimple.Direction SHOOTER_MOTOR_RIGHT_DIRECTION = DcMotorSimple.Direction.REVERSE;
 
-    public static int SHOOTER_SERVO_LIFT_LEFT_DIRECTION = 1;
-    public static int SHOOTER_SERVO_LIFT_RIGHT_DIRECTION = 1;
+//    public static int SHOOTER_SERVO_LIFT_LEFT_DIRECTION = 1;
+//    public static int SHOOTER_SERVO_LIFT_RIGHT_DIRECTION = 1;
 
     public static double SHOOTER_SERVO_LIFT_LEFT_POSITION_UP = 1;
     public static double SHOOTER_SERVO_LIFT_LEFT_POSITION_DOWN = 0;
@@ -67,9 +69,12 @@ public class DecodeConfiguration extends DefenderBotConfiguration {
 
     public static double SHOOTER_MOTOR_POWER_MAX = 1;
     public static double SHOOTER_MOTOR_POWER_MIN = 0.1;
-    public static double SHOOTER_MOTOR_POWER_START = 1;
+    public static double SHOOTER_MOTOR_POWER_START = 0.90;
+    public static long SHOOTER_LIFT_TIME_SLEEP = 500;
 
-    public static long SHOOTER_LIFT_TIME_SLEEP = 800;
+    public static String SHOOTER_SENSOR_READY_NAME = "sensor_lift_ball_color";
+    public static double SHOOTER_SENSOR_READY_THRESHOLD_LIGHT = 0.3;
+
 
     /* GAMEPADS -------------------------------------------------------- */
 

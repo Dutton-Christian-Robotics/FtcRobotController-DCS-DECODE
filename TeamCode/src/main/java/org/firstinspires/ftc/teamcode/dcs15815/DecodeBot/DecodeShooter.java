@@ -1,17 +1,21 @@
 package org.firstinspires.ftc.teamcode.dcs15815.DecodeBot;
 
+import com.qualcomm.robotcore.hardware.ColorRangeSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderBot.DefenderBot;
 import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderBot.DefenderBotSystem;
+import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderUtilities.DefenderAlliance;
 
 public class DecodeShooter extends DefenderBotSystem {
 	HardwareMap hwMap;
 	public Servo servoLeft, servoRight;
 	public DcMotor motorLeft, motorRight;
 	public double currentShooterPower = DecodeConfiguration.SHOOTER_MOTOR_POWER_START;
+	public ColorRangeSensor sensorReady;
+
 
 	DecodeShooter(HardwareMap hm, DefenderBot b) {
 		super(hm, b);
@@ -25,6 +29,8 @@ public class DecodeShooter extends DefenderBotSystem {
 
 		servoLeft = hm.servo.get(DecodeConfiguration.SHOOTER_SERVO_LIFT_LEFT_NAME);
 		servoRight = hm.servo.get(DecodeConfiguration.SHOOTER_SERVO_LIFT_RIGHT_NAME);
+
+		sensorReady = hm.get(ColorRangeSensor.class, DecodeConfiguration.SHOOTER_SENSOR_READY_NAME);
 	}
 
 	public void turnOn() {
@@ -65,6 +71,32 @@ public class DecodeShooter extends DefenderBotSystem {
 		raiseLift();
 		sleep(DecodeConfiguration.SHOOTER_LIFT_TIME_SLEEP);
 		lowerLift();
+		sleep(150);
+	}
+
+	public void shootAndUpdateArtifactCount() {
+		shoot();
+		DecodeBot dbot = (DecodeBot) bot;
+		if (!isReadyToShoot()) {
+			dbot.intake.decreaseArtifactCount();
+		}
+	}
+
+
+	public boolean isReadyToShoot() {
+		return sensorReady.getLightDetected() > DecodeConfiguration.SHOOTER_SENSOR_READY_THRESHOLD_LIGHT;
+	}
+
+	public String readyArtifactColor() {
+		if (!isReadyToShoot()) {
+			return "n/a";
+		} else if (sensorReady.green() > sensorReady.blue()) {
+			return "green";
+		} else if (sensorReady.blue() > sensorReady.green()) {
+			return "purple";
+		} else {
+			return "unknown";
+		}
 	}
 
 

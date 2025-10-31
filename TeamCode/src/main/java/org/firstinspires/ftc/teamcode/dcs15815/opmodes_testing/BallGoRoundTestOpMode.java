@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.dcs15815.opmodes_testing;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
@@ -9,6 +10,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
+@Disabled
 @TeleOp(name = "Big Wheel Test", group = "Testing")
 public class BallGoRoundTestOpMode extends LinearOpMode {
     DcMotor motor;

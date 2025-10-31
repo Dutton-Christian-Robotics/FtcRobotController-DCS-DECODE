@@ -1,6 +1,7 @@
-package org.firstinspires.ftc.teamcode.dcs15815.opmodes;
+package org.firstinspires.ftc.teamcode.dcs15815.opmodes_disabled;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -10,6 +11,7 @@ import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderUtiliti
 import org.firstinspires.ftc.teamcode.dcs15815.opmodes_testing.ComplexDriveRobot;
 
 
+@Disabled
 @Autonomous(name = "Red 1 (bad)", group = "1", preselectTeleOp="TwoGamepadTeleOpMode")
 public class BadAutonomous1OpMode extends LinearOpMode {
 //	public DecodeBot bot;

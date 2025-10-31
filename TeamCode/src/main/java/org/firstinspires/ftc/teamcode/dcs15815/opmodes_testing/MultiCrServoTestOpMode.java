@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.teamcode.dcs15815.opmodes_testing;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderUtilities.DefenderDebouncer;
 
+@Disabled
 @TeleOp(name = "Multi CrServo Test", group = "Testing")
 public class MultiCrServoTestOpMode extends LinearOpMode {
     CrServoTestSettings[] crServos = {

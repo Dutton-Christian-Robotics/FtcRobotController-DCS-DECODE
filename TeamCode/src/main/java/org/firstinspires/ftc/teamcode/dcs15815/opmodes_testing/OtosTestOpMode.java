@@ -16,6 +16,7 @@ import org.firstinspires.ftc.teamcode.dcs15815.DecodeBot.DecodeConfiguration;
 import org.firstinspires.ftc.teamcode.dcs15815.DecodeBot.DecodeBot;
 import org.firstinspires.ftc.teamcode.dcs15815.DecodeBot.DecodeConfiguration;
 
+@Disabled
 @TeleOp(name = "OTOS Test", group = "Testing")
 public class OtosTestOpMode extends LinearOpMode {
     SparkFunOTOS myOtos;

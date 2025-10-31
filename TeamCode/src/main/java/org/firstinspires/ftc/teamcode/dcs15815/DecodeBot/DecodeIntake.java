@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode.dcs15815.DecodeBot;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.TouchSensor;
+
 import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderBot.DefenderBot;
 import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderBot.DefenderBotSystem;
 
@@ -9,6 +11,10 @@ public class DecodeIntake extends DefenderBotSystem {
 	HardwareMap hwMap;
 	public CRServo servoUpperLeft, servoUpperRight, servoMiddleLeft, servoMiddleRight, servoLower;
 	public DcMotor motorCarousel;
+	public TouchSensor sensorCapture;
+	public int numberOfArtifactsLoaded = 0;
+
+	public DecodeIntakeMonitorCaptureRunnable monitorCaptureRunnable;
 
 	DecodeIntake(HardwareMap hm, DefenderBot b) {
 		super(hm, b);
@@ -21,6 +27,37 @@ public class DecodeIntake extends DefenderBotSystem {
 
 		motorCarousel = hm.dcMotor.get(DecodeConfiguration.INTAKE_MOTOR_CAROUSEL_NAME);
 		motorCarousel.setDirection(DecodeConfiguration.INTAKE_MOTOR_CAROUSEL_DIRECTION);
+
+		sensorCapture = hm.touchSensor.get(DecodeConfiguration.INTAKE_SENSOR_CAPTURE_NAME);
+	}
+
+	public void setNumberOfArtifactsLoaded(int n) {
+		numberOfArtifactsLoaded = n;
+	}
+
+	public boolean hasArtifacts() {
+		return numberOfArtifactsLoaded > 0;
+	}
+
+	public void decreaseArtifactCount() {
+		numberOfArtifactsLoaded = Math.max(0, --numberOfArtifactsLoaded);
+	}
+
+	public boolean areTooManyArtifactsLoaded() {
+		return numberOfArtifactsLoaded > 3;
+	}
+
+	public void startMonitoringCapture() {
+		monitorCaptureRunnable = new DecodeIntakeMonitorCaptureRunnable();
+		monitorCaptureRunnable.setIntake(this);
+		Thread monitorCaptureThread = new Thread(monitorCaptureRunnable);
+		monitorCaptureThread.start();
+	}
+
+	public void stopMonitoringCapture() {
+		if (monitorCaptureRunnable != null) {
+			monitorCaptureRunnable.doStop();
+		}
 	}
 
 	public void setServoPower(double p) {
@@ -71,6 +108,16 @@ public class DecodeIntake extends DefenderBotSystem {
 	public void advanceCarousel() {
 		turnOnCarousel();
 		sleep(DecodeConfiguration.INTAKE_MOTOR_CAROUSEL_TIME_ADVANCE);
+		turnOffCarousel();
+	}
+
+	public void deAdvanceCarousel() {
+		deAdvanceCarousel(1);
+	}
+
+	public void deAdvanceCarousel(double timeFraction) {
+		reverseCarousel();
+		sleep(Math.round(DecodeConfiguration.INTAKE_MOTOR_CAROUSEL_TIME_ADVANCE * timeFraction));
 		turnOffCarousel();
 	}
 

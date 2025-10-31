@@ -12,6 +12,7 @@ import com.qualcomm.robotcore.hardware.TouchSensor;
 import org.firstinspires.ftc.teamcode.dcs15815.DecodeBot.DecodeBot;
 import org.firstinspires.ftc.teamcode.dcs15815.DecodeBot.DecodeConfiguration;
 
+@Disabled
 @TeleOp(name = "Intake Test", group = "Testing")
 public class IntakeTestOpMode extends LinearOpMode {
 	public CRServo servoUpperLeft, servoUpperRight, servoMiddleLeft, servoMiddleRight, servoLower;
