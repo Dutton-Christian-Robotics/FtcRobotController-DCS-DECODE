@@ -11,10 +11,10 @@ public class DecodeConfiguration extends DefenderBotConfiguration {
 
     /* DRIVETRAIN -------------------------------------------------- */
 
-    public static String DRIVETRAIN_MOTOR_BACK_LEFT_NAME = "back_left_motor"; //
-    public static String DRIVETRAIN_MOTOR_FRONT_LEFT_NAME = "front_left_motor"; //
-    public static String DRIVETRAIN_MOTOR_FRONT_RIGHT_NAME = "front_right_motor"; //
-    public static String DRIVETRAIN_MOTOR_BACK_RIGHT_NAME = "back_right_motor"; //
+    public static String DRIVETRAIN_MOTOR_BACK_LEFT_NAME = "motor_back_left"; //
+    public static String DRIVETRAIN_MOTOR_FRONT_LEFT_NAME = "motor_front_left"; //
+    public static String DRIVETRAIN_MOTOR_FRONT_RIGHT_NAME = "motor_front_right"; //
+    public static String DRIVETRAIN_MOTOR_BACK_RIGHT_NAME = "motor_back_right"; //
 
     public static DcMotorSimple.Direction DRIVETRAIN_MOTOR_BACK_LEFT_DIRECTION = DcMotorSimple.Direction.FORWARD;
     public static DcMotorSimple.Direction DRIVETRAIN_MOTOR_FRONT_LEFT_DIRECTION = DcMotorSimple.Direction.FORWARD;
@@ -69,7 +69,7 @@ public class DecodeConfiguration extends DefenderBotConfiguration {
     public static double SHOOTER_MOTOR_POWER_MIN = 0.1;
     public static double SHOOTER_MOTOR_POWER_START = 1;
 
-    public static long SHOOTER_LIFT_TIME_SLEEP = 500;
+    public static long SHOOTER_LIFT_TIME_SLEEP = 800;
 
     /* GAMEPADS -------------------------------------------------------- */
 
@@ -115,7 +115,7 @@ public class DecodeConfiguration extends DefenderBotConfiguration {
 
     public static double NAVIGATION_X_MAXPOWER = 0.6; // was 0.6
     public static double NAVIGATION_Y_MAXPOWER = 0.3; // was .4
-    public static double NAVIGATION_R_MAXPOWER = 0.4; // was 0.3
+    public static double NAVIGATION_R_MAXPOWER = 0.3; // was 0.3
 
     public static long NAVIGATION_SETTLING_TIME = 500;
 

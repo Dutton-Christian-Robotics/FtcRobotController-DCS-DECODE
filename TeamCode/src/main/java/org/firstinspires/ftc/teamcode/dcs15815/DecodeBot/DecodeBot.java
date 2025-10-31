@@ -35,7 +35,7 @@ public class DecodeBot extends DefenderBot {
 //        drivetrain = addSystem(DecodeMecanumDrivetrain.class);
 
         intake = addSystem(new DecodeIntake(hm, this));
-        effects = addSystem(new DecodeEffects(hm, this));
+//        effects = addSystem(new DecodeEffects(hm, this));
         shooter = addSystem(new DecodeShooter(hm, this));
         drivetrain = addSystem(new DecodeMecanumDrivetrain(hm, this));
 

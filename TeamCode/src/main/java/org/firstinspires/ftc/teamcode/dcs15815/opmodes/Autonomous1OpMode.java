@@ -25,6 +25,7 @@ public class Autonomous1OpMode extends LinearOpMode {
 	public void runOpMode() {
 
 		bot = new DecodeBot(hardwareMap, DecodeConfiguration.class, telemetry);
+		bot.setUseDebugging(true);
 		bot.abortOpMode = () -> isStopRequested();
 
 
@@ -51,7 +52,8 @@ public class Autonomous1OpMode extends LinearOpMode {
 
 //		bot.drive(-0.3, 0, 0);
 //		sleep(800);
-		bot.driveToBotRelativePositionWithTimeout(-18, 0, 0, 750, 5000);
+		bot.navigation.resetOtosAndResetOrigin();
+		bot.driveToBotRelativePositionWithTimeout(-24, 0, 0, 750, 5000);
 		bot.stopDriving();
 
 
@@ -64,37 +66,37 @@ public class Autonomous1OpMode extends LinearOpMode {
 		bot.shooter.shoot();
 		bot.intake.advanceCarousel();
 
-		bot.drive(-0.3, 0, 0);
-		sleep(1200);
-		bot.stopDriving();
-		bot.drive(0, 0, -0.3);
-		sleep(1700);
-		bot.stopDriving();
-		bot.drive(0, -0.3, 0);
-		sleep(1350);
-		bot.stopDriving();
+		bot.navigation.resetOtosAndResetOrigin();
+
+		bot.driveToBotRelativePositionWithTimeout(-10, 0, 0, 750, 3000);
+		bot.navigation.resetOtosAndResetOrigin();
 
 		bot.intake.turnOn();
-		bot.drive(-0.3, 0, 0);
-		sleep(1800);
-		bot.stopDriving();
-		sleep(1000);
-//		stopIntake();
+
+		bot.driveToBotRelativePositionWithTimeout(0, 0, -140, 750, 3000);
+		bot.navigation.resetOtosAndResetOrigin();
 
 
-		// Drive forward away from
-		bot.drive(0.3, 0, 0);
-		sleep (1700);
-		bot.stopDriving();
 
-		bot.drive(0, 0, 0.3);
+		bot.driveToBotRelativePositionWithTimeout(0, -22, 0, 750, 3000);
+
+		bot.navigation.resetOtosAndResetOrigin();
+
+		// Backup and intake the first line of balls
+		bot.driveToBotRelativePositionWithTimeout(-28, 0, 0, 750, 3000);
+
+		// Time to wait for balls to get in
 		sleep(1700);
-		bot.stopDriving();
-		bot.drive(0.3, 0, 0);
-		sleep(1700);
-		bot.stopDriving();
-		bot.intake.turnOff();
 
+		// Strafe towards the goal
+		bot.driveToBotRelativePositionWithTimeout(0, 31, 0, 750, 3000);
+
+//		bot.intake.turnOff();
+		bot.navigation.resetOtosAndResetOrigin();
+
+		bot.driveToBotRelativePositionWithTimeout(0, 87, 0, 750, 3000);
+
+		//
 		bot.shooter.turnOn();
 		bot.shooter.shoot();
 		bot.intake.advanceCarousel();

@@ -18,10 +18,16 @@ public class DecodeMecanumDrivetrain extends DefenderBotDrivetrain {
 	public DecodeMecanumDrivetrain(HardwareMap hm, DefenderBot b) {
 		super(hm, b);
 
-		backLeft = hm.get(DcMotorEx.class, DecodeConfiguration.DRIVETRAIN_MOTOR_BACK_LEFT_NAME);
-		frontLeft = hm.get(DcMotorEx.class, DecodeConfiguration.DRIVETRAIN_MOTOR_FRONT_LEFT_NAME);
-		frontRight = hm.get(DcMotorEx.class, DecodeConfiguration.DRIVETRAIN_MOTOR_FRONT_RIGHT_NAME);
-		backRight = hm.get(DcMotorEx.class, DecodeConfiguration.DRIVETRAIN_MOTOR_BACK_RIGHT_NAME);
+//		backLeft = hm.get(DcMotorEx.class, DecodeConfiguration.DRIVETRAIN_MOTOR_BACK_LEFT_NAME);
+//		frontLeft = hm.get(DcMotorEx.class, DecodeConfiguration.DRIVETRAIN_MOTOR_FRONT_LEFT_NAME);
+//		frontRight = hm.get(DcMotorEx.class, DecodeConfiguration.DRIVETRAIN_MOTOR_FRONT_RIGHT_NAME);
+//		backRight = hm.get(DcMotorEx.class, DecodeConfiguration.DRIVETRAIN_MOTOR_BACK_RIGHT_NAME);
+
+		backLeft = (DcMotorEx) hm.dcMotor.get(DecodeConfiguration.DRIVETRAIN_MOTOR_BACK_LEFT_NAME);
+		frontLeft = (DcMotorEx) hm.dcMotor.get(DecodeConfiguration.DRIVETRAIN_MOTOR_FRONT_LEFT_NAME);
+		frontRight = (DcMotorEx) hm.dcMotor.get(DecodeConfiguration.DRIVETRAIN_MOTOR_FRONT_RIGHT_NAME);
+		backRight = (DcMotorEx) hm.dcMotor.get(DecodeConfiguration.DRIVETRAIN_MOTOR_BACK_RIGHT_NAME);
+
 
 		backLeft.setDirection(DecodeConfiguration.DRIVETRAIN_MOTOR_BACK_LEFT_DIRECTION);
 		frontLeft.setDirection(DecodeConfiguration.DRIVETRAIN_MOTOR_FRONT_LEFT_DIRECTION);
