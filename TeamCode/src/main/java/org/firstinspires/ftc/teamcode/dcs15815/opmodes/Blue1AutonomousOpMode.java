@@ -25,10 +25,11 @@ public class Blue1AutonomousOpMode extends DecodeAutonomousOpMode {
 	// Backup from the goal
 
 		bot.shooter.turnOn();
-		if (bot.voltageSensor.getVoltage() < 12.7) {
-			bot.shooter.changeShooterPower(1);
-		}
-		bot.driveToBotRelativePositionWithTimeout(-24, 0, 0, 750, 5000);
+//		if (bot.voltageSensor.getVoltage() < 12.7) {
+//			bot.shooter.changeShooterPower(1);
+//		}
+		bot.shooter.changeShooterPower(0.8);
+//		bot.driveToBotRelativePositionWithTimeout(-24, 0, 0, 750, 5000);
 
 	// Shoot the three pre-loaded artifacts
 
@@ -39,6 +40,7 @@ public class Blue1AutonomousOpMode extends DecodeAutonomousOpMode {
 			bot.shooter.shootAndUpdateArtifactCount();
 //		}
 
+		sleep(300);
 //		if (!bot.isReadyToShoot()) {
 			bot.intake.advanceCarouselUntilReady();
 			bot.shooter.shootAndUpdateArtifactCount();
@@ -50,6 +52,7 @@ public class Blue1AutonomousOpMode extends DecodeAutonomousOpMode {
 		}
 
 	// Back-up farther from the goal to get into a better position to rotate and strafe
+		bot.driveToBotRelativePositionWithTimeout(-24, 0, 0, 750, 5000);
 
 		bot.navigation.resetOtosAndResetOrigin();
 		bot.driveToBotRelativePositionWithTimeout(-10, 0, 0, 750, 3000);
@@ -61,16 +64,16 @@ public class Blue1AutonomousOpMode extends DecodeAutonomousOpMode {
 
 	// Rotate to be perpendicular with alliance wall
 
-		bot.driveToBotRelativePositionWithTimeout(0, 0, 140, 750, 3000);
+		bot.driveToBotRelativePositionWithTimeout(0, 0, 130, 750, 3000);
 		bot.navigation.resetOtosAndResetOrigin();
 
 	// Strafe away from the goal ("right" on blue) to align with first spike mark
 
-		bot.driveToBotRelativePositionWithTimeout(0, 20, 0, 750, 3000);
+		bot.driveToBotRelativePositionWithTimeout(0, 18, 0, 750, 3000);
 		bot.navigation.resetOtosAndResetOrigin();
 
 	// Backup and intake the first line of balls
-		bot.driveToBotRelativePositionWithTimeout(-32, 0, 0, 750, 3000);
+		bot.driveToBotRelativePositionWithTimeout(-34, 0, 0, 750, 3000);
 
 	// Time to wait for balls to get in
 		sleep(1000);
@@ -113,6 +116,7 @@ public class Blue1AutonomousOpMode extends DecodeAutonomousOpMode {
 			bot.intake.advanceCarousel();
 			bot.shooter.shootAndUpdateArtifactCount();
 		}
+		bot.driveToBotRelativePositionWithTimeout(0, -11, 0, 750, 1000);
 		bot.shooter.turnOff();
 
 		bot.shooter.lowerLift();

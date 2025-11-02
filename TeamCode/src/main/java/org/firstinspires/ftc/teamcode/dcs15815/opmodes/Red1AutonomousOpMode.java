@@ -22,10 +22,13 @@ public class Red1AutonomousOpMode extends DecodeAutonomousOpMode {
 	// Backup from the goal
 
 		bot.shooter.turnOn();
-		if (bot.voltageSensor.getVoltage() < 12.7) {
-			bot.shooter.changeShooterPower(1);
-		}
-		bot.driveToBotRelativePositionWithTimeout(-24, 0, 0, 750, 5000);
+
+//		if (bot.voltageSensor.getVoltage() < 12.7) {
+//			bot.shooter.changeShooterPower(1);
+//		}
+		bot.shooter.changeShooterPower(0.8);
+
+		//		bot.driveToBotRelativePositionWithTimeout(-24, 0, 0, 750, 5000);
 
 	// Shoot the three pre-loaded artifacts
 
@@ -44,6 +47,7 @@ public class Red1AutonomousOpMode extends DecodeAutonomousOpMode {
 		}
 
 	// Back-up farther from the goal to get into a better position to rotate and strafe
+		bot.driveToBotRelativePositionWithTimeout(-24, 0, 0, 750, 5000);
 
 		bot.navigation.resetOtosAndResetOrigin();
 		bot.driveToBotRelativePositionWithTimeout(-10, 0, 0, 750, 3000);
@@ -109,6 +113,8 @@ public class Red1AutonomousOpMode extends DecodeAutonomousOpMode {
 			bot.intake.advanceCarousel();
 			bot.shooter.shootAndUpdateArtifactCount();
 		}
+		bot.driveToBotRelativePositionWithTimeout(0, 11, 0, 750, 1000);
+
 		bot.shooter.turnOff();
 
 		bot.shooter.lowerLift();

@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.dcs15815.DecodeBot.DecodeBot;
 import org.firstinspires.ftc.teamcode.dcs15815.DecodeBot.DecodeConfiguration;
+import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderUtilities.DefenderAlliance;
 import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderUtilities.DefenderDebouncer;
 
 @TeleOp(name = "Driver Operated", group = "Driver")
@@ -147,9 +148,22 @@ public class TeleOpMode extends LinearOpMode {
 				shootDebouncer.run();
 			}
 
-			if (gamepad2.bWasPressed()) {
-				bot.shooter.turnOff();
+			if (changeArtifactCount) {
+				if (gamepad2.aWasPressed()) {
+					DefenderAlliance.getInstance().setColor(DefenderAlliance.Color.RED);
+
+				} else if (gamepad2.bWasPressed()) {
+					DefenderAlliance.getInstance().setColor(DefenderAlliance.Color.BLUE);
+
+				}
+			} else {
+				if (gamepad2.bWasPressed()) {
+					bot.shooter.turnOff();
+				}
+
 			}
+
+
 
 			if (gamepad2.dpadLeftWasPressed() && changeArtifactCount) {
 				bot.intake.setNumberOfArtifactsLoaded(0);
