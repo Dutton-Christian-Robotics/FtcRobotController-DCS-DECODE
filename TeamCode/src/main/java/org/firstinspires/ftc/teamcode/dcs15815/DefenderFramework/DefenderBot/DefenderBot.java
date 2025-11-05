@@ -92,6 +92,16 @@ public class DefenderBot {
         return systems;
     }
 
+    public String allianceColor() {
+        if (alliance == Alliance.RED) {
+            return "red";
+        } else if (alliance == Alliance.BLUE) {
+            return "blue";
+        } else {
+            return "n/a";
+        }
+    }
+
 
     public void sleep(long milliseconds) {
         try {

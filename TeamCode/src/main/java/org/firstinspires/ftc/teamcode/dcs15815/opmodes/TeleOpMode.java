@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.dcs15815.DecodeBot.DecodeBot;
 import org.firstinspires.ftc.teamcode.dcs15815.DecodeBot.DecodeConfiguration;
+import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderBot.DefenderBot;
 import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderUtilities.DefenderAlliance;
 import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderUtilities.DefenderDebouncer;
 
@@ -12,110 +13,30 @@ import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderUtiliti
 public class TeleOpMode extends LinearOpMode {
 	DecodeBot bot;
 	public double currentShooterPower = 1;
-	public boolean changeArtifactCount = false;
+	public boolean changeConfiguration = false;
+	public boolean autoAdvanceCarousel = true;
 
-//	DefenderDebouncer yDebouncer = new DefenderDebouncer(500, () -> {
-//		motorBigWheel.setPower(-0.3);
-//		sleep(500);
-//		motorBigWheel.setPower(0);
-//
-//	});
-//
-//	DefenderDebouncer startShooterDebouncer = new DefenderDebouncer(500, () -> {
-//		startShooter();
-//	});
-//
-//	DefenderDebouncer stopShooterDebouncer = new DefenderDebouncer(500, () -> {
-//		stopShooter();
-//	});
-//
 	DefenderDebouncer shooterSpeedLowDebouncer = new DefenderDebouncer(500, () -> {
-//		currentShooterPower = Math.max(0.1, currentShooterPower - 0.1);
 		currentShooterPower = 0.8;
 		bot.shooter.changeShooterPower(currentShooterPower);
-//		startShooter();
 	});
 
 	DefenderDebouncer shooterSpeedFullDebouncer = new DefenderDebouncer(500, () -> {
-//		currentShooterPower = Math.min(1, currentShooterPower + 0.1);
 		currentShooterPower = 1;
 		bot.shooter.changeShooterPower(currentShooterPower);
-//		startShooter();
 	});
-//
-//
-//	DefenderDebouncer startIntakeDebouncer = new DefenderDebouncer(500, () -> {
-//		startIntake();
-//	});
-//
-//	DefenderDebouncer stopIntakeDebouncer = new DefenderDebouncer(500, () -> {
-//		stopIntake();
-//	});
-//
-//	DefenderDebouncer reverseIntakeDebouncer = new DefenderDebouncer(500, () -> {
-//		reverseIntake();
-//	});
-//
-//
-//
+
 	DefenderDebouncer shootDebouncer = new DefenderDebouncer(500, () -> {
-		bot.shooter.shootAndUpdateArtifactCount();
+		bot.shooter.shootAndUpdateArtifactCount(autoAdvanceCarousel);
 	});
-//
+
 	DefenderDebouncer advanceCarouselDebouncer = new DefenderDebouncer(500, () -> {
 		bot.intake.advanceCarousel();
 
 	});
 
 
-//	public void startIntake() {
-//		setPower(1, -1, -1, 1, 1);
-//		motorBigWheel.setPower(-0.3);
-//	}
-//
-//	public void reverseIntake() {
-//		setPower(-1, 1, 1, -1, -1);
-//		motorBigWheel.setPower(0.3);
-//	}
-//
-//	public void stopIntake() {
-//		setPower(0, 0, 0, 0, 0);
-//		motorBigWheel.setPower(0);
-//
-//	}
 
-//	public void startShooter() {
-//		motorShooterLeft.setPower(currentShooterPower);
-//		motorShooterRight.setPower(currentShooterPower);
-//	}
-//
-//	public void reverseShooter() {
-//		motorShooterLeft.setPower(-1 * currentShooterPower);
-//		motorShooterRight.setPower(-1 * currentShooterPower);
-//	}
-//
-//	public void stopShooter() {
-//		motorShooterLeft.setPower(0);
-//		motorShooterRight.setPower(0);
-//	}
-
-//	public void shoot() {
-//		servoLiftLeft.setPosition(1);
-//		servoLiftRight.setPosition(0);
-//		sleep(1000);
-//		servoLiftLeft.setPosition(0);
-//		servoLiftRight.setPosition(1);
-//
-//	}
-
-
-//	public void setPower(double ul, double ur, double ml, double mr, double l) {
-//		servoUpperLeft.setPower(ul);
-//		servoUpperRight.setPower(ur);
-//		servoMiddleLeft.setPower(ml);
-//		servoMiddleRight.setPower(mr);
-//		servoLower.setPower(l);
-//	}
 	@Override
 	public void runOpMode() {
 
@@ -128,10 +49,10 @@ public class TeleOpMode extends LinearOpMode {
 		waitForStart();
 
 		while (opModeIsActive()) {
-//			if (gamepad2.dpad_up) {
+
 			if (gamepad2.left_stick_y != 0 || gamepad2.left_stick_x != 0) {
 				bot.intake.turnOn();
-//				startIntakeDebouncer.run();
+
 
 			} else if (gamepad2.xWasPressed()) {
 				bot.intake.reverse();
@@ -148,7 +69,7 @@ public class TeleOpMode extends LinearOpMode {
 				shootDebouncer.run();
 			}
 
-			if (changeArtifactCount) {
+			if (changeConfiguration) {
 				if (gamepad2.aWasPressed()) {
 					DefenderAlliance.getInstance().setColor(DefenderAlliance.Color.RED);
 
@@ -156,31 +77,34 @@ public class TeleOpMode extends LinearOpMode {
 					DefenderAlliance.getInstance().setColor(DefenderAlliance.Color.BLUE);
 
 				}
-			} else {
-				if (gamepad2.bWasPressed()) {
-					bot.shooter.turnOff();
+
+				if (gamepad2.yWasPressed()) {
+					bot.useSpeech = !bot.useSpeech;
 				}
 
 			}
 
+			if (gamepad2.bWasPressed()) {
+				bot.shooter.turnOff();
+			}
 
 
-			if (gamepad2.dpadLeftWasPressed() && changeArtifactCount) {
+
+			if (gamepad2.dpadLeftWasPressed() && changeConfiguration) {
 				bot.intake.setNumberOfArtifactsLoaded(0);
+
+			} else if (gamepad2.dpadRightWasPressed() && changeConfiguration) {
 				bot.intake.setNumberOfArtifactsLoaded(0);
 
-			} else if (gamepad2.dpadRightWasPressed() && changeArtifactCount) {
-				bot.intake.setNumberOfArtifactsLoaded(0);
-
-			} else if (gamepad2.dpadUpWasPressed() && changeArtifactCount) {
+			} else if (gamepad2.dpadUpWasPressed() && changeConfiguration) {
 				bot.intake.increaseArtifactCount();
 
-			} else if (gamepad2.dpadDownWasPressed() && changeArtifactCount) {
+			} else if (gamepad2.dpadDownWasPressed() && changeConfiguration) {
 				bot.intake.decreaseArtifactCount();
 			}
 
 			if (gamepad2.startWasPressed()) {
-				changeArtifactCount = !changeArtifactCount;
+				changeConfiguration = !changeConfiguration;
 			}
 
 
@@ -190,25 +114,33 @@ public class TeleOpMode extends LinearOpMode {
 				shooterSpeedFullDebouncer.run();
 			}
 
-			if (gamepad2.yWasPressed()) {
+			if (gamepad2.yWasPressed() && !changeConfiguration) {
 				advanceCarouselDebouncer.run();
-//				yDebouncer.run();
 			}
-			if (gamepad2.backWasPressed()) {
-				bot.useSpeech = !bot.useSpeech;
+			if (gamepad2.backWasPressed() && changeConfiguration) {
+				autoAdvanceCarousel = !autoAdvanceCarousel;
 			}
 
 			bot.drivetrain.drive(gamepad1.left_stick_y, (gamepad1.right_trigger - gamepad1.left_trigger), gamepad1.right_stick_x);
 
+			if (changeConfiguration) {
+				telemetry.addData("CHANGE CONFIGURATION", "===================");
+				if (changeConfiguration) {
+					telemetry.addData("*Count", "Up | Down | 0 = Left | 0 = Right");
+					telemetry.addData("*Alliance", "Red = A | Blue = B");
+					telemetry.addData("*Voice", "Toggle = Y");
+				}
+				telemetry.addData("==================", "===================");
+			}
 			telemetry.addData("Shooter Power", currentShooterPower);
 			telemetry.addData("Artifacts", bot.intake.numberOfArtifactsLoaded);
+			telemetry.addData("Alliance", bot.allianceColor());
 			telemetry.addData("Color", bot.shooter.readyArtifactColor());
+			telemetry.addData("Carousel", autoAdvanceCarousel ? "auto advance" : "manual advance");
 			if (!bot.useSpeech) {
 				telemetry.addData("Voice", "OFF");
 			}
-			if (changeArtifactCount) {
-				telemetry.addData("Count", "Up | Down | Left | Right");
-			}
+			telemetry.addData("Configuration", changeConfiguration ? "Exit = Start" : "Change = Start");
 			telemetry.update();
 
 		}

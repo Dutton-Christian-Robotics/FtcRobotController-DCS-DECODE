@@ -68,14 +68,26 @@ public class DecodeShooter extends DefenderBotSystem {
 	}
 
 	public void shoot() {
+		shoot(false);
+	}
+
+	public void shoot(boolean autoAdvanceCarousel) {
+		DecodeBot dbot = (DecodeBot) bot;
 		raiseLift();
 		sleep(DecodeConfiguration.SHOOTER_LIFT_TIME_SLEEP);
 		lowerLift();
 		sleep(150);
+		if (autoAdvanceCarousel) {
+			((DecodeBot) bot).intake.advanceCarousel();
+		}
 	}
 
 	public void shootAndUpdateArtifactCount() {
-		shoot();
+		shootAndUpdateArtifactCount(false);
+	}
+
+	public void shootAndUpdateArtifactCount(boolean autoAdvanceCarousel) {
+		shoot(autoAdvanceCarousel);
 		DecodeBot dbot = (DecodeBot) bot;
 		if (dbot.useSpeech) bot.telemetry.speak("Look out!");
 		if (!isReadyToShoot()) {
