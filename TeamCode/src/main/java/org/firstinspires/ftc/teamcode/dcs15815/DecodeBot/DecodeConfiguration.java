@@ -36,6 +36,7 @@ public class DecodeConfiguration extends DefenderBotConfiguration {
     public static String INTAKE_MOTOR_CAROUSEL_NAME = "motor_big_wheel";
     public static DcMotorSimple.Direction INTAKE_MOTOR_CAROUSEL_DIRECTION = DcMotorSimple.Direction.REVERSE;
     public static double INTAKE_MOTOR_CAROUSEL_POWER = 0.3;
+    public static double INTAKE_MOTOR_CAROUSEL_POWER_ADVANCE = 0.3;
     public static long INTAKE_MOTOR_CAROUSEL_TIME_ADVANCE = 600; //was 500
 
     public static int INTAKE_SERVO_UPPER_LEFT_DIRECTION = -1;
@@ -59,6 +60,9 @@ public class DecodeConfiguration extends DefenderBotConfiguration {
     public static DcMotorSimple.Direction SHOOTER_MOTOR_LEFT_DIRECTION = DcMotorSimple.Direction.FORWARD;
     public static DcMotorSimple.Direction SHOOTER_MOTOR_RIGHT_DIRECTION = DcMotorSimple.Direction.REVERSE;
 
+    public static double SHOOTER_MOTOR_LEFT_BIAS_FACTOR = 0.2;
+    public static double SHOOTER_MOTOR_RIGHT_BIAS_FACTOR = 0.2;
+
 //    public static int SHOOTER_SERVO_LIFT_LEFT_DIRECTION = 1;
 //    public static int SHOOTER_SERVO_LIFT_RIGHT_DIRECTION = 1;
 
@@ -71,6 +75,7 @@ public class DecodeConfiguration extends DefenderBotConfiguration {
     public static double SHOOTER_MOTOR_POWER_MIN = 0.1;
     public static double SHOOTER_MOTOR_POWER_START = 0.90;
     public static long SHOOTER_LIFT_TIME_SLEEP = 600;
+    public static long SHOOTER_TIME_BETWEEN_SHOTS = 150;
 
     public static String SHOOTER_SENSOR_READY_NAME = "sensor_lift_ball_color";
     public static double SHOOTER_SENSOR_READY_THRESHOLD_LIGHT = 0.3;
@@ -98,13 +103,13 @@ public class DecodeConfiguration extends DefenderBotConfiguration {
 //    public static AxesOrder IMU_AXES_ORDER = AxesOrder.XYZ;
 //
     public static double NAVIGATION_TOLERANCE = 1.0;
-//
+
     public static double NAVIGATION_ANGULAR_SCALE = 0.997;
     public static double NAVIGATION_LINEAR_SCALE = 0.978;
 
     public static double NAVIGATION_TOLERANCE_R = 1.0;
-    public static double NAVIGATION_TOLERANCE_X = 1.0;
     public static double NAVIGATION_TOLERANCE_Y = 7.0; // in degrees
+    public static double NAVIGATION_TOLERANCE_X = 1.0;
 
     public static double NAVIGATION_X_KP = 0.2;
     public static double NAVIGATION_X_KI = 0.4;

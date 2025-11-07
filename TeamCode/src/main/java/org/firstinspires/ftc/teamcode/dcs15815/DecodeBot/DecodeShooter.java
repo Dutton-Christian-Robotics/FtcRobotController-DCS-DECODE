@@ -15,7 +15,13 @@ public class DecodeShooter extends DefenderBotSystem {
 	public DcMotor motorLeft, motorRight;
 	public double currentShooterPower = DecodeConfiguration.SHOOTER_MOTOR_POWER_START;
 	public ColorRangeSensor sensorReady;
+	public ShooterDirection shooterDirection = ShooterDirection.STRAIGHT;
 
+	public enum ShooterDirection {
+		STRAIGHT,
+		LEFT,
+		RIGHT
+	}
 
 	DecodeShooter(HardwareMap hm, DefenderBot b) {
 		super(hm, b);
@@ -34,8 +40,26 @@ public class DecodeShooter extends DefenderBotSystem {
 	}
 
 	public void turnOn() {
-		motorLeft.setPower(currentShooterPower);
-		motorRight.setPower(currentShooterPower);
+		double leftPower, rightPower;
+		if (shooterDirection == ShooterDirection.LEFT) {
+			leftPower = currentShooterPower;
+			rightPower = currentShooterPower * DecodeConfiguration.SHOOTER_MOTOR_RIGHT_BIAS_FACTOR;
+
+		} else if (shooterDirection == ShooterDirection.RIGHT) {
+			leftPower = currentShooterPower * DecodeConfiguration.SHOOTER_MOTOR_LEFT_BIAS_FACTOR;
+			rightPower = currentShooterPower;
+
+		} else if (shooterDirection == ShooterDirection.STRAIGHT) {
+			leftPower = currentShooterPower;
+			rightPower = currentShooterPower;
+
+		} else {
+			leftPower = currentShooterPower;
+			rightPower = currentShooterPower;
+		}
+
+		motorLeft.setPower(leftPower);
+		motorRight.setPower(rightPower);
 	}
 
 	public void turnOff() {
@@ -53,6 +77,21 @@ public class DecodeShooter extends DefenderBotSystem {
 		);
 		turnOn();
 
+	}
+
+	public void changeShooterDirection(ShooterDirection d) {
+		shooterDirection = d;
+	}
+
+	public void biasLeft() {
+		changeShooterDirection(ShooterDirection.LEFT);
+	}
+
+	public void biasRight() {
+		changeShooterDirection(ShooterDirection.RIGHT);
+	}
+	public void biasStraight() {
+		changeShooterDirection(ShooterDirection.STRAIGHT);
 	}
 
 
@@ -76,7 +115,7 @@ public class DecodeShooter extends DefenderBotSystem {
 		raiseLift();
 		sleep(DecodeConfiguration.SHOOTER_LIFT_TIME_SLEEP);
 		lowerLift();
-		sleep(150);
+		sleep(DecodeConfiguration.SHOOTER_TIME_BETWEEN_SHOTS);
 		if (autoAdvanceCarousel) {
 			((DecodeBot) bot).intake.advanceCarousel();
 		}

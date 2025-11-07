@@ -26,7 +26,7 @@ public class DecodeBot extends DefenderBot {
 
 
     private boolean useDebugging = false;
-    public boolean useSpeech = true;
+    public boolean useSpeech = false;
     public BooleanSupplier abortOpMode = () -> false;
 
 
@@ -126,9 +126,9 @@ public class DecodeBot extends DefenderBot {
                 keepLooping = false;
             } else if (
                     !isSettling &&
-                            (Math.abs(yError) <= DecodeConfiguration.NAVIGATION_TOLERANCE_Y) &&
-                            (Math.abs(xError) <= DecodeConfiguration.NAVIGATION_TOLERANCE_X) &&
-                            (Math.abs(rError) <= DecodeConfiguration.NAVIGATION_TOLERANCE_R)
+                    (Math.abs(yError) <= DecodeConfiguration.NAVIGATION_TOLERANCE_Y) &&
+                    (Math.abs(xError) <= DecodeConfiguration.NAVIGATION_TOLERANCE_X) &&
+                    (Math.abs(rError) <= DecodeConfiguration.NAVIGATION_TOLERANCE_R)
             ) {
                 isSettling = true;
                 settlingTimer.reset();
@@ -136,8 +136,8 @@ public class DecodeBot extends DefenderBot {
             } else if (isSettling && (settlingTimer.milliseconds() > DecodeConfiguration.NAVIGATION_SETTLING_TIME)) {
                 if (
                         (Math.abs(yError) <= DecodeConfiguration.NAVIGATION_TOLERANCE_Y) &&
-                                (Math.abs(xError) <= DecodeConfiguration.NAVIGATION_TOLERANCE_X) &&
-                                (Math.abs(rError) <= DecodeConfiguration.NAVIGATION_TOLERANCE_R)
+                        (Math.abs(xError) <= DecodeConfiguration.NAVIGATION_TOLERANCE_X) &&
+                        (Math.abs(rError) <= DecodeConfiguration.NAVIGATION_TOLERANCE_R)
                 ) {
                     keepLooping = false;
                 } else {

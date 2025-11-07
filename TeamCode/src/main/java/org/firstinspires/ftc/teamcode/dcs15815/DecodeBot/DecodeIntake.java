@@ -109,11 +109,27 @@ public class DecodeIntake extends DefenderBotSystem {
 	}
 
 	public void turnOnCarousel() {
-		motorCarousel.setPower(DecodeConfiguration.INTAKE_MOTOR_CAROUSEL_POWER);
+		turnOnCarousel(DecodeConfiguration.INTAKE_MOTOR_CAROUSEL_POWER);
+	}
+
+	public void turnOnCarouselForAdvance() {
+		turnOnCarousel(DecodeConfiguration.INTAKE_MOTOR_CAROUSEL_POWER_ADVANCE);
+	}
+
+	public void turnOnCarousel(double power) {
+		motorCarousel.setPower(power);
 	}
 
 	public void reverseCarousel() {
-		motorCarousel.setPower(-1 * DecodeConfiguration.INTAKE_MOTOR_CAROUSEL_POWER);
+		reverseCarousel(DecodeConfiguration.INTAKE_MOTOR_CAROUSEL_POWER);
+	}
+
+	public void reverseCarouselForDeAdvance() {
+		motorCarousel.setPower(DecodeConfiguration.INTAKE_MOTOR_CAROUSEL_POWER_ADVANCE);
+	}
+
+	public void reverseCarousel(double power) {
+		motorCarousel.setPower(-1 * power);
 	}
 
 	public void turnOffCarousel() {
@@ -121,7 +137,7 @@ public class DecodeIntake extends DefenderBotSystem {
 	}
 
 	public void advanceCarousel() {
-		turnOnCarousel();
+		turnOnCarouselForAdvance();
 		sleep(DecodeConfiguration.INTAKE_MOTOR_CAROUSEL_TIME_ADVANCE);
 		turnOffCarousel();
 	}
@@ -131,7 +147,7 @@ public class DecodeIntake extends DefenderBotSystem {
 	}
 
 	public void deAdvanceCarousel(double timeFraction) {
-		reverseCarousel();
+		reverseCarouselForDeAdvance();
 		sleep(Math.round(DecodeConfiguration.INTAKE_MOTOR_CAROUSEL_TIME_ADVANCE * timeFraction));
 		turnOffCarousel();
 	}
@@ -140,7 +156,7 @@ public class DecodeIntake extends DefenderBotSystem {
 		ElapsedTime timer = new ElapsedTime();
 		DecodeShooter shooter = ((DecodeBot) bot).shooter;
 
-		turnOnCarousel();
+		turnOnCarouselForAdvance();
 		while (!shooter.isReadyToShoot() && timer.milliseconds() < 3000) {
 			sleep(150);
 		}

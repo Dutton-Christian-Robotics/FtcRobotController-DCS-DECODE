@@ -81,27 +81,38 @@ public class TeleOpMode extends LinearOpMode {
 				if (gamepad2.yWasPressed()) {
 					bot.useSpeech = !bot.useSpeech;
 				}
+				if (gamepad2.dpadLeftWasPressed()) {
+					bot.intake.setNumberOfArtifactsLoaded(0);
 
+				} else if (gamepad2.dpadRightWasPressed()) {
+					bot.intake.setNumberOfArtifactsLoaded(0);
+
+				} else if (gamepad2.dpadUpWasPressed()) {
+					bot.intake.increaseArtifactCount();
+
+				} else if (gamepad2.dpadDownWasPressed()) {
+					bot.intake.decreaseArtifactCount();
+				}
+
+				if (gamepad2.backWasPressed()) {
+					autoAdvanceCarousel = !autoAdvanceCarousel;
+				}
+
+
+			} else {
+				if (gamepad2.bWasPressed()) {
+					bot.shooter.turnOff();
+				}
+				if (gamepad2.yWasPressed()) {
+					advanceCarouselDebouncer.run();
+				}
+				if (gamepad2.dpadDownWasPressed() || gamepad2.dpadUpWasPressed()
+					   || gamepad2.dpadLeftWasPressed() || gamepad2.dpadRightWasPressed()) {
+					bot.intake.deAdvanceCarousel();
+				}
 			}
 
-			if (gamepad2.bWasPressed()) {
-				bot.shooter.turnOff();
-			}
 
-
-
-			if (gamepad2.dpadLeftWasPressed() && changeConfiguration) {
-				bot.intake.setNumberOfArtifactsLoaded(0);
-
-			} else if (gamepad2.dpadRightWasPressed() && changeConfiguration) {
-				bot.intake.setNumberOfArtifactsLoaded(0);
-
-			} else if (gamepad2.dpadUpWasPressed() && changeConfiguration) {
-				bot.intake.increaseArtifactCount();
-
-			} else if (gamepad2.dpadDownWasPressed() && changeConfiguration) {
-				bot.intake.decreaseArtifactCount();
-			}
 
 			if (gamepad2.startWasPressed()) {
 				changeConfiguration = !changeConfiguration;
@@ -114,12 +125,6 @@ public class TeleOpMode extends LinearOpMode {
 				shooterSpeedFullDebouncer.run();
 			}
 
-			if (gamepad2.yWasPressed() && !changeConfiguration) {
-				advanceCarouselDebouncer.run();
-			}
-			if (gamepad2.backWasPressed() && changeConfiguration) {
-				autoAdvanceCarousel = !autoAdvanceCarousel;
-			}
 
 			bot.drivetrain.drive(gamepad1.left_stick_y, (gamepad1.right_trigger - gamepad1.left_trigger), gamepad1.right_stick_x);
 
@@ -129,6 +134,7 @@ public class TeleOpMode extends LinearOpMode {
 					telemetry.addData("*Count", "Up | Down | 0 = Left | 0 = Right");
 					telemetry.addData("*Alliance", "Red = A | Blue = B");
 					telemetry.addData("*Voice", "Toggle = Y");
+					telemetry.addData("*Carousel", "Toggle Auto Advance = Back");
 				}
 				telemetry.addData("==================", "===================");
 			}
