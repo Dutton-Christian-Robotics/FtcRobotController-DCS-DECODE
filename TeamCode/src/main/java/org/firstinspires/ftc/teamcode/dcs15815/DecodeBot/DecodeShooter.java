@@ -20,7 +20,9 @@ public class DecodeShooter extends DefenderBotSystem {
 	public enum ShooterDirection {
 		STRAIGHT,
 		LEFT,
-		RIGHT
+		RIGHT,
+		LEFT_EXTREME,
+		RIGHT_EXTREME
 	}
 
 	DecodeShooter(HardwareMap hm, DefenderBot b) {
@@ -45,8 +47,16 @@ public class DecodeShooter extends DefenderBotSystem {
 			leftPower = currentShooterPower;
 			rightPower = currentShooterPower * DecodeConfiguration.SHOOTER_MOTOR_RIGHT_BIAS_FACTOR;
 
+		} if (shooterDirection == ShooterDirection.LEFT_EXTREME) {
+			leftPower = currentShooterPower;
+			rightPower = -0.5 * currentShooterPower;
+
 		} else if (shooterDirection == ShooterDirection.RIGHT) {
 			leftPower = currentShooterPower * DecodeConfiguration.SHOOTER_MOTOR_LEFT_BIAS_FACTOR;
+			rightPower = currentShooterPower;
+
+		} else if (shooterDirection == ShooterDirection.RIGHT_EXTREME) {
+			leftPower = -0.5 * currentShooterPower;
 			rightPower = currentShooterPower;
 
 		} else if (shooterDirection == ShooterDirection.STRAIGHT) {
@@ -81,15 +91,25 @@ public class DecodeShooter extends DefenderBotSystem {
 
 	public void changeShooterDirection(ShooterDirection d) {
 		shooterDirection = d;
+		turnOn();
 	}
 
 	public void biasLeft() {
 		changeShooterDirection(ShooterDirection.LEFT);
 	}
 
+	public void extremeLeft() {
+		changeShooterDirection(ShooterDirection.LEFT_EXTREME);
+	}
+
 	public void biasRight() {
 		changeShooterDirection(ShooterDirection.RIGHT);
 	}
+
+	public void extremeRight() {
+		changeShooterDirection(ShooterDirection.RIGHT_EXTREME);
+	}
+
 	public void biasStraight() {
 		changeShooterDirection(ShooterDirection.STRAIGHT);
 	}

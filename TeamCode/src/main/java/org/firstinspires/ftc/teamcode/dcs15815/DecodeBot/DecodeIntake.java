@@ -125,7 +125,7 @@ public class DecodeIntake extends DefenderBotSystem {
 	}
 
 	public void reverseCarouselForDeAdvance() {
-		motorCarousel.setPower(DecodeConfiguration.INTAKE_MOTOR_CAROUSEL_POWER_ADVANCE);
+		reverseCarousel(DecodeConfiguration.INTAKE_MOTOR_CAROUSEL_POWER_ADVANCE);
 	}
 
 	public void reverseCarousel(double power) {

@@ -114,6 +114,7 @@ public class TeleOpMode extends LinearOpMode {
 
 
 
+
 			if (gamepad2.startWasPressed()) {
 				changeConfiguration = !changeConfiguration;
 			}
