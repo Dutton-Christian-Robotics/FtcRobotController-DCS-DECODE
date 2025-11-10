@@ -94,7 +94,7 @@ public class Blue1AutonomousOpMode extends DecodeAutonomousOpMode {
 			sleep(600);
 			bot.intake.turnOff();
 		}
-		bot.intake.deAdvanceCarousel(0.2);
+		bot.intake.deAdvanceCarousel(0.65);
 		bot.driveToBotRelativePositionWithTimeout(0, -31, 0, 750, 3000);
 
 		bot.navigation.resetOtosAndResetOrigin();
@@ -123,7 +123,7 @@ public class Blue1AutonomousOpMode extends DecodeAutonomousOpMode {
 			bot.intake.advanceCarousel();
 			bot.shooter.shootAndUpdateArtifactCount();
 		}
-		bot.driveToBotRelativePositionWithTimeout(0, -11, 0, 750, 1000);
+		bot.driveToBotRelativePositionWithTimeout(0, -14, 0, 750, 1000);
 		bot.shooter.turnOff();
 
 		bot.shooter.lowerLift();
