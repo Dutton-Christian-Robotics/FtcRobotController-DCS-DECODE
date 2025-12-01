@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderBot;
 
-//import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -12,7 +11,6 @@ import java.util.ArrayList;
 public class DefenderBot {
 
     public HardwareMap hardwareMap;
-    //    public DefenderBotConfiguration configuration;
     public DefenderBotDrivetrain drivetrain;
     public DefenderBotSystem sensors;
     public DefenderBotSystem navigation;
