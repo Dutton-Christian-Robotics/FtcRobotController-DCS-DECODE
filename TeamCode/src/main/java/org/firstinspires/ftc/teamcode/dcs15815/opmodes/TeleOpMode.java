@@ -26,9 +26,41 @@ public class TeleOpMode extends LinearOpMode {
 		bot.shooter.changeShooterPower(currentShooterPower);
 	});
 
-	DefenderDebouncer shootDebouncer = new DefenderDebouncer(500, () -> {
-		bot.shooter.shootAndUpdateArtifactCount(autoAdvanceCarousel);
+	DefenderDebouncer shooterDeflectorDebouncer = new DefenderDebouncer(500, () -> {
+
+		if (bot.shooter.isDeflectorRaised) {
+			bot.shooter.lowerDeflector();
+		} else {
+			bot.shooter.raiseDeflector();
+		}
 	});
+
+	DefenderDebouncer startShootDebouncer = new DefenderDebouncer(500, () -> {
+//		bot.shooter.shootAndUpdateArtifactCount(autoAdvanceCarousel);
+		bot.shooter.openGate();
+		sleep(150);
+		bot.intake.turnOnCarouselForAdvance();
+	});
+
+	DefenderDebouncer stopShootDebouncer = new DefenderDebouncer(500, () -> {
+//		bot.shooter.shootAndUpdateArtifactCount(autoAdvanceCarousel);
+		bot.intake.turnOffCarousel();
+		bot.shooter.closeGate();
+	});
+
+	DefenderDebouncer startIntakeDebouncer = new DefenderDebouncer(500, () -> {
+//		bot.shooter.shootAndUpdateArtifactCount(autoAdvanceCarousel);
+		bot.intake.turnOn();
+
+	});
+
+
+	DefenderDebouncer stopIntakeDebouncer = new DefenderDebouncer(500, () -> {
+//		bot.shooter.shootAndUpdateArtifactCount(autoAdvanceCarousel);
+		bot.intake.turnOff();
+
+	});
+
 
 	DefenderDebouncer advanceCarouselDebouncer = new DefenderDebouncer(500, () -> {
 		bot.intake.advanceCarousel();
@@ -61,12 +93,18 @@ public class TeleOpMode extends LinearOpMode {
 				bot.intake.turnOff();
 			}
 
-			if (gamepad2.left_trigger > 0) {
-				advanceCarouselDebouncer.run();
+			if (gamepad2.left_trigger > 0 && !bot.intake.isIntakeOn) {
+				startIntakeDebouncer.run();
+			} else if (gamepad2.left_trigger == 0 && bot.intake.isIntakeOn) {
+				stopIntakeDebouncer.run();
 			}
+			telemetry.addData("left", gamepad2.left_trigger > 0);
+			telemetry.addData("on", !bot.intake.isIntakeOn);
 
-			if (gamepad2.right_trigger > 0) {
-				shootDebouncer.run();
+			if (gamepad2.right_trigger > 0 && !bot.shooter.isGateOpen) {
+				startShootDebouncer.run();
+			} else if (gamepad2.right_trigger == 0 && bot.shooter.isGateOpen) {
+				stopShootDebouncer.run();
 			}
 
 			if (changeConfiguration) {
@@ -103,9 +141,17 @@ public class TeleOpMode extends LinearOpMode {
 				if (gamepad2.bWasPressed()) {
 					bot.shooter.turnOff();
 				}
-				if (gamepad2.yWasPressed()) {
-					advanceCarouselDebouncer.run();
+//				if (gamepad2.yWasPressed()) {
+//					advanceCarouselDebouncer.run();
+//				}
+				if (gamepad2.y) {
+					shooterDeflectorDebouncer.run();
+
 				}
+//				if (gamepad2.yWasPressed() && bot.shooter.isDeflectorRaised) {
+//					bot.shooter.lowerDeflector();
+//
+//				}
 				if (gamepad2.dpadDownWasPressed() || gamepad2.dpadUpWasPressed()
 					   || gamepad2.dpadLeftWasPressed() || gamepad2.dpadRightWasPressed()) {
 					bot.intake.deAdvanceCarousel();
@@ -140,9 +186,12 @@ public class TeleOpMode extends LinearOpMode {
 				telemetry.addData("==================", "===================");
 			}
 			telemetry.addData("Shooter Power", currentShooterPower);
-			telemetry.addData("Artifacts", bot.intake.numberOfArtifactsLoaded);
+			telemetry.addData("Deflector", bot.shooter.isDeflectorRaised ? "UP" : "down");
+//			telemetry.addData("Shooter L", bot.shooter.motorLeft.getVelocity());
+//			telemetry.addData("Shooter R", bot.shooter.motorRight.getVelocity());
+//			telemetry.addData("Artifacts", bot.intake.numberOfArtifactsLoaded);
 			telemetry.addData("Alliance", bot.allianceColor());
-			telemetry.addData("Color", bot.shooter.readyArtifactColor());
+//			telemetry.addData("Color", bot.shooter.readyArtifactColor());
 			telemetry.addData("Carousel", autoAdvanceCarousel ? "auto advance" : "manual advance");
 			if (!bot.useSpeech) {
 				telemetry.addData("Voice", "OFF");
