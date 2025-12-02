@@ -51,11 +51,22 @@ public class DecodeConfiguration extends DefenderBotConfiguration {
 
     /* SHOOTER ---------------------------------------------------------- */
 
-    public static String SHOOTER_SERVO_LIFT_LEFT_NAME = "lift_servo_left";
-    public static String SHOOTER_SERVO_LIFT_RIGHT_NAME = "lift_servo_right";
+//    public static String SHOOTER_SERVO_LIFT_LEFT_NAME = "lift_servo_left";
+//    public static String SHOOTER_SERVO_LIFT_RIGHT_NAME = "lift_servo_right";
+
+    public static String SHOOTER_SERVO_DEFLECTOR_NAME = "deflector_servo";
+    public static String SHOOTER_SERVO_GATE_NAME = "gate_servo";
+
+    public static double SHOOTER_SERVO_DEFLECTOR_POSITION_UP = 0;
+    public static double SHOOTER_SERVO_DEFLECTOR_POSITION_DOWN = 1;
+
+    public static double SHOOTER_SERVO_GATE_POSITION_OPEN = 1;
+    public static double SHOOTER_SERVO_GATE_POSITION_CLOSED = 0;
 
     public static String SHOOTER_MOTOR_LEFT_NAME = "motor_launch_left";
     public static String SHOOTER_MOTOR_RIGHT_NAME = "motor_launch_right";
+
+    public static double SHOOTER_MOTOR_VELOCITY_MAX = 2400;
 
     public static DcMotorSimple.Direction SHOOTER_MOTOR_LEFT_DIRECTION = DcMotorSimple.Direction.FORWARD;
     public static DcMotorSimple.Direction SHOOTER_MOTOR_RIGHT_DIRECTION = DcMotorSimple.Direction.REVERSE;
@@ -77,8 +88,8 @@ public class DecodeConfiguration extends DefenderBotConfiguration {
     public static long SHOOTER_LIFT_TIME_SLEEP = 600;
     public static long SHOOTER_TIME_BETWEEN_SHOTS = 150;
 
-    public static String SHOOTER_SENSOR_READY_NAME = "sensor_lift_ball_color";
-    public static double SHOOTER_SENSOR_READY_THRESHOLD_LIGHT = 0.3;
+//    public static String SHOOTER_SENSOR_READY_NAME = "sensor_lift_ball_color";
+//    public static double SHOOTER_SENSOR_READY_THRESHOLD_LIGHT = 0.3;
 
 
     /* GAMEPADS -------------------------------------------------------- */
