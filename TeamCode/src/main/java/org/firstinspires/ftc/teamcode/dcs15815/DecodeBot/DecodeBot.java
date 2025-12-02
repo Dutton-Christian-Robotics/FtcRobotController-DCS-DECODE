@@ -256,7 +256,8 @@ public class DecodeBot extends DefenderBot {
     }
 
     public boolean isReadyToShoot() {
-        return shooter.isReadyToShoot();
+//        return shooter.isReadyToShoot();
+        return true;
     }
 
 

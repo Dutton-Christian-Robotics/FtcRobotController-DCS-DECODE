@@ -55,9 +55,9 @@ public class ShooterTestOpMode extends LinearOpMode {
             }
 
             telemetry.addData("Power", bot.shooter.currentShooterPower);
-            telemetry.addData("Ready", bot.shooter.isReadyToShoot());
+//            telemetry.addData("Ready", bot.shooter.isReadyToShoot());
             telemetry.addData("Artifacts", bot.intake.numberOfArtifactsLoaded);
-            telemetry.addData("Color", bot.shooter.readyArtifactColor());
+//            telemetry.addData("Color", bot.shooter.readyArtifactColor());
             telemetry.update();
 
         }

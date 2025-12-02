@@ -40,11 +40,11 @@ public class DecodeEffectsLiveStatusRunnable implements Runnable {
 				overloadTimer.reset();
 				effects.solidPurple();
 
-			} else if (shooter.isReadyToShoot() && DefenderAlliance.getInstance().isRed()) {
-				effects.solidRed();
-
-			} else if (shooter.isReadyToShoot() && DefenderAlliance.getInstance().isBlue()) {
-				effects.solidBlue();
+//			} else if (shooter.isReadyToShoot() && DefenderAlliance.getInstance().isRed()) {
+//				effects.solidRed();
+//
+//			} else if (shooter.isReadyToShoot() && DefenderAlliance.getInstance().isBlue()) {
+//				effects.solidBlue();
 
 			} else if (DefenderAlliance.getInstance().isRed()) {
 				effects.heartbeatRed();

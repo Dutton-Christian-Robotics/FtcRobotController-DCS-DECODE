@@ -45,10 +45,10 @@ public class OldBlue1AutonomousOpMode extends DecodeAutonomousOpMode {
 			bot.shooter.shootAndUpdateArtifactCount();
 //		}
 
-		if (!bot.shooter.isReadyToShoot()) {
-			bot.intake.advanceCarousel();
-			bot.shooter.shootAndUpdateArtifactCount();
-		}
+//		if (!bot.shooter.isReadyToShoot()) {
+//			bot.intake.advanceCarousel();
+//			bot.shooter.shootAndUpdateArtifactCount();
+//		}
 
 	// Back-up farther from the goal to get into a better position to rotate and strafe
 		bot.driveToBotRelativePositionWithTimeout(-24, 0, 0, 750, 5000);
@@ -111,14 +111,14 @@ public class OldBlue1AutonomousOpMode extends DecodeAutonomousOpMode {
 			bot.shooter.shootAndUpdateArtifactCount();
 //		}
 
-		if (!bot.shooter.isReadyToShoot()) {
-			bot.intake.advanceCarousel();
-			bot.shooter.shootAndUpdateArtifactCount();
-		}
+//		if (!bot.shooter.isReadyToShoot()) {
+//			bot.intake.advanceCarousel();
+//			bot.shooter.shootAndUpdateArtifactCount();
+//		}
 		bot.driveToBotRelativePositionWithTimeout(0, -11, 0, 750, 1000);
 		bot.shooter.turnOff();
 
-		bot.shooter.lowerLift();
+//		bot.shooter.lowerLift();
 		sleep(500);
 
 

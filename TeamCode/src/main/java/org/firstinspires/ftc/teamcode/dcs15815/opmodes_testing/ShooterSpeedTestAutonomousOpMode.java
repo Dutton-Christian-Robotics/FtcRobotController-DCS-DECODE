@@ -41,10 +41,10 @@ public class ShooterSpeedTestAutonomousOpMode extends DecodeAutonomousOpMode {
 
 		bot.shooter.shootAndUpdateArtifactCount();
 
-		if (!bot.shooter.isReadyToShoot()) {
-			bot.intake.advanceCarousel();
-			bot.shooter.shootAndUpdateArtifactCount();
-		}
+//		if (!bot.shooter.isReadyToShoot()) {
+//			bot.intake.advanceCarousel();
+//			bot.shooter.shootAndUpdateArtifactCount();
+//		}
 
 		bot.shooter.turnOff();
 		sleep(2000);
