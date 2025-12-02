@@ -13,7 +13,7 @@ public class ServoTestOpMode extends LinearOpMode {
     @Override
     public void runOpMode() {
 
-        servo = hardwareMap.servo.get("servo_lift_right");
+        servo = hardwareMap.servo.get("gate_servo");
         double position = 0;
 
         waitForStart();
