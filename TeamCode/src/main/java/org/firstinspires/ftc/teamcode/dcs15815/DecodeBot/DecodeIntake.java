@@ -14,6 +14,7 @@ public class DecodeIntake extends DefenderBotSystem {
 	public DcMotor motorCarousel;
 	public TouchSensor sensorCapture;
 	public int numberOfArtifactsLoaded = 0;
+	public boolean isIntakeOn = false;
 
 	public DecodeIntakeMonitorCaptureRunnable monitorCaptureRunnable;
 
@@ -30,6 +31,8 @@ public class DecodeIntake extends DefenderBotSystem {
 		motorCarousel.setDirection(DecodeConfiguration.INTAKE_MOTOR_CAROUSEL_DIRECTION);
 
 		sensorCapture = hm.touchSensor.get(DecodeConfiguration.INTAKE_SENSOR_CAPTURE_NAME);
+
+
 	}
 
 	public void setNumberOfArtifactsLoaded(int n) {
@@ -83,14 +86,20 @@ public class DecodeIntake extends DefenderBotSystem {
 		servoLower.setPower(l);
 	}
 
+	public boolean isCarouselOn() {
+		return motorCarousel.isBusy();
+	}
+
 	public void turnOff() {
 		setServoPower(0);
 		turnOffCarousel();
+		isIntakeOn = false;
 	}
 
 	public void turnOn() {
 		setServoPower(DecodeConfiguration.INTAKE_SERVO_POWER_MAX);
 		turnOnCarousel();
+		isIntakeOn = true;
 	}
 
 	public void reverse() {
@@ -157,9 +166,9 @@ public class DecodeIntake extends DefenderBotSystem {
 		DecodeShooter shooter = ((DecodeBot) bot).shooter;
 
 		turnOnCarouselForAdvance();
-		while (!shooter.isReadyToShoot() && timer.milliseconds() < 3000) {
-			sleep(150);
-		}
+//		while (!shooter.isReadyToShoot() && timer.milliseconds() < 3000) {
+//			sleep(150);
+//		}
 		turnOffCarousel();
 
 
