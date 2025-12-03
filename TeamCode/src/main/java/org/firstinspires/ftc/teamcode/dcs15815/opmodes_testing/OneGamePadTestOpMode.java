@@ -92,8 +92,8 @@ public class OneGamePadTestOpMode extends LinearOpMode {
 		motorBigWheel = hardwareMap.dcMotor.get("motor_big_wheel");
 		motorBigWheel.setDirection(DcMotor.Direction.FORWARD);
 
-		servoLiftLeft = hardwareMap.servo.get("lift_servo_left");
-		servoLiftRight = hardwareMap.servo.get("lift_servo_right");
+//		servoLiftLeft = hardwareMap.servo.get("lift_servo_left");
+//		servoLiftRight = hardwareMap.servo.get("lift_servo_right");
 
 		motorShooterLeft = hardwareMap.dcMotor.get("motor_launch_left");
 		motorShooterRight = hardwareMap.dcMotor.get("motor_launch_right");

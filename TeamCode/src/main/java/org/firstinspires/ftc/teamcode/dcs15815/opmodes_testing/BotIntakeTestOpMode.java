@@ -18,7 +18,7 @@ public class BotIntakeTestOpMode extends LinearOpMode {
 //	public abstract void setAlliance();
 
 	public void driveWithTimeout(double y, double x, double h, int t1, int t2) {
-		bot.driveToBotRelativePositionWithTimeout(y, x, h, t1, t2);
+//		bot.driveToBotRelativePositionWithTimeout(y, x, h, t1, t2);
 	}
 
 
