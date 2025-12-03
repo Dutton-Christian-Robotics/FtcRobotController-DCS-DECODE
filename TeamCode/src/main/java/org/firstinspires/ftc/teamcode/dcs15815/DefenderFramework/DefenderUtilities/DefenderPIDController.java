@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderUtilit
 
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.dcs15815.DecodeBot.DecodeNavigation;
+import org.firstinspires.ftc.teamcode.dcs15815.DecodeBot.DecodeNavigationOTOS;
 
 public class DefenderPIDController {
     boolean usesAngles = false;
@@ -27,7 +27,7 @@ public class DefenderPIDController {
     public double calculate(double referencePosition, double currentPosition) {
         double error;
         if (usesAngles) {
-            error = DecodeNavigation.calculateYawError(currentPosition, referencePosition);
+            error = DecodeNavigationOTOS.calculateYawError(currentPosition, referencePosition);
         } else {
             error = referencePosition - currentPosition;
         }
