@@ -38,30 +38,30 @@ public class TwoGamepadDriverOp extends LinearOpMode {
 	});
 
 	DefenderDebouncer startShootDebouncer = new DefenderDebouncer(500, () -> {
+		bot.shooter.beginShooting();
 //		bot.shooter.shootAndUpdateArtifactCount(autoAdvanceCarousel);
-		bot.shooter.openGate();
-		sleep(150);
-		bot.intake.turnOnCarouselForAdvance();
+//		bot.shooter.openGate();
+//		sleep(150);
+//		bot.intake.turnOnCarouselForAdvance();
 	});
 
 	DefenderDebouncer stopShootDebouncer = new DefenderDebouncer(500, () -> {
+		bot.shooter.stopShooting();
 //		bot.shooter.shootAndUpdateArtifactCount(autoAdvanceCarousel);
-		bot.intake.setNumberOfArtifactsLoaded(0);
-		bot.intake.turnOffCarousel();
-		bot.shooter.closeGate();
+//		bot.intake.setNumberOfArtifactsLoaded(0);
+//		bot.intake.turnOffCarousel();
+//		bot.shooter.closeGate();
 	});
 
 	DefenderDebouncer startIntakeDebouncer = new DefenderDebouncer(500, () -> {
 //		bot.shooter.shootAndUpdateArtifactCount(autoAdvanceCarousel);
 		bot.intake.turnOn();
-
 	});
 
 
 	DefenderDebouncer stopIntakeDebouncer = new DefenderDebouncer(500, () -> {
 //		bot.shooter.shootAndUpdateArtifactCount(autoAdvanceCarousel);
 		bot.intake.turnOff();
-
 	});
 
 
