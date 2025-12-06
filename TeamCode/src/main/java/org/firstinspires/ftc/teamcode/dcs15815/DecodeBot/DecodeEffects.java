@@ -62,8 +62,16 @@ public class DecodeEffects extends DefenderBotSystem {
 		setPattern(RevBlinkinLedDriver.BlinkinPattern.VIOLET);
 	}
 
+	public void solidGreen() {
+		setPattern(RevBlinkinLedDriver.BlinkinPattern.GREEN);
+	}
+
 	public void scanRed() {
 		setPattern(RevBlinkinLedDriver.BlinkinPattern.SHOT_RED);
+	}
+
+	public void twinklesGreen() {
+		setPattern(RevBlinkinLedDriver.BlinkinPattern.TWINKLES_FOREST_PALETTE);
 	}
 
 	public void heartbeatBlue() {
