@@ -35,7 +35,7 @@ public class DecodeEffectsLiveStatusRunnable implements Runnable {
 		DecodeBot bot  = (DecodeBot) intake.bot;
 		ElapsedTime overloadTimer = new ElapsedTime();
 		while (keepRunning()) {
-			if (intake.areTooManyArtifactsLoaded()) {
+			if (false && intake.areTooManyArtifactsLoaded()) {
 				if (bot.useSpeech && overloadTimer.milliseconds() > 5000) bot.telemetry.speak("Little Tut is too full!");
 				overloadTimer.reset();
 				effects.solidPurple();
@@ -47,13 +47,26 @@ public class DecodeEffectsLiveStatusRunnable implements Runnable {
 //				effects.solidBlue();
 
 			} else if (DefenderAlliance.getInstance().isRed()) {
-				effects.heartbeatRed();
+				if (shooter.isDeflectorRaised) {
+					effects.solidGreen();
+				} else {
+					effects.heartbeatRed();
+				}
 
 			} else if (DefenderAlliance.getInstance().isBlue()) {
-				effects.heartbeatBlue();
+
+				if (shooter.isDeflectorRaised) {
+					effects.solidGreen();
+				} else {
+					effects.heartbeatBlue();
+				}
 
 			} else {
-				effects.rainbow();
+				if (shooter.isDeflectorRaised) {
+					effects.solidGreen();
+				} else {
+					effects.rainbow();
+				}
 			}
 			try {
 				Thread.sleep(500);
