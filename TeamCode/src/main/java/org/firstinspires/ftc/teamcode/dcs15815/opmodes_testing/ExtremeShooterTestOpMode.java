@@ -1,19 +1,16 @@
 package org.firstinspires.ftc.teamcode.dcs15815.opmodes_testing;
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.dcs15815.DecodeBot.DecodeBot;
 import org.firstinspires.ftc.teamcode.dcs15815.DecodeBot.DecodeConfiguration;
 import org.firstinspires.ftc.teamcode.dcs15815.DecodeBot.DecodeShooter;
-import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderUtilities.DefenderAlliance;
-import org.firstinspires.ftc.teamcode.dcs15815.opmodes.DecodeAutonomousOpMode;
-import org.firstinspires.ftc.teamcode.dcs15815.opmodes.TeleOpMode;
+import org.firstinspires.ftc.teamcode.dcs15815.opmodes.TwoGamepadDriverOp;
 
 @Disabled
 @TeleOp(name = "Shooter Test", group = "Testing")
-public class ExtremeShooterTestOpMode extends TeleOpMode {
+public class ExtremeShooterTestOpMode extends TwoGamepadDriverOp {
 
 	DecodeBot bot;
 
