@@ -5,16 +5,18 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.dcs15815.DecodeBot.DecodeBot;
 import org.firstinspires.ftc.teamcode.dcs15815.DecodeBot.DecodeConfiguration;
-import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderBot.DefenderBot;
 import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderUtilities.DefenderAlliance;
+import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderUtilities.DefenderAnalogModifier;
 import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderUtilities.DefenderDebouncer;
 
 @TeleOp(name = "Driver Operated", group = "Driver")
-public class TeleOpMode extends LinearOpMode {
+public class TwoGamepadDriverOp extends LinearOpMode {
 	DecodeBot bot;
 	public double currentShooterPower = 1;
 	public boolean changeConfiguration = false;
 	public boolean autoAdvanceCarousel = true;
+
+	public DefenderAnalogModifier gamepad1RightStickXModifier;
 
 	DefenderDebouncer shooterSpeedLowDebouncer = new DefenderDebouncer(500, () -> {
 		currentShooterPower = 0.8;
@@ -44,6 +46,7 @@ public class TeleOpMode extends LinearOpMode {
 
 	DefenderDebouncer stopShootDebouncer = new DefenderDebouncer(500, () -> {
 //		bot.shooter.shootAndUpdateArtifactCount(autoAdvanceCarousel);
+		bot.intake.setNumberOfArtifactsLoaded(0);
 		bot.intake.turnOffCarousel();
 		bot.shooter.closeGate();
 	});
@@ -77,6 +80,10 @@ public class TeleOpMode extends LinearOpMode {
 		bot.intake.setNumberOfArtifactsLoaded(0);
 		bot.effects.startLiveStatus();
 
+		gamepad1RightStickXModifier =  new DefenderAnalogModifier(
+			   DecodeConfiguration.GAMEPAD1_RIGHT_STICK_X_CURVE,
+			   DecodeConfiguration.GAMEPAD1_RIGHT_STICK_X_MAX
+		);
 
 		waitForStart();
 
@@ -98,8 +105,8 @@ public class TeleOpMode extends LinearOpMode {
 			} else if (gamepad2.left_trigger == 0 && bot.intake.isIntakeOn) {
 				stopIntakeDebouncer.run();
 			}
-			telemetry.addData("left", gamepad2.left_trigger > 0);
-			telemetry.addData("on", !bot.intake.isIntakeOn);
+//			telemetry.addData("left", gamepad2.left_trigger > 0);
+//			telemetry.addData("on", !bot.intake.isIntakeOn);
 
 			if (gamepad2.right_trigger > 0 && !bot.shooter.isGateOpen) {
 				startShootDebouncer.run();
@@ -173,7 +180,8 @@ public class TeleOpMode extends LinearOpMode {
 			}
 
 
-			bot.drivetrain.drive(gamepad1.left_stick_y, (gamepad1.right_trigger - gamepad1.left_trigger), gamepad1.right_stick_x);
+//			bot.drivetrain.drive(gamepad1.left_stick_y, (gamepad1.right_trigger - gamepad1.left_trigger), gamepad1.right_stick_x);
+			bot.drivetrain.driveNoProportional(gamepad1.left_stick_y, (gamepad1.right_trigger - gamepad1.left_trigger), gamepad1RightStickXModifier.modify(gamepad1.right_stick_x));
 
 			if (changeConfiguration) {
 				telemetry.addData("CHANGE CONFIGURATION", "===================");
@@ -186,6 +194,8 @@ public class TeleOpMode extends LinearOpMode {
 				telemetry.addData("==================", "===================");
 			}
 			telemetry.addData("Shooter Power", currentShooterPower);
+			telemetry.addData("x", gamepad1.right_stick_x);
+			telemetry.addData("x mod", gamepad1RightStickXModifier.modify(gamepad1.right_stick_x));
 			telemetry.addData("Deflector", bot.shooter.isDeflectorRaised ? "UP" : "down");
 //			telemetry.addData("Shooter L", bot.shooter.motorLeft.getVelocity());
 //			telemetry.addData("Shooter R", bot.shooter.motorRight.getVelocity());
