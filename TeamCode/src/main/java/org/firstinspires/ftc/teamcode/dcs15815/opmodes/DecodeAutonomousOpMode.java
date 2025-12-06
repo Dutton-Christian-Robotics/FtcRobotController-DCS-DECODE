@@ -44,7 +44,7 @@ public abstract class DecodeAutonomousOpMode extends LinearOpMode {
         }
 
         waitForStart();
-        bot.navigation.resetOtosAndResetOrigin();
+//        bot.navigation.resetOtosAndResetOrigin();
 
         if (DefenderAlliance.getInstance().isRed()) {
             bot.effects.heartbeatRed();
