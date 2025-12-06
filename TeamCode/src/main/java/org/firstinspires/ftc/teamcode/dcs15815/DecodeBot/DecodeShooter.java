@@ -20,7 +20,6 @@ public class DecodeShooter extends DefenderBotSystem {
 	public ShooterDirection shooterDirection = ShooterDirection.STRAIGHT;
 	public boolean isDeflectorRaised = false;
 	public boolean isGateOpen = false;
-
 	public enum ShooterDirection {
 		STRAIGHT,
 		LEFT,
@@ -148,7 +147,29 @@ public class DecodeShooter extends DefenderBotSystem {
 		this.isDeflectorRaised = false;
 	}
 
-//	public void raiseLift() {
+
+	public void beginShooting() {
+		openGate();
+		sleep(DecodeConfiguration.SHOOTER_TIME_AFTER_GATE_OPEN);
+	}
+
+	public void stopShootingAndUpdateArtifactCount() {
+		stopShooting();
+		((DecodeBot) bot).intake.setNumberOfArtifactsLoaded(0);
+	}
+
+	public void stopShooting() {
+		closeGate();
+		((DecodeBot) bot).intake.turnOffCarousel();
+	}
+
+
+
+	/*
+		Code from before our changed shooter system
+	 */
+
+	//	public void raiseLift() {
 //		servoLeft.setPosition(DecodeConfiguration.SHOOTER_SERVO_LIFT_LEFT_POSITION_UP);
 //		servoRight.setPosition(DecodeConfiguration.SHOOTER_SERVO_LIFT_RIGHT_POSITION_UP);
 //	}
@@ -158,36 +179,39 @@ public class DecodeShooter extends DefenderBotSystem {
 //		servoRight.setPosition(DecodeConfiguration.SHOOTER_SERVO_LIFT_RIGHT_POSITION_DOWN);
 //	}
 
-	public void shoot() {
-		shoot(false);
-	}
 
-	public void shoot(boolean autoAdvanceCarousel) {
-		DecodeBot dbot = (DecodeBot) bot;
-//		raiseLift();
-//		sleep(DecodeConfiguration.SHOOTER_LIFT_TIME_SLEEP);
-//		lowerLift();
-		sleep(DecodeConfiguration.SHOOTER_TIME_BETWEEN_SHOTS);
-		if (autoAdvanceCarousel) {
-			((DecodeBot) bot).intake.advanceCarousel();
-		}
-	}
+//	public void shoot() {
+//		shoot(false);
+//	}
 
-	public void shootAndUpdateArtifactCount() {
-		shootAndUpdateArtifactCount(false);
-	}
-
-	public void shootAndUpdateArtifactCount(boolean autoAdvanceCarousel) {
-		shoot(autoAdvanceCarousel);
-		DecodeBot dbot = (DecodeBot) bot;
-		if (dbot.useSpeech) bot.telemetry.speak("Look out!");
-//		if (!isReadyToShoot()) {
-//			dbot.intake.decreaseArtifactCount();
+//	public void shoot(boolean autoAdvanceCarousel) {
+//		DecodeBot dbot = (DecodeBot) bot;
+////		raiseLift();
+////		sleep(DecodeConfiguration.SHOOTER_LIFT_TIME_SLEEP);
+////		lowerLift();
+//		sleep(DecodeConfiguration.SHOOTER_TIME_BETWEEN_SHOTS);
+//		if (autoAdvanceCarousel) {
+//			((DecodeBot) bot).intake.advanceCarousel();
 //		}
-		if (dbot.useSpeech && !dbot.intake.hasArtifacts()) {
-			bot.telemetry.speak("Little Tut is so so hungry!");
-		}
-	}
+//	}
+
+
+
+//	public void shootAndUpdateArtifactCount() {
+//		shootAndUpdateArtifactCount(false);
+//	}
+
+//	public void shootAndUpdateArtifactCount(boolean autoAdvanceCarousel) {
+//		shoot(autoAdvanceCarousel);
+//		DecodeBot dbot = (DecodeBot) bot;
+//		if (dbot.useSpeech) bot.telemetry.speak("Look out!");
+////		if (!isReadyToShoot()) {
+////			dbot.intake.decreaseArtifactCount();
+////		}
+//		if (dbot.useSpeech && !dbot.intake.hasArtifacts()) {
+//			bot.telemetry.speak("Little Tut is so so hungry!");
+//		}
+//	}
 
 
 //	public boolean isReadyToShoot() {
