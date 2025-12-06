@@ -73,12 +73,21 @@ public class DecodeMecanumDrivetrain extends DefenderBotDrivetrain {
 	}
 
 	private void setProportionalPower(double bl, double fl, double fr, double br) {
+		setProportionalPower(bl, fl, fr, br, DecodeConfiguration.DRIVETRAIN_POWER_MAX_AUTONOMOUS);
+	}
+	private void setProportionalPower(double bl, double fl, double fr, double br, double p) {
 
 		// I think the way this is supposed to work is not scaling based on the largest,
 		// but instead off of the front left value—which should be he max value
 
-		double largest = DecodeConfiguration.DRIVETRAIN_POWER_MAX;
-		largest = Math.max(largest, Math.abs(bl));
+		bl *= p;
+		fl *= p;
+		fr *= p;
+		br *= p;
+
+//		double largest = DecodeConfiguration.DRIVETRAIN_POWER_MAX_AUTONOMOUS;
+		double largest = Math.abs(bl);
+//		largest = Math.max(largest, Math.abs(bl));
 		largest = Math.max(largest, Math.abs(fl));
 		largest = Math.max(largest, Math.abs(fr));
 		largest = Math.max(largest, Math.abs(br));
@@ -92,6 +101,11 @@ public class DecodeMecanumDrivetrain extends DefenderBotDrivetrain {
 	@Override
 	public void stopDriving() {
 		setPower(0);
+	}
+
+	public void driveWithPinpointValues(double x, double y, double h, double p) {
+		x *= p;
+		drive(x, y, -h);
 	}
 
 	public void drive(double arr[]) {
@@ -338,17 +352,5 @@ public class DecodeMecanumDrivetrain extends DefenderBotDrivetrain {
 
 	}
 
-/*
-	INTO THE DEEP:
-    Forward:
-        1 tile = 500 ticks
-    Backward:
-        1 tile = 500+ ticks
-    Right:
-        90º = 650 ticks
-    Left:
-        90º - 650 ticks
-
- */
 
 }
