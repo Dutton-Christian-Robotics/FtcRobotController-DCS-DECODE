@@ -35,7 +35,7 @@ public class DecodeEffectsLiveStatusRunnable implements Runnable {
 		DecodeBot bot  = (DecodeBot) intake.bot;
 		ElapsedTime overloadTimer = new ElapsedTime();
 		while (keepRunning()) {
-			if (false && intake.areTooManyArtifactsLoaded()) {
+			if (intake.areTooManyArtifactsLoaded()) {
 				if (bot.useSpeech && overloadTimer.milliseconds() > 5000) bot.telemetry.speak("Little Tut is too full!");
 				overloadTimer.reset();
 				effects.solidPurple();
