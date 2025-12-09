@@ -1,22 +1,21 @@
 package org.firstinspires.ftc.teamcode.dcs15815.DecodeBot;
 
-import com.qualcomm.hardware.sparkfun.SparkFunOTOS;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 import org.firstinspires.ftc.teamcode.GoBildaPinpointDriver;
 import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderBot.DefenderBot;
+import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderBot.DefenderBotPosition;
 import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderBot.DefenderBotSystem;
 import static org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit.MM;
 import static org.firstinspires.ftc.robotcore.external.navigation.AngleUnit.RADIANS;
 
 public class DecodeNavigation extends DefenderBotSystem {
 
-    GoBildaPinpointDriver pinpoint;
+    public GoBildaPinpointDriver pinpoint;
     DecodeMecanumDrivetrain drivetrain;
 
     private enum Direction {
@@ -32,8 +31,9 @@ public class DecodeNavigation extends DefenderBotSystem {
         IN_BOUNDS
     }
 
-    private static double xyTolerance = 12;
-    private static double yawTolerance = 0.0349066;
+    private static double xyTolerance = 8;
+//    private static double yawTolerance = 0.0349066; // this is 2º
+    private static double yawTolerance = 0.0698131701; // 4º
 
     private static double pGain = 0.008;
     private static double dGain = 0.00001;
@@ -43,18 +43,26 @@ public class DecodeNavigation extends DefenderBotSystem {
     private static double yawDGain = 0.0;
     private static double yawAccel = 20.0;
 
-    private final ElapsedTime holdTimer = new ElapsedTime();
+    private ElapsedTime holdTimer = new ElapsedTime();
     private final ElapsedTime PIDTimer = new ElapsedTime();
 
     private final PIDLoop xPID = new PIDLoop();
     private final PIDLoop yPID = new PIDLoop();
     private final PIDLoop hPID = new PIDLoop();
 
+    public double totalError = 0;
+
+    public boolean inBoundsX = false;
+    public boolean inBoundsY = false;
+    public boolean inBoundsH = false;
+
+    public boolean isAtTarget = false;
+
 
     public DecodeNavigation(HardwareMap hm, DefenderBot b) {
         super(hm, b);
 
-        drivetrain = (DecodeMecanumDrivetrain) ((DecodeBot) b).drivetrain;
+        drivetrain = ((DecodeBot) b).drivetrain;
 
         pinpoint = hardwareMap.get(GoBildaPinpointDriver.class, DecodeConfiguration.NAVIGATION_PINPOINT_NAME);
 
@@ -83,6 +91,27 @@ public class DecodeNavigation extends DefenderBotSystem {
         yawTolerance = unit.toRadians(tolerance);
     }
 
+    public Pose2D getPosition() {
+        return pinpoint.getPosition();
+    }
+
+    public void setPosition(Pose2D p) {
+        pinpoint.setPosition(p);
+    }
+
+    public void setPosition(DefenderBotPosition p) {
+        setPosition(p.asPose2D());
+    }
+
+    public void setPosition(double x, double y, double h) {
+        setPosition(new DefenderBotPosition(x, y, h));
+    }
+
+    public boolean driveToFromCurrent(Pose2D targetPosition) {
+        return driveTo(pinpoint.getPosition(), targetPosition, DecodeConfiguration.DRIVETRAIN_POWER_MAX_AUTONOMOUS, 0);
+    }
+
+
     public boolean driveToFromCurrent(Pose2D targetPosition, double holdTime) {
         return driveTo(pinpoint.getPosition(), targetPosition, DecodeConfiguration.DRIVETRAIN_POWER_MAX_AUTONOMOUS, holdTime);
     }
@@ -98,7 +127,11 @@ public class DecodeNavigation extends DefenderBotSystem {
     public boolean driveTo(Pose2D currentPosition, Pose2D targetPosition, double power, double holdTime) {
         boolean atTarget;
 
+        if (holdTimer == null) {
+            holdTimer = new ElapsedTime();
+        }
 
+        totalError = 0;
         double xPWR = calculatePID(currentPosition, targetPosition, Direction.x);
         double yPWR = calculatePID(currentPosition, targetPosition, Direction.y);
         double hOutput = calculatePID(currentPosition, targetPosition, Direction.h);
@@ -107,37 +140,58 @@ public class DecodeNavigation extends DefenderBotSystem {
         double cosine = Math.cos(heading);
         double sine = Math.sin(heading);
 
-        double xOutput = (xPWR * cosine) + (yPWR * sine);
-        double yOutput = (xPWR * sine) - (yPWR * cosine);
+        double xOutput = -1 * ((xPWR * cosine) + (yPWR * sine));
+        double yOutput = -1 * ((xPWR * sine) - (yPWR * cosine));
 
 
-        drivetrain.driveWithPinpointValues(xOutput, yOutput, hOutput, power);
+       /* ----------------------------------------------------------------------------------------
+		  X: + = forward, - = backward
+	       Y: + = left, - = right
+            H: + = ccw, - = cw
+         ---------------------------------------------------------------------------------------- */
+//        bot.telemetry.addData("x out", xOutput);
+//        bot.telemetry.addData("y out", yOutput);
+//        bot.telemetry.addData("h out", hOutput);
+//        bot.telemetry.addData("p", power);
+
+        if (!isAtTarget) {
+            drivetrain.driveWithPinpointValues(xOutput, yOutput, hOutput, power);
+        } else {
+            drivetrain.stopDriving();
+        }
 //        calculateMecanumOutput(xOutput * power, yOutput * power, hOutput * power);
 
-        if (inBounds(currentPosition, targetPosition) == InBounds.IN_BOUNDS){
+        if (inBounds(currentPosition, targetPosition) == InBounds.IN_BOUNDS) {
             atTarget = true;
+            isAtTarget = true;
+//            drivetrain.drivingTimer = null;
         } else {
+            drivetrain.stopDriving();
             holdTimer.reset();
             atTarget = false;
         }
 
         if (atTarget && holdTimer.time() > holdTime) {
+            isAtTarget = false;
             return true;
         }
         return false;
     }
 
     private double calculatePID(Pose2D currentPosition, Pose2D targetPosition, Direction direction){
-        if(direction == Direction.x){
+        if (direction == Direction.x){
             double xError = targetPosition.getX(MM) - currentPosition.getX(MM);
+            totalError += xError;
             return xPID.calculateAxisPID(xError, pGain, dGain, accel,PIDTimer.seconds());
         }
-        if(direction == Direction.y){
+        if (direction == Direction.y){
             double yError = targetPosition.getY(MM) - currentPosition.getY(MM);
+            totalError += yError;
             return yPID.calculateAxisPID(yError, pGain, dGain, accel, PIDTimer.seconds());
         }
-        if(direction == Direction.h){
+        if (direction == Direction.h){
             double hError = targetPosition.getHeading(AngleUnit.RADIANS) - currentPosition.getHeading(AngleUnit.RADIANS);
+            totalError += hError;
             return hPID.calculateAxisPID(hError, yawPGain, yawDGain, yawAccel, PIDTimer.seconds());
         }
         return 0;
@@ -148,6 +202,10 @@ public class DecodeNavigation extends DefenderBotSystem {
         boolean yInBounds = currPose.getY(MM) > (trgtPose.getY(MM) - xyTolerance) && currPose.getY(MM) < (trgtPose.getY(MM) + xyTolerance);
         boolean hInBounds = currPose.getHeading(RADIANS) > (trgtPose.getHeading(RADIANS) - yawTolerance) &&
                 currPose.getHeading(RADIANS) < (trgtPose.getHeading(RADIANS) + yawTolerance);
+
+        inBoundsX = xInBounds;
+        inBoundsY = yInBounds;
+        inBoundsH = hInBounds;
 
         if (xInBounds && yInBounds && hInBounds) {
             return InBounds.IN_BOUNDS;
@@ -169,6 +227,10 @@ public class DecodeNavigation extends DefenderBotSystem {
             return currPose.getHeading(RADIANS);
         }
 
+    }
+
+    public void updatePosition() {
+        pinpoint.update();
     }
 
 

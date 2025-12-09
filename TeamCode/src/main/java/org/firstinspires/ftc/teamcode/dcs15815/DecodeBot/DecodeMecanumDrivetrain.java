@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.dcs15815.DecodeBot;
 
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -14,6 +13,9 @@ public class DecodeMecanumDrivetrain extends DefenderBotDrivetrain {
 
 	public DcMotorEx backLeft, frontLeft, frontRight, backRight;
 
+	public ElapsedTime drivingTimer;
+	public double powerBoost = 0;
+	public boolean allowPowerBoost = true;
 
 	public DecodeMecanumDrivetrain(HardwareMap hm, DefenderBot b) {
 		super(hm, b);
@@ -33,6 +35,12 @@ public class DecodeMecanumDrivetrain extends DefenderBotDrivetrain {
 		frontLeft.setDirection(DecodeConfiguration.DRIVETRAIN_MOTOR_FRONT_LEFT_DIRECTION);
 		frontRight.setDirection(DecodeConfiguration.DRIVETRAIN_MOTOR_FRONT_RIGHT_DIRECTION);
 		backRight.setDirection(DecodeConfiguration.DRIVETRAIN_MOTOR_BACK_RIGHT_DIRECTION);
+
+//		frontLeft.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+//		frontRight.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+//		backLeft.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+//		backRight.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+
 
 		resetEncoders();
 	}
@@ -104,8 +112,54 @@ public class DecodeMecanumDrivetrain extends DefenderBotDrivetrain {
 	}
 
 	public void driveWithPinpointValues(double x, double y, double h, double p) {
+
+		if (allowPowerBoost && (drivingTimer == null)) {
+			drivingTimer = new ElapsedTime();
+			powerBoost = 0;
+		}
+
+		p += powerBoost;
+
 		x *= p;
-		drive(x, y, -h);
+		y *= p;
+		h *= p;
+
+		bot.telemetry.addData("x out", x);
+		bot.telemetry.addData("y out", y);
+		bot.telemetry.addData("h out", h);
+		bot.telemetry.addData("p", p);
+
+
+		double backLeftOutput = x + -y - h;
+		double frontLeftOutput = x - -y - h;
+		double frontRightOutput = x + -y + h;
+		double backRightOutput = x - -y + h;
+
+		double max = Math.max(Math.abs(frontLeftOutput), Math.abs(frontRightOutput));
+		max = Math.max(max, Math.abs(backLeftOutput));
+		max = Math.max(max, Math.abs(backRightOutput));
+
+		if (allowPowerBoost && (drivingTimer.milliseconds() > 2000 && max < 0.3)) {
+			powerBoost += .05;
+		}
+
+
+		if (max > 1.0) {
+			backLeftOutput /= max;
+			frontLeftOutput /= max;
+			frontRightOutput /= max;
+			backRightOutput /= max;
+		}
+
+
+		bot.telemetry.addData("BL", backLeftOutput);
+		bot.telemetry.addData("FL", frontLeftOutput);
+		bot.telemetry.addData("FR", frontRightOutput);
+		bot.telemetry.addData("BR", backRightOutput);
+		bot.telemetry.addData("boost", powerBoost);
+
+		setPower(backLeftOutput, frontLeftOutput, frontRightOutput, backRightOutput);
+
 	}
 
 	public void drive(double arr[]) {

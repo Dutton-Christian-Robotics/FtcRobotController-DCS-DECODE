@@ -24,7 +24,7 @@ public class DecodeConfiguration extends DefenderBotConfiguration {
     public static DcMotorSimple.Direction DRIVETRAIN_MOTOR_BACK_RIGHT_DIRECTION = DcMotorSimple.Direction.REVERSE;
 
     public static double DRIVETRAIN_POWER_MAX = 1;
-    public static double DRIVETRAIN_POWER_MAX_AUTONOMOUS = 1;
+    public static double DRIVETRAIN_POWER_MAX_AUTONOMOUS = 0.5;
     public static int DRIVETRAIN_MAX_TICKS_PER_SECOND = 2800;
 
 
@@ -39,7 +39,7 @@ public class DecodeConfiguration extends DefenderBotConfiguration {
     public static String INTAKE_MOTOR_CAROUSEL_NAME = "motor_big_wheel";
     public static DcMotorSimple.Direction INTAKE_MOTOR_CAROUSEL_DIRECTION = DcMotorSimple.Direction.REVERSE;
     public static double INTAKE_MOTOR_CAROUSEL_POWER = 0.3;
-    public static double INTAKE_MOTOR_CAROUSEL_POWER_ADVANCE = 0.2; // used to be 0.3
+    public static double INTAKE_MOTOR_CAROUSEL_POWER_ADVANCE = 0.25; // used to be 0.3
     public static long INTAKE_MOTOR_CAROUSEL_TIME_ADVANCE = 600; //was 500
 
     public static int INTAKE_SERVO_UPPER_LEFT_DIRECTION = -1;
@@ -91,7 +91,8 @@ public class DecodeConfiguration extends DefenderBotConfiguration {
     public static long SHOOTER_LIFT_TIME_SLEEP = 600;
     public static long SHOOTER_TIME_BETWEEN_SHOTS = 150;
 
-    public static long SHOOTER_TIME_AFTER_GATE_OPEN = 150;
+    public static long SHOOTER_TIME_AFTER_GATE_OPENS = 150;
+    public static long SHOOTER_TIME_FOR_SHOOTING = 2500;
 
 //    public static String SHOOTER_SENSOR_READY_NAME = "sensor_lift_ball_color";
 //    public static double SHOOTER_SENSOR_READY_THRESHOLD_LIGHT = 0.3;
