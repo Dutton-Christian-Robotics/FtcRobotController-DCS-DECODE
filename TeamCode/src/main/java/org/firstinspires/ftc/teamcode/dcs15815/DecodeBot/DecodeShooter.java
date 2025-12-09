@@ -20,6 +20,7 @@ public class DecodeShooter extends DefenderBotSystem {
 	public ShooterDirection shooterDirection = ShooterDirection.STRAIGHT;
 	public boolean isDeflectorRaised = false;
 	public boolean isGateOpen = false;
+
 	public enum ShooterDirection {
 		STRAIGHT,
 		LEFT,
@@ -30,6 +31,7 @@ public class DecodeShooter extends DefenderBotSystem {
 
 	DecodeShooter(HardwareMap hm, DefenderBot b) {
 		super(hm, b);
+
 
 		motorLeft = hm.get(DcMotorEx.class, DecodeConfiguration.SHOOTER_MOTOR_LEFT_NAME);
 		motorRight = hm.get(DcMotorEx.class, DecodeConfiguration.SHOOTER_MOTOR_RIGHT_NAME);
@@ -150,7 +152,8 @@ public class DecodeShooter extends DefenderBotSystem {
 
 	public void beginShooting() {
 		openGate();
-		sleep(DecodeConfiguration.SHOOTER_TIME_AFTER_GATE_OPEN);
+		sleep(DecodeConfiguration.SHOOTER_TIME_AFTER_GATE_OPENS);
+		((DecodeBot) bot).intake.turnOnCarouselForAdvance();
 	}
 
 	public void stopShootingAndUpdateArtifactCount() {
@@ -161,6 +164,12 @@ public class DecodeShooter extends DefenderBotSystem {
 	public void stopShooting() {
 		closeGate();
 		((DecodeBot) bot).intake.turnOffCarousel();
+	}
+
+	public void shootAutonomously() {
+		beginShooting();
+		sleep(DecodeConfiguration.SHOOTER_TIME_FOR_SHOOTING);
+		stopShootingAndUpdateArtifactCount();
 	}
 
 
