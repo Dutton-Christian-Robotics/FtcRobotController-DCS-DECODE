@@ -1,9 +1,10 @@
-package org.firstinspires.ftc.teamcode.dcs15815.opmodes;
+package org.firstinspires.ftc.teamcode.dcs15815.opmodes_disabled;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderUtilities.DefenderAlliance;
+import org.firstinspires.ftc.teamcode.dcs15815.opmodes.DecodeAutonomousOpMode;
 
 @Disabled
 @Autonomous(name = "Blue 0", group = "10", preselectTeleOp="Driver Operated")

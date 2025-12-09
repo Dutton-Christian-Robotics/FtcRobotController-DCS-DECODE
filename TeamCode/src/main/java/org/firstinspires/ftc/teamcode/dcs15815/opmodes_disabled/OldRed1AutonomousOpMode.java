@@ -1,25 +1,26 @@
-package org.firstinspires.ftc.teamcode.dcs15815.opmodes;
+package org.firstinspires.ftc.teamcode.dcs15815.opmodes_disabled;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderUtilities.DefenderAlliance;
+import org.firstinspires.ftc.teamcode.dcs15815.opmodes.DecodeAutonomousOpMode;
 
 @Disabled
-@Autonomous(name = "Blue 1", group = "1", preselectTeleOp="Driver Operated")
-public class OldBlue1AutonomousOpMode extends DecodeAutonomousOpMode {
+@Autonomous(name = "Red 1", group = "1", preselectTeleOp="Driver Operated")
+public class OldRed1AutonomousOpMode extends DecodeAutonomousOpMode {
 
 	DefenderAlliance.Color allianceColor = DefenderAlliance.Color.UNKNOWN;
 
 	public void setAlliance() {
-		DefenderAlliance.getInstance().setColor(DefenderAlliance.Color.BLUE);
+		DefenderAlliance.getInstance().setColor(DefenderAlliance.Color.RED);
 	};
 
 
 
 	@Override
 	public void performAutonomous() {
-//
+
 //		DecodeConfiguration.SHOOTER_LIFT_TIME_SLEEP = 325;
 //		DecodeConfiguration.SHOOTER_TIME_BETWEEN_SHOTS = 10;
 //		DecodeConfiguration.INTAKE_MOTOR_CAROUSEL_POWER_ADVANCE = 0.5;
@@ -72,12 +73,12 @@ public class OldBlue1AutonomousOpMode extends DecodeAutonomousOpMode {
 //
 //	// Rotate to be perpendicular with alliance wall
 //
-//		bot.driveToBotRelativePositionWithTimeout(0, 0, 135, 750, 3000); // used to be 130
+//		bot.driveToBotRelativePositionWithTimeout(0, 0, -135, 750, 3000); // used to be 130
 //		bot.navigation.resetOtosAndResetOrigin();
 //
 //	// Strafe away from the goal ("right" on blue) to align with first spike mark
 //
-//		bot.driveToBotRelativePositionWithTimeout(0, 17, 0, 750, 3000); // used to be 18
+//		bot.driveToBotRelativePositionWithTimeout(0, -17, 0, 750, 3000); // used to be 18
 //		bot.navigation.resetOtosAndResetOrigin();
 //
 //	// Backup and intake the first line of balls
@@ -95,19 +96,20 @@ public class OldBlue1AutonomousOpMode extends DecodeAutonomousOpMode {
 //			bot.intake.turnOff();
 //		}
 //		bot.intake.deAdvanceCarousel(0.65);
-//		bot.driveToBotRelativePositionWithTimeout(0, -31, 0, 750, 3000);
+//		bot.driveToBotRelativePositionWithTimeout(0, 31, 0, 750, 3000);
 //
 //		bot.navigation.resetOtosAndResetOrigin();
 //
 //	// Rotate to align with goal for shooting
 //
-//		bot.driveToBotRelativePositionWithTimeout(0, 0, -145, 750, 3000);
+//		bot.driveToBotRelativePositionWithTimeout(0, 0, 145, 750, 3000);
 //		bot.navigation.resetOtosAndResetOrigin();
 //		bot.shooter.changeShooterPower(0.8);
 ////		bot.shooter.turnOn();
-//		bot.driveToBotRelativePositionWithTimeout(0, 6, 0, 750, 3000);
+//		bot.driveToBotRelativePositionWithTimeout(0, -6, 0, 750, 3000);
 //
 //	// Shoot the additional three
+//
 //
 //		bot.shooter.shootAndUpdateArtifactCount();
 //
@@ -123,7 +125,7 @@ public class OldBlue1AutonomousOpMode extends DecodeAutonomousOpMode {
 ////			bot.intake.advanceCarousel();
 ////			bot.shooter.shootAndUpdateArtifactCount();
 ////		}
-//		bot.driveToBotRelativePositionWithTimeout(0, -14, 0, 750, 1000);
+//		bot.driveToBotRelativePositionWithTimeout(0, 14, 0, 750, 1000);
 //		bot.shooter.turnOff();
 //
 ////		bot.shooter.lowerLift();
