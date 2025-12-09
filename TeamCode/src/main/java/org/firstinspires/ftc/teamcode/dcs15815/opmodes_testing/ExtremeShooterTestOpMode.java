@@ -39,7 +39,7 @@ public class ExtremeShooterTestOpMode extends TwoGamepadDriverOp {
 
 
 			if (gamepad1.xWasPressed()) {
-				bot.shooter.shoot();
+//				bot.shooter.shoot();
 			}
 
 
