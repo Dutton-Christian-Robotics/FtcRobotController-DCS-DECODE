@@ -1,5 +1,9 @@
 package org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderBot;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
+
 public class DefenderBotPosition {
     private double x;
     private double y;
@@ -11,21 +15,21 @@ public class DefenderBotPosition {
         ABSOLUTE, RELATIVE
     }
 
-    DefenderBotPosition(double x, double y, double h, PositionType t) {
+    public DefenderBotPosition(double x, double y, double h, PositionType t) {
         this.x = x;
         this.y = y;
         this.heading = h;
         this.type = t;
     }
 
-    DefenderBotPosition(double x, double y, double h) {
+    public DefenderBotPosition(double x, double y, double h) {
         this.x = x;
         this.y = y;
         this.heading = h;
         this.type = PositionType.ABSOLUTE;
     }
 
-    DefenderBotPosition(double x, double y) {
+    public DefenderBotPosition(double x, double y) {
         this.x = x;
         this.y = y;
         this.heading = 0;
@@ -59,6 +63,10 @@ public class DefenderBotPosition {
     public void shift(double dX, double dY) {
         setX(x + dX);
         setY(y + dY);
+    }
+
+    public Pose2D asPose2D() {
+        return new Pose2D(DistanceUnit.INCH, getX(), getY(), AngleUnit.DEGREES, getHeading());
     }
 
     public void add(double dX, double dY) {
