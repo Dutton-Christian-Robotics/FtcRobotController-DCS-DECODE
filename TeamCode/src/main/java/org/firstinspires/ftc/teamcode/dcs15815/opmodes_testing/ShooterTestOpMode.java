@@ -34,7 +34,7 @@ public class ShooterTestOpMode extends LinearOpMode {
             }
 
             if (gamepad1.x) {
-                bot.shooter.shootAndUpdateArtifactCount();
+//                bot.shooter.shootAndUpdateArtifactCount();
 
             } else if (gamepad1.dpadDownWasPressed()) {
                 double shooterMotorPower = bot.shooter.currentShooterPower;
