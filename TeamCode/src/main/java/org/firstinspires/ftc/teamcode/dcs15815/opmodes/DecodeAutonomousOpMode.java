@@ -15,6 +15,9 @@ public abstract class DecodeAutonomousOpMode extends LinearOpMode {
 
     public abstract void setAlliance();
 
+    public void setup() {
+
+    }
 
     @Override
     public void runOpMode() {
@@ -42,6 +45,8 @@ public abstract class DecodeAutonomousOpMode extends LinearOpMode {
         } else {
             bot.effects.wavesParty();
         }
+
+        setup();
 
         waitForStart();
 //        bot.navigation.resetOtosAndResetOrigin();
