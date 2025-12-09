@@ -29,7 +29,6 @@ public class TwoGamepadDriverOp extends LinearOpMode {
 	});
 
 	DefenderDebouncer shooterDeflectorDebouncer = new DefenderDebouncer(500, () -> {
-
 		if (bot.shooter.isDeflectorRaised) {
 			bot.shooter.lowerDeflector();
 		} else {
@@ -39,35 +38,24 @@ public class TwoGamepadDriverOp extends LinearOpMode {
 
 	DefenderDebouncer startShootDebouncer = new DefenderDebouncer(500, () -> {
 		bot.shooter.beginShooting();
-//		bot.shooter.shootAndUpdateArtifactCount(autoAdvanceCarousel);
-//		bot.shooter.openGate();
-//		sleep(150);
-//		bot.intake.turnOnCarouselForAdvance();
 	});
 
 	DefenderDebouncer stopShootDebouncer = new DefenderDebouncer(500, () -> {
 		bot.shooter.stopShooting();
-//		bot.shooter.shootAndUpdateArtifactCount(autoAdvanceCarousel);
-//		bot.intake.setNumberOfArtifactsLoaded(0);
-//		bot.intake.turnOffCarousel();
-//		bot.shooter.closeGate();
 	});
 
 	DefenderDebouncer startIntakeDebouncer = new DefenderDebouncer(500, () -> {
-//		bot.shooter.shootAndUpdateArtifactCount(autoAdvanceCarousel);
 		bot.intake.turnOn();
 	});
 
 
 	DefenderDebouncer stopIntakeDebouncer = new DefenderDebouncer(500, () -> {
-//		bot.shooter.shootAndUpdateArtifactCount(autoAdvanceCarousel);
 		bot.intake.turnOff();
 	});
 
 
 	DefenderDebouncer advanceCarouselDebouncer = new DefenderDebouncer(500, () -> {
 		bot.intake.advanceCarousel();
-
 	});
 
 
@@ -81,40 +69,27 @@ public class TwoGamepadDriverOp extends LinearOpMode {
 		bot.effects.startLiveStatus();
 
 		gamepad1RightStickXModifier =  new DefenderAnalogModifier(
-			   DecodeConfiguration.GAMEPAD1_RIGHT_STICK_X_CURVE,
-			   DecodeConfiguration.GAMEPAD1_RIGHT_STICK_X_MAX
+			DecodeConfiguration.GAMEPAD1_RIGHT_STICK_X_CURVE,
+			DecodeConfiguration.GAMEPAD1_RIGHT_STICK_X_MAX
 		);
 
 		waitForStart();
 
 		while (opModeIsActive()) {
 
-			if (gamepad2.left_stick_y != 0 || gamepad2.left_stick_x != 0) {
-				bot.intake.turnOn();
-
-
-			} else if (gamepad2.xWasPressed()) {
-				bot.intake.reverse();
-
-			} else if (gamepad2.right_stick_y != 0 || gamepad2.right_stick_x != 0) {
-				bot.intake.turnOff();
-			}
-
-			if (gamepad2.left_trigger > 0 && !bot.intake.isIntakeOn) {
-				startIntakeDebouncer.run();
-			} else if (gamepad2.left_trigger == 0 && bot.intake.isIntakeOn) {
-				stopIntakeDebouncer.run();
-			}
-//			telemetry.addData("left", gamepad2.left_trigger > 0);
-//			telemetry.addData("on", !bot.intake.isIntakeOn);
-
-			if (gamepad2.right_trigger > 0 && !bot.shooter.isGateOpen) {
-				startShootDebouncer.run();
-			} else if (gamepad2.right_trigger == 0 && bot.shooter.isGateOpen) {
-				stopShootDebouncer.run();
-			}
+		/* ----------------------------------------------------------------------------------------
+			This IF block will run when gamepdad2 START has been pressed and we are
+			 now in configuration mode, which lets us change some of the behavior of the bot
+			 and controls.
+		   ---------------------------------------------------------------------------------------- */
 
 			if (changeConfiguration) {
+
+			/* ----------------------------------------------------------------------------------------
+				This code is useful for practice when we don't run an autonomous and thus
+				don't have information about what alliance we're on.
+			   ---------------------------------------------------------------------------------------- */
+
 				if (gamepad2.aWasPressed()) {
 					DefenderAlliance.getInstance().setColor(DefenderAlliance.Color.RED);
 
@@ -123,13 +98,22 @@ public class TwoGamepadDriverOp extends LinearOpMode {
 
 				}
 
+			/* ----------------------------------------------------------------------------------------
+				Toggling the Easter Egg speech mode. Some of this is less useful with the
+				hardware changes we made leading up to States.
+			   ---------------------------------------------------------------------------------------- */
+
 				if (gamepad2.yWasPressed()) {
 					bot.useSpeech = !bot.useSpeech;
 				}
-				if (gamepad2.dpadLeftWasPressed()) {
-					bot.intake.setNumberOfArtifactsLoaded(0);
 
-				} else if (gamepad2.dpadRightWasPressed()) {
+			/* ----------------------------------------------------------------------------------------
+				Seems unlikely our drive team would be using this during match play, but
+				this allows resetting or changing our artifact count. Remember that when
+				we're > 4, our lights turn purple.
+			   ---------------------------------------------------------------------------------------- */
+
+				if (gamepad2.dpadLeftWasPressed() || gamepad2.dpadRightWasPressed()) {
 					bot.intake.setNumberOfArtifactsLoaded(0);
 
 				} else if (gamepad2.dpadUpWasPressed()) {
@@ -145,27 +129,72 @@ public class TwoGamepadDriverOp extends LinearOpMode {
 
 
 			} else {
+
+			/* ----------------------------------------------------------------------------------------
+				This is the code for when we're NOT in configuration mode.
+			   ---------------------------------------------------------------------------------------- */
+
+				if (gamepad2.left_stick_y != 0 || gamepad2.left_stick_x != 0) {
+					bot.intake.turnOn();
+
+				} else if (gamepad2.xWasPressed()) {
+					bot.intake.reverse();
+
+				} else if (gamepad2.right_stick_y != 0 || gamepad2.right_stick_x != 0) {
+					bot.intake.turnOff();
+				}
+
+				if (gamepad2.left_trigger > 0 && !bot.intake.isIntakeOn) {
+					startIntakeDebouncer.run();
+
+				} else if (gamepad2.left_trigger == 0 && bot.intake.isIntakeOn) {
+					stopIntakeDebouncer.run();
+				}
+
+				if (gamepad2.right_trigger > 0 && !bot.shooter.isGateOpen) {
+					startShootDebouncer.run();
+
+				} else if (gamepad2.right_trigger == 0 && bot.shooter.isGateOpen) {
+					stopShootDebouncer.run();
+				}
+
+
 				if (gamepad2.bWasPressed()) {
 					bot.shooter.turnOff();
 				}
 //				if (gamepad2.yWasPressed()) {
 //					advanceCarouselDebouncer.run();
 //				}
+
+			/* ----------------------------------------------------------------------------------------
+				For some reason, when we tried tihis function with the yWasPressed, it wasn't
+				properly letting us toggle. So for a quick fix, we switched back to a debouncer.
+			   ---------------------------------------------------------------------------------------- */
+
 				if (gamepad2.y) {
 					shooterDeflectorDebouncer.run();
 
 				}
-//				if (gamepad2.yWasPressed() && bot.shooter.isDeflectorRaised) {
-//					bot.shooter.lowerDeflector();
-//
-//				}
+
 				if (gamepad2.dpadDownWasPressed() || gamepad2.dpadUpWasPressed()
 					   || gamepad2.dpadLeftWasPressed() || gamepad2.dpadRightWasPressed()) {
 					bot.intake.deAdvanceCarousel();
 				}
+
+				if (gamepad2.leftBumperWasPressed()) {
+					shooterSpeedLowDebouncer.run();
+
+				} else if (gamepad2.right_bumper) {
+					shooterSpeedFullDebouncer.run();
+				}
+
 			}
 
 
+		/* ----------------------------------------------------------------------------------------
+			This needs to be outside of the if (changeConfiguration) loop so that it runs
+			no matter which mode we're in.
+		   ---------------------------------------------------------------------------------------- */
 
 
 			if (gamepad2.startWasPressed()) {
@@ -173,15 +202,20 @@ public class TwoGamepadDriverOp extends LinearOpMode {
 			}
 
 
-			if (gamepad2.leftBumperWasPressed()) {
-				shooterSpeedLowDebouncer.run();
-			} else if (gamepad2.right_bumper) {
-				shooterSpeedFullDebouncer.run();
-			}
 
 
-//			bot.drivetrain.drive(gamepad1.left_stick_y, (gamepad1.right_trigger - gamepad1.left_trigger), gamepad1.right_stick_x);
+		/* ----------------------------------------------------------------------------------------
+			This is the only code that
+			what controls now make which changes.
+		   ---------------------------------------------------------------------------------------- */
+
+
 			bot.drivetrain.driveNoProportional(gamepad1.left_stick_y, (gamepad1.right_trigger - gamepad1.left_trigger), gamepad1RightStickXModifier.modify(gamepad1.right_stick_x));
+
+		/* ----------------------------------------------------------------------------------------
+			When we're in configuration mode, we show additional telemetry information about
+			what controls now make which changes.
+		   ---------------------------------------------------------------------------------------- */
 
 			if (changeConfiguration) {
 				telemetry.addData("CHANGE CONFIGURATION", "===================");
@@ -189,24 +223,24 @@ public class TwoGamepadDriverOp extends LinearOpMode {
 					telemetry.addData("*Count", "Up | Down | 0 = Left | 0 = Right");
 					telemetry.addData("*Alliance", "Red = A | Blue = B");
 					telemetry.addData("*Voice", "Toggle = Y");
-					telemetry.addData("*Carousel", "Toggle Auto Advance = Back");
+//					telemetry.addData("*Carousel", "Toggle Auto Advance = Back");
 				}
 				telemetry.addData("==================", "===================");
 			}
 			telemetry.addData("Shooter Power", currentShooterPower);
-			telemetry.addData("x", gamepad1.right_stick_x);
-			telemetry.addData("x mod", gamepad1RightStickXModifier.modify(gamepad1.right_stick_x));
 			telemetry.addData("Deflector", bot.shooter.isDeflectorRaised ? "UP" : "down");
+			telemetry.addData("Alliance", bot.allianceColor());
+			telemetry.addData("Voice", bot.useSpeech ? "on" : "off");
+			telemetry.addData("Configuration", changeConfiguration ? "Exit = Start" : "Change = Start");
+
+//			telemetry.addData("x", gamepad1.right_stick_x);
+//			telemetry.addData("x mod", gamepad1RightStickXModifier.modify(gamepad1.right_stick_x));
+//			telemetry.addData("Color", bot.shooter.readyArtifactColor());
 //			telemetry.addData("Shooter L", bot.shooter.motorLeft.getVelocity());
 //			telemetry.addData("Shooter R", bot.shooter.motorRight.getVelocity());
 //			telemetry.addData("Artifacts", bot.intake.numberOfArtifactsLoaded);
-			telemetry.addData("Alliance", bot.allianceColor());
-//			telemetry.addData("Color", bot.shooter.readyArtifactColor());
-			telemetry.addData("Carousel", autoAdvanceCarousel ? "auto advance" : "manual advance");
-			if (!bot.useSpeech) {
-				telemetry.addData("Voice", "OFF");
-			}
-			telemetry.addData("Configuration", changeConfiguration ? "Exit = Start" : "Change = Start");
+//			telemetry.addData("Carousel", autoAdvanceCarousel ? "auto advance" : "manual advance");
+
 			telemetry.update();
 
 		}
