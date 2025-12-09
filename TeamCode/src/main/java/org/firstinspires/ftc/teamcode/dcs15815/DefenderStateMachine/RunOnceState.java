@@ -8,6 +8,10 @@ public class RunOnceState extends DefenderState {
 		block = b;
 	}
 
+	public static RunOnceState make(Runnable b) {
+		return new RunOnceState(b);
+	}
+
 	@Override
 	public void run() {
 		block.run();

@@ -1,13 +1,14 @@
 package org.firstinspires.ftc.teamcode.dcs15815.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderUtilities.DefenderAlliance;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 
-
+@Disabled
 @Autonomous(name = "Blue 1", group = "1", preselectTeleOp = "Driver Operated")
 public class Blue1AutonomousOpMode extends DecodeAutonomousOpMode {
 

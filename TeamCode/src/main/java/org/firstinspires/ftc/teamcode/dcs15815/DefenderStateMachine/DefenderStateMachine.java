@@ -6,6 +6,7 @@ import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderBot.Def
 import java.util.ArrayList;
 import java.util.Hashtable;
 
+
 public class DefenderStateMachine {
 
 	private DefenderState currentState;
@@ -18,6 +19,11 @@ public class DefenderStateMachine {
 		bot = b;
 		isFinished = false;
 //		currentEvents = new ArrayList<>();
+	}
+
+	public DefenderState startWithState(DefenderState s) {
+		setState(s);
+		return s;
 	}
 
 //	public void addEventSource(DefenderEventSource s) {

@@ -8,6 +8,10 @@ public class DecodeShootState extends DefenderState {
 		super();
 	}
 
+	public static DecodeShootState make() {
+		return new DecodeShootState();
+	}
+
 	@Override
 	public void run() {
 		DecodeBot bot = (DecodeBot)stateMachine.bot;

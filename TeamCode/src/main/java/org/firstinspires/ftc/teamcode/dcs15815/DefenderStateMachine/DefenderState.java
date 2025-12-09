@@ -9,6 +9,8 @@ public class DefenderState {
 	protected boolean isStarted;
 	protected DefenderStateMachine stateMachine;
 	protected String stateLabel;
+	private Runnable beforeStartRunnable;
+	private Runnable beforeStopRunnable;
 
 	public DefenderState() {
 		isFinished = false;
@@ -34,6 +36,18 @@ public class DefenderState {
 		setStateMachine(sm);
 	}
 
+	public static DefenderState make(String label) {
+		return new DefenderState(label);
+	}
+
+	public static DefenderState make(DefenderStateMachine sm) {
+		return new DefenderState(sm);
+	}
+
+	public static DefenderState make(DefenderStateMachine sm, String label) {
+		return new DefenderState(sm, label);
+	}
+
 	public DefenderStateMachine getStateMachine() {
 		return stateMachine;
 	}
@@ -54,10 +68,28 @@ public class DefenderState {
 		stateLabel = l;
 	}
 
+	public DefenderState setBeforeStart(Runnable r) {
+		beforeStartRunnable = r;
+		return this;
+	}
 
-	public void beforeStart() { }
+	public DefenderState setBeforeStop(Runnable r) {
+		beforeStopRunnable = r;
+		return this;
+	}
 
-	public void beforeStop() {  }
+	public void beforeStart() {
+		if (beforeStartRunnable != null) {
+			beforeStartRunnable.run();
+		}
+	}
+
+	public void beforeStop() {
+		if (beforeStopRunnable != null) {
+			beforeStopRunnable.run();
+		}
+
+	}
 
 	public void run() { }
 
@@ -86,8 +118,9 @@ public class DefenderState {
 	}
 
 
-	public void andThen(DefenderState ns) {
+	public DefenderState andThen(DefenderState ns) {
 		nextState = ns;
+		return nextState;
 	}
 
 	public void andThenAfterPause(long wait, DefenderState ns) {
