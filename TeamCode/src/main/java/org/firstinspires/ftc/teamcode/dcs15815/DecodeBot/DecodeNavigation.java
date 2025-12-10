@@ -181,6 +181,7 @@ public class DecodeNavigation extends DefenderBotSystem {
         if (atTarget && holdTimer.time() > holdTime) {
             drivetrain.stopDriving();
             isAtTarget = false;
+            drivetrain.deactivateTimer();
             return true;
         }
         return false;

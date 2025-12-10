@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.dcs15815.DefenderStateMachine;
 
 
 import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderBot.DefenderBot;
+import org.firstinspires.ftc.teamcode.dcs15815.opmodes.DecodeAutonomousOpMode;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -12,6 +13,8 @@ public class DefenderStateMachine {
 	private DefenderState currentState;
 	public DefenderBot bot;
 	private boolean isFinished = false;
+	public DecodeAutonomousOpMode opMode = null;
+	public boolean isDebugging = false;
 
 
 	public DefenderStateMachine(DefenderBot b) {
@@ -24,6 +27,12 @@ public class DefenderStateMachine {
 	public DefenderState startWithState(DefenderState s) {
 		setState(s);
 		return s;
+	}
+
+	public DefenderStateMachine setOpMode(DecodeAutonomousOpMode om) {
+		this.opMode = om;
+		this.bot = opMode.bot;
+		return this;
 	}
 
 //	public void addEventSource(DefenderEventSource s) {
@@ -44,9 +53,10 @@ public class DefenderStateMachine {
 			currentState.beforeStop();
 		}
 		currentState = s;
-		if (currentState.stateLabel != null) {
-			bot.telemetry.addLine("Starting: " + currentState.stateLabel);
-			bot.telemetry.update();
+		if (isDebugging) {
+			if (currentState.stateLabel != null) {
+				addTelemetryLine("Setting: " + currentState.stateLabel);
+			}
 		}
 		currentState.beforeStart();
 		currentState.setStateMachine(this);
@@ -68,6 +78,11 @@ public class DefenderStateMachine {
 		return currentState;
 	}
 
+	public DefenderStateMachine setDebugging(boolean b) {
+		isDebugging = b;
+		return this;
+	}
+
 	public void run() {
 //		ArrayList<DefenderEvent> events = new ArrayList<>();
 
@@ -76,6 +91,10 @@ public class DefenderStateMachine {
 		}
 		if (currentState == null) {
 			throw new RuntimeException("State machine has no current state. Did you forget to set a first state?");
+		}
+
+		if (opMode == null) {
+			throw new RuntimeException("State machine has no opmode. Did you forget to set it?");
 		}
 
 //		for (DefenderEventSource s : eventSources) {
@@ -87,11 +106,19 @@ public class DefenderStateMachine {
 
 		if (currentState.isFinished()) {
 			if (currentState.hasNextState()) {
+				if (isDebugging) {
+					addTelemetryLine("Next state: " + (currentState.nextState.stateLabel != null ? currentState.nextState.stateLabel : "n/a"));
+				}
 				setState(currentState.nextState);
 			} else {
 				isFinished = true;
 			}
 		}
+	}
+
+	public void addTelemetryLine(String x) {
+		opMode.telemetry.addLine(x);
+		opMode.telemetry.update();
 	}
 
 }

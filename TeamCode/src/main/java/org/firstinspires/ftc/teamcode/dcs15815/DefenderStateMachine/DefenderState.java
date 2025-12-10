@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.dcs15815.DefenderStateMachine;
 
-import java.util.ArrayList;
-
 public class DefenderState {
 	protected String label;
 	public DefenderState nextState;
@@ -20,7 +18,7 @@ public class DefenderState {
 	public DefenderState(String label) {
 		isFinished = false;
 		isStarted = false;
-		setStateLabel(label);
+		setLabel(label);
 	}
 
 	public DefenderState(DefenderStateMachine sm) {
@@ -32,7 +30,7 @@ public class DefenderState {
 	public DefenderState(DefenderStateMachine sm, String label) {
 		isFinished = false;
 		isStarted = false;
-		setStateLabel(label);
+		setLabel(label);
 		setStateMachine(sm);
 	}
 
@@ -65,7 +63,7 @@ public class DefenderState {
 		return stateLabel;
 	}
 
-	public DefenderState setStateLabel(String l) {
+	public DefenderState setLabel(String l) {
 		stateLabel = l;
 		return this;
 	}

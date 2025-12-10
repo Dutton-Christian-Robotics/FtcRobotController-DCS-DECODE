@@ -2,15 +2,13 @@ package org.firstinspires.ftc.teamcode.dcs15815.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-import org.firstinspires.ftc.teamcode.dcs15815.DecodeBot.DecodeConfiguration;
-import org.firstinspires.ftc.teamcode.dcs15815.DecodeBot.DecodeShootState;
 import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderUtilities.DefenderAlliance;
 import org.firstinspires.ftc.teamcode.dcs15815.DefenderStateMachine.DefenderStateMachine;
 import org.firstinspires.ftc.teamcode.dcs15815.DefenderStateMachine.DriveToPositionState;
 import org.firstinspires.ftc.teamcode.dcs15815.DefenderStateMachine.RunOnceState;
 
-@Autonomous(name = "Blue Far 3a", group = "3a", preselectTeleOp = "Driver Operated")
-public class Blue4AutonomousOpMode extends DecodeAutonomousOpMode {
+@Autonomous(name = "Blue Near 0a", group = "0a", preselectTeleOp = "Driver Operated")
+public class Blue0nAutonomousOpMode extends DecodeAutonomousOpMode {
 
 	DefenderAlliance.Color allianceColor = DefenderAlliance.Color.UNKNOWN;
 
@@ -30,22 +28,13 @@ public class Blue4AutonomousOpMode extends DecodeAutonomousOpMode {
 	   	.startWithState(
 			RunOnceState
 				   .make(() -> {
-						bot.navigation.setPosition("BLUE4_START");
-						bot.shooter.changeShooterPower(DecodeConfiguration.BLUE4_SHOOTER_MOTOR_POWER);
+						bot.navigation.setPosition("BLUE0N_START");
 				   })
 				   .setLabel("START")
-		).andThen(
-			DriveToPositionState
-				   .where("BLUE4_SHOOT_PRELOAD")
-				   .setLabel("DRIVE TO SHOOT PRELOAD")
-		).andThen(
-			DecodeShootState
-				   .make()
-				   .setLabel("SHOOT PRELOAD")
 
 	   ).andThen(
 			 DriveToPositionState
-				    .where("BLUE4_END")
+				    .where("BLUE0N_END")
 				    .setLabel("MOVE OFF LINE")
 
 

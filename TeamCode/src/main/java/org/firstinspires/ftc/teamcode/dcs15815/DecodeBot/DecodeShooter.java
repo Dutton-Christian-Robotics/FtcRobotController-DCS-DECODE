@@ -167,10 +167,21 @@ public class DecodeShooter extends DefenderBotSystem {
 	}
 
 	public void shootAutonomously() {
+		shootAutonomously(0);
+	}
+
+	public void shootAutonomously(double boost) {
+		double p = currentShooterPower;
+		if (boost > 0) {
+			changeShooterPower(p + boost);
+		}
 		beginShooting();
 		sleep(DecodeConfiguration.SHOOTER_TIME_FOR_SHOOTING);
 		stopShootingAndUpdateArtifactCount();
+		changeShooterPower(p);
 	}
+
+
 
 
 

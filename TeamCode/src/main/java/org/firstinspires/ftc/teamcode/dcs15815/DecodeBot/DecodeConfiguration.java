@@ -40,7 +40,7 @@ public class DecodeConfiguration extends DefenderBotConfiguration {
     public static String INTAKE_MOTOR_CAROUSEL_NAME = "motor_big_wheel";
     public static DcMotorSimple.Direction INTAKE_MOTOR_CAROUSEL_DIRECTION = DcMotorSimple.Direction.REVERSE;
     public static double INTAKE_MOTOR_CAROUSEL_POWER = 0.3;
-    public static double INTAKE_MOTOR_CAROUSEL_POWER_ADVANCE = 0.225; // used to be 0.3
+    public static double INTAKE_MOTOR_CAROUSEL_POWER_ADVANCE = 0.22; // used to be 0.3
     public static long INTAKE_MOTOR_CAROUSEL_TIME_ADVANCE = 600; //was 500
 
     public static int INTAKE_SERVO_UPPER_LEFT_DIRECTION = -1;
@@ -164,17 +164,40 @@ public class DecodeConfiguration extends DefenderBotConfiguration {
     /* AUTONOMOUS -------------------------------------------------------- */
 
     public static double SHOOTER_MOTOR_POWER_AUTON = 0.985;
+    public static long INTAKE_TIME_WAIT_AUTONOMOUS = 1400;
 
-    public static DefenderBotPosition BLUE_LINE1_START = new DefenderBotPosition(7, 32, 90);
-    public static DefenderBotPosition BLUE_LINE1_END = new DefenderBotPosition(7, 53, 90);
+    public static DefenderBotPosition BLUE_LINE1_START = new DefenderBotPosition(8, 32, 90);
+    public static DefenderBotPosition BLUE_LINE1_END = new DefenderBotPosition(8, 60, 90);
+
     public static DefenderBotPosition BLUE_LINE2_START = new DefenderBotPosition(-15, 32, 90);
-    public static DefenderBotPosition BLUE_LINE2_END = new DefenderBotPosition(-15, 58, 90);
+    public static DefenderBotPosition BLUE_LINE2_END = new DefenderBotPosition(-15, 66, 90);
+
+    public static DefenderBotPosition BLUE_LINE3_START = new DefenderBotPosition(-34, 24, 90);
+    public static DefenderBotPosition BLUE_LINE3_END = new DefenderBotPosition(-34, 59, 90);
 
 
+    public static double BLUE1_DRIVETRAIN_POWER_INTAKE = 0.38;
+    public static double BLUE2_DRIVETRAIN_POWER_INTAKE = BLUE1_DRIVETRAIN_POWER_INTAKE;
+    public static double BLUE3_DRIVETRAIN_POWER_INTAKE = BLUE1_DRIVETRAIN_POWER_INTAKE;
+    public static double BLUE4_DRIVETRAIN_POWER_INTAKE = BLUE1_DRIVETRAIN_POWER_INTAKE;
+    public static double BLUE5_DRIVETRAIN_POWER_INTAKE = BLUE1_DRIVETRAIN_POWER_INTAKE;
+    public static double BLUE6_DRIVETRAIN_POWER_INTAKE = BLUE1_DRIVETRAIN_POWER_INTAKE;
+
+    public static double BLUE1_SHOOTER_MOTOR_POWER = 0.985;
+    public static double BLUE2_SHOOTER_MOTOR_POWER = BLUE1_SHOOTER_MOTOR_POWER;
+    public static double BLUE3_SHOOTER_MOTOR_POWER = BLUE1_SHOOTER_MOTOR_POWER;
+    public static double BLUE4_SHOOTER_MOTOR_POWER = 0.78;
+    public static double BLUE5_SHOOTER_MOTOR_POWER = BLUE4_SHOOTER_MOTOR_POWER;
+    public static double BLUE6_SHOOTER_MOTOR_POWER = BLUE4_SHOOTER_MOTOR_POWER;
+
+
+
+    public static DefenderBotPosition BLUE0N_START = new DefenderBotPosition(50, 50, -135);
+    public static DefenderBotPosition BLUE0N_END = new DefenderBotPosition(43, 33, -135);
 
     public static DefenderBotPosition BLUE1_START = new DefenderBotPosition(50, 50, -135);
-    public static DefenderBotPosition BLUE1_SHOOT_PRELOAD = new DefenderBotPosition(43, 43, -135);
-    public static DefenderBotPosition BLUE1_END = new DefenderBotPosition(43, 35, -135);
+    public static DefenderBotPosition BLUE1_SHOOT_PRELOAD = new DefenderBotPosition(41, 41, -135);
+    public static DefenderBotPosition BLUE1_END = new DefenderBotPosition(43, 33, -135);
 
     public static DefenderBotPosition BLUE2_START = BLUE1_START;
     public static DefenderBotPosition BLUE2_SHOOT_PRELOAD = BLUE1_SHOOT_PRELOAD;
@@ -184,6 +207,26 @@ public class DecodeConfiguration extends DefenderBotConfiguration {
     public static DefenderBotPosition BLUE3_SHOOT_PRELOAD = BLUE1_SHOOT_PRELOAD;
     public static DefenderBotPosition BLUE3_END = BLUE1_END;
 
+    public static DefenderBotPosition BLUE0F_START = new DefenderBotPosition(-60, 14, 0);
+    public static DefenderBotPosition BLUE0F_END = new DefenderBotPosition(-35, 8, 23);
+
+    public static DefenderBotPosition BLUE4_START = new DefenderBotPosition(-60, 14, 0);
+    public static DefenderBotPosition BLUE4_SHOOT_PRELOAD = new DefenderBotPosition(-54, 8, 23);
+    public static DefenderBotPosition BLUE4_END = new DefenderBotPosition(-35, 8, 23);
+
+    public static double BLUE5_SHOOTER_BOOST_SECOND_SET = 0.1;
+    public static DefenderBotPosition BLUE5_START = BLUE4_START;
+    public static DefenderBotPosition BLUE5_SHOOT_PRELOAD = BLUE4_SHOOT_PRELOAD;
+    public static DefenderBotPosition BLUE5_END = new DefenderBotPosition(-35, 8, 23);
+
+
+    public static double BLUE6_SHOOTER_BOOST_SECOND_SET = 0.02;
+    public static double BLUE6_SHOOTER_BOOST_THIRD_SET = 0.02;
+    public static DefenderBotPosition BLUE6_START = BLUE4_START;
+    public static DefenderBotPosition BLUE6_SHOOT_PRELOAD = BLUE4_SHOOT_PRELOAD;
+    public static DefenderBotPosition BLUE6_LINE2_START = new DefenderBotPosition(-10, 26, 90);
+    public static DefenderBotPosition BLUE6_LINE2_END = new DefenderBotPosition(-10, 58, 90);
+    public static DefenderBotPosition BLUE6_END = new DefenderBotPosition(-35, 8, 23);
 
 
     /* METHODS -------------------------------------------------------- */

@@ -111,6 +111,11 @@ public class DecodeMecanumDrivetrain extends DefenderBotDrivetrain {
 		setPower(0);
 	}
 
+	public void deactivateTimer() {
+		drivingTimer = null;
+		powerBoost = 0;
+	}
+
 	public void driveWithPinpointValues(double x, double y, double h, double p) {
 
 		if (allowPowerBoost && (drivingTimer == null)) {
@@ -124,10 +129,10 @@ public class DecodeMecanumDrivetrain extends DefenderBotDrivetrain {
 		y *= p;
 		h *= p;
 
-		bot.telemetry.addData("x out", x);
-		bot.telemetry.addData("y out", y);
-		bot.telemetry.addData("h out", h);
-		bot.telemetry.addData("p", p);
+//		bot.telemetry.addData("x out", x);
+//		bot.telemetry.addData("y out", y);
+//		bot.telemetry.addData("h out", h);
+//		bot.telemetry.addData("p", p);
 
 
 		double backLeftOutput = x + -y - h;
@@ -152,11 +157,11 @@ public class DecodeMecanumDrivetrain extends DefenderBotDrivetrain {
 		}
 
 
-		bot.telemetry.addData("BL", backLeftOutput);
-		bot.telemetry.addData("FL", frontLeftOutput);
-		bot.telemetry.addData("FR", frontRightOutput);
-		bot.telemetry.addData("BR", backRightOutput);
-		bot.telemetry.addData("boost", powerBoost);
+//		bot.telemetry.addData("BL", backLeftOutput);
+//		bot.telemetry.addData("FL", frontLeftOutput);
+//		bot.telemetry.addData("FR", frontRightOutput);
+//		bot.telemetry.addData("BR", backRightOutput);
+//		bot.telemetry.addData("boost", powerBoost);
 
 		setPower(backLeftOutput, frontLeftOutput, frontRightOutput, backRightOutput);
 

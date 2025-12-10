@@ -9,8 +9,8 @@ import org.firstinspires.ftc.teamcode.dcs15815.DefenderStateMachine.DefenderStat
 import org.firstinspires.ftc.teamcode.dcs15815.DefenderStateMachine.DriveToPositionState;
 import org.firstinspires.ftc.teamcode.dcs15815.DefenderStateMachine.RunOnceState;
 
-@Autonomous(name = "Blue Near 9a", group = "9a", preselectTeleOp = "Driver Operated")
-public class Blue3AutonomousOpMode extends DecodeAutonomousOpMode {
+@Autonomous(name = "Blue Near 3a", group = "3a", preselectTeleOp = "Driver Operated")
+public class Blue1AutonomousOpMode extends DecodeAutonomousOpMode {
 
 	DefenderAlliance.Color allianceColor = DefenderAlliance.Color.UNKNOWN;
 
@@ -43,59 +43,9 @@ public class Blue3AutonomousOpMode extends DecodeAutonomousOpMode {
 			DecodeShootState
 				   .make()
 				   .setLabel("SHOOT PRELOAD")
-		).andThen(
-			DriveToPositionState
-				   .where("BLUE_LINE1_START")
-				   .setLabel("DRIVE TO LINE 1")
-		).andThen(
-			DriveToPositionState
-				   .where("BLUE_LINE1_END", DecodeConfiguration.INTAKE_TIME_WAIT_AUTONOMOUS)
-				   .setPowerOverride(DecodeConfiguration.BLUE3_DRIVETRAIN_POWER_INTAKE)
-				   .setBeforeStart(() -> {
-					   bot.intake.turnOn();
-				   })
-				   .setBeforeStop(() -> {
-					   bot.intake.turnOff();
-				   })
-				   .setLabel("INTAKE LINE 1")
-		).andThen(
-			DriveToPositionState
-				   .where("BLUE1_SHOOT_PRELOAD")
-				   .setLabel("DRIVE TO SHOOT")
-		).andThen(
-			DecodeShootState
-				   .make()
-				   .setLabel("SHOOT SECOND THREE")
-		).andThen(
-			DriveToPositionState
-				.where("BLUE_LINE2_START")
-				.setLabel("DRIVE TO LINE 2")
 	   ).andThen(
 			 DriveToPositionState
-			    .where("BLUE_LINE2_END", DecodeConfiguration.INTAKE_TIME_WAIT_AUTONOMOUS)
-				    .setPowerOverride(DecodeConfiguration.BLUE3_DRIVETRAIN_POWER_INTAKE)
-				    .setBeforeStart(() -> {
-					    bot.intake.turnOn();
-				    })
-				    .setBeforeStop(() -> {
-					    bot.intake.turnOff();
-				    })
-				    .setLabel("INTAKE LINE 2")
-	   ).andThen(
-			 DriveToPositionState
-				    .where("BLUE_LINE2_START")
-				    .setLabel("DRIVE AWAY FROM LINE 2")
-	   ).andThen(
-			 DriveToPositionState
-				    .where("BLUE1_SHOOT_PRELOAD")
-				    .setLabel("DRIVE TO SHOOT THIRD THREE")
-	   ).andThen(
-			 DecodeShootState
-				    .make()
-				    .setLabel("SHOOT THIRD THREE")
-	   ).andThen(
-			 DriveToPositionState
-				    .where("BLUE3_END")
+				    .where("BLUE1_END")
 				    .setLabel("MOVE OFF LINE")
 
 

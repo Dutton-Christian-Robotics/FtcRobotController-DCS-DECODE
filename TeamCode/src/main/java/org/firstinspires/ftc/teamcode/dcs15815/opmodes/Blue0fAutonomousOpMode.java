@@ -9,8 +9,8 @@ import org.firstinspires.ftc.teamcode.dcs15815.DefenderStateMachine.DefenderStat
 import org.firstinspires.ftc.teamcode.dcs15815.DefenderStateMachine.DriveToPositionState;
 import org.firstinspires.ftc.teamcode.dcs15815.DefenderStateMachine.RunOnceState;
 
-@Autonomous(name = "Blue Far 3a", group = "3a", preselectTeleOp = "Driver Operated")
-public class Blue4AutonomousOpMode extends DecodeAutonomousOpMode {
+@Autonomous(name = "Blue Far 0a", group = "0a", preselectTeleOp = "Driver Operated")
+public class Blue0fAutonomousOpMode extends DecodeAutonomousOpMode {
 
 	DefenderAlliance.Color allianceColor = DefenderAlliance.Color.UNKNOWN;
 
@@ -30,22 +30,13 @@ public class Blue4AutonomousOpMode extends DecodeAutonomousOpMode {
 	   	.startWithState(
 			RunOnceState
 				   .make(() -> {
-						bot.navigation.setPosition("BLUE4_START");
-						bot.shooter.changeShooterPower(DecodeConfiguration.BLUE4_SHOOTER_MOTOR_POWER);
+						bot.navigation.setPosition("BLUE0F_START");
 				   })
 				   .setLabel("START")
-		).andThen(
-			DriveToPositionState
-				   .where("BLUE4_SHOOT_PRELOAD")
-				   .setLabel("DRIVE TO SHOOT PRELOAD")
-		).andThen(
-			DecodeShootState
-				   .make()
-				   .setLabel("SHOOT PRELOAD")
 
 	   ).andThen(
 			 DriveToPositionState
-				    .where("BLUE4_END")
+				    .where("BLUE0F_END")
 				    .setLabel("MOVE OFF LINE")
 
 
