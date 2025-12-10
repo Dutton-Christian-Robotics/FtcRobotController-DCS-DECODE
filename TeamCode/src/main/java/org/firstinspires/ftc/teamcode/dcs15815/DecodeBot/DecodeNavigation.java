@@ -103,6 +103,14 @@ public class DecodeNavigation extends DefenderBotSystem {
         setPosition(p.asPose2D());
     }
 
+    public void setPosition(String n) {
+        try {
+            setPosition((DefenderBotPosition) DecodeConfiguration.class.getField(n).get(DecodeConfiguration.class));
+        } catch (Exception e) {
+            System.out.println("Could not find that position.");
+        }
+    }
+
     public void setPosition(double x, double y, double h) {
         setPosition(new DefenderBotPosition(x, y, h));
     }
@@ -166,12 +174,12 @@ public class DecodeNavigation extends DefenderBotSystem {
             isAtTarget = true;
 //            drivetrain.drivingTimer = null;
         } else {
-            drivetrain.stopDriving();
             holdTimer.reset();
             atTarget = false;
         }
 
         if (atTarget && holdTimer.time() > holdTime) {
+            drivetrain.stopDriving();
             isAtTarget = false;
             return true;
         }

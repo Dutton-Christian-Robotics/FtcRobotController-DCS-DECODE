@@ -52,8 +52,9 @@ public class DefenderState {
 		return stateMachine;
 	}
 
-	public void setStateMachine(DefenderStateMachine stateMachine) {
+	public DefenderState setStateMachine(DefenderStateMachine stateMachine) {
 		this.stateMachine = stateMachine;
+		return this;
 	}
 
 	public boolean hasStateMachine() {
@@ -64,8 +65,9 @@ public class DefenderState {
 		return stateLabel;
 	}
 
-	public void setStateLabel(String l) {
+	public DefenderState setStateLabel(String l) {
 		stateLabel = l;
+		return this;
 	}
 
 	public DefenderState setBeforeStart(Runnable r) {

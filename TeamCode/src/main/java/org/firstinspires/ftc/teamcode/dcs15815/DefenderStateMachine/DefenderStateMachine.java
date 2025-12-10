@@ -11,7 +11,7 @@ public class DefenderStateMachine {
 
 	private DefenderState currentState;
 	public DefenderBot bot;
-	private boolean isFinished;
+	private boolean isFinished = false;
 
 
 	public DefenderStateMachine(DefenderBot b) {
@@ -44,6 +44,10 @@ public class DefenderStateMachine {
 			currentState.beforeStop();
 		}
 		currentState = s;
+		if (currentState.stateLabel != null) {
+			bot.telemetry.addLine("Starting: " + currentState.stateLabel);
+			bot.telemetry.update();
+		}
 		currentState.beforeStart();
 		currentState.setStateMachine(this);
 	}

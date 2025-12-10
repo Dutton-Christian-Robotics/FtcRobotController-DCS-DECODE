@@ -18,7 +18,7 @@ public class TelemetryUpdateState extends DefenderState {
 		return new TelemetryUpdateState(l);
 	}
 	public static TelemetryUpdateState make(String l, String d) {
-		return new TelemetryUpdateState((l, d);
+		return new TelemetryUpdateState(l, d);
 	}
 
 	@Override

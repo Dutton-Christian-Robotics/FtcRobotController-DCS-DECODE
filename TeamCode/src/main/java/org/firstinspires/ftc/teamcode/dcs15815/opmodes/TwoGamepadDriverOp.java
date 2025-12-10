@@ -19,12 +19,12 @@ public class TwoGamepadDriverOp extends LinearOpMode {
 	public DefenderAnalogModifier gamepad1RightStickXModifier;
 
 	DefenderDebouncer shooterSpeedLowDebouncer = new DefenderDebouncer(500, () -> {
-		currentShooterPower = 0.8;
+		currentShooterPower = 0.7;
 		bot.shooter.changeShooterPower(currentShooterPower);
 	});
 
 	DefenderDebouncer shooterSpeedFullDebouncer = new DefenderDebouncer(500, () -> {
-		currentShooterPower = 1;
+		currentShooterPower = 0.8;
 		bot.shooter.changeShooterPower(currentShooterPower);
 	});
 
@@ -156,6 +156,12 @@ public class TwoGamepadDriverOp extends LinearOpMode {
 
 				} else if (gamepad2.right_trigger == 0 && bot.shooter.isGateOpen) {
 					stopShootDebouncer.run();
+				}
+
+				if (gamepad2.aWasPressed()) {
+					currentShooterPower = 1;
+					bot.shooter.changeShooterPower(currentShooterPower);
+
 				}
 
 

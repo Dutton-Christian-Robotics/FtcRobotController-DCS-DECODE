@@ -7,6 +7,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.GoBildaPinpointDriver;
 import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderBot.DefenderBotConfiguration;
+import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderBot.DefenderBotPosition;
 import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderUtilities.DefenderPresets;
 
 public class DecodeConfiguration extends DefenderBotConfiguration {
@@ -24,7 +25,7 @@ public class DecodeConfiguration extends DefenderBotConfiguration {
     public static DcMotorSimple.Direction DRIVETRAIN_MOTOR_BACK_RIGHT_DIRECTION = DcMotorSimple.Direction.REVERSE;
 
     public static double DRIVETRAIN_POWER_MAX = 1;
-    public static double DRIVETRAIN_POWER_MAX_AUTONOMOUS = 0.5;
+    public static double DRIVETRAIN_POWER_MAX_AUTONOMOUS = 0.4;
     public static int DRIVETRAIN_MAX_TICKS_PER_SECOND = 2800;
 
 
@@ -39,7 +40,7 @@ public class DecodeConfiguration extends DefenderBotConfiguration {
     public static String INTAKE_MOTOR_CAROUSEL_NAME = "motor_big_wheel";
     public static DcMotorSimple.Direction INTAKE_MOTOR_CAROUSEL_DIRECTION = DcMotorSimple.Direction.REVERSE;
     public static double INTAKE_MOTOR_CAROUSEL_POWER = 0.3;
-    public static double INTAKE_MOTOR_CAROUSEL_POWER_ADVANCE = 0.25; // used to be 0.3
+    public static double INTAKE_MOTOR_CAROUSEL_POWER_ADVANCE = 0.225; // used to be 0.3
     public static long INTAKE_MOTOR_CAROUSEL_TIME_ADVANCE = 600; //was 500
 
     public static int INTAKE_SERVO_UPPER_LEFT_DIRECTION = -1;
@@ -92,22 +93,13 @@ public class DecodeConfiguration extends DefenderBotConfiguration {
     public static long SHOOTER_TIME_BETWEEN_SHOTS = 150;
 
     public static long SHOOTER_TIME_AFTER_GATE_OPENS = 150;
-    public static long SHOOTER_TIME_FOR_SHOOTING = 2500;
+    public static long SHOOTER_TIME_FOR_SHOOTING = 2700; //was 2500
 
 //    public static String SHOOTER_SENSOR_READY_NAME = "sensor_lift_ball_color";
 //    public static double SHOOTER_SENSOR_READY_THRESHOLD_LIGHT = 0.3;
 
 
     /* GAMEPADS -------------------------------------------------------- */
-
-//    public static double GAMEPAD2_RIGHT_STICK_CURVE = 2;
-//    public static double GAMEPAD2_RIGHT_STICK_MAX = 1;
-//
-//    public static double GAMEPAD1_LEFT_STICK_Y_CURVE = 2.5;
-//    public static double GAMEPAD1_LEFT_STICK_Y_MAX = 1;
-//
-//    public static double GAMEPAD1_RIGHT_STICK_X_CURVE = 2;
-//    public static double GAMEPAD1_RIGHT_STICK_X_MAX = 0.5;
 
     /* EFFECTS -------------------------------------------------------- */
 
@@ -156,7 +148,7 @@ public class DecodeConfiguration extends DefenderBotConfiguration {
 
     /* GAMEPADS -------------------------------------------------------- */
 
-    public static double GAMEPAD1_RIGHT_STICK_X_CURVE = 2;
+    public static double GAMEPAD1_RIGHT_STICK_X_CURVE = 4;
     public static double GAMEPAD1_RIGHT_STICK_X_MAX = 1;
 
     /* PRESETS -------------------------------------------------------- */
@@ -168,6 +160,29 @@ public class DecodeConfiguration extends DefenderBotConfiguration {
 //    public static NautilusManipulatorPosition ASCENDED_POSITION = new NautilusManipulatorPosition(
 //            0, 0, NautilusConfiguration.WRIST_SERVO_POSITION_TOP
 //    );
+
+    /* AUTONOMOUS -------------------------------------------------------- */
+
+    public static double SHOOTER_MOTOR_POWER_AUTON = 0.985;
+
+    public static DefenderBotPosition BLUE_LINE1_START = new DefenderBotPosition(7, 32, 90);
+    public static DefenderBotPosition BLUE_LINE1_END = new DefenderBotPosition(7, 53, 90);
+    public static DefenderBotPosition BLUE_LINE2_START = new DefenderBotPosition(-15, 32, 90);
+    public static DefenderBotPosition BLUE_LINE2_END = new DefenderBotPosition(-15, 58, 90);
+
+
+
+    public static DefenderBotPosition BLUE1_START = new DefenderBotPosition(50, 50, -135);
+    public static DefenderBotPosition BLUE1_SHOOT_PRELOAD = new DefenderBotPosition(43, 43, -135);
+    public static DefenderBotPosition BLUE1_END = new DefenderBotPosition(43, 35, -135);
+
+    public static DefenderBotPosition BLUE2_START = BLUE1_START;
+    public static DefenderBotPosition BLUE2_SHOOT_PRELOAD = BLUE1_SHOOT_PRELOAD;
+    public static DefenderBotPosition BLUE2_END = BLUE1_END;
+
+    public static DefenderBotPosition BLUE3_START = BLUE1_START;
+    public static DefenderBotPosition BLUE3_SHOOT_PRELOAD = BLUE1_SHOOT_PRELOAD;
+    public static DefenderBotPosition BLUE3_END = BLUE1_END;
 
 
 

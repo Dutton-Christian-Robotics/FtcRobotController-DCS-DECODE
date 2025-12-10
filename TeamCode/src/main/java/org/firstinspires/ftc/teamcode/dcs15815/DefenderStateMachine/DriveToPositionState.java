@@ -69,6 +69,7 @@ public class DriveToPositionState extends DefenderState {
 		DecodeBot bot = (DecodeBot) stateMachine.bot;
 
 		bot.navigation.updatePosition();
+
 		try {
 
 			if (bot.navigation.driveToFromCurrent(target.asPose2D())) {
