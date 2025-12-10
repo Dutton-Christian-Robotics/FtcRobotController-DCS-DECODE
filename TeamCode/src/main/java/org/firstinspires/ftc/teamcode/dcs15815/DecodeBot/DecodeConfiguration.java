@@ -25,7 +25,6 @@ public class DecodeConfiguration extends DefenderBotConfiguration {
     public static DcMotorSimple.Direction DRIVETRAIN_MOTOR_BACK_RIGHT_DIRECTION = DcMotorSimple.Direction.REVERSE;
 
     public static double DRIVETRAIN_POWER_MAX = 1;
-    public static double DRIVETRAIN_POWER_MAX_AUTONOMOUS = 0.4;
     public static int DRIVETRAIN_MAX_TICKS_PER_SECOND = 2800;
 
 
@@ -92,8 +91,8 @@ public class DecodeConfiguration extends DefenderBotConfiguration {
     public static long SHOOTER_LIFT_TIME_SLEEP = 600;
     public static long SHOOTER_TIME_BETWEEN_SHOTS = 150;
 
-    public static long SHOOTER_TIME_AFTER_GATE_OPENS = 150;
-    public static long SHOOTER_TIME_FOR_SHOOTING = 2700; //was 2500
+    public static long SHOOTER_TIME_AFTER_GATE_OPENS = 140;
+    public static long SHOOTER_TIME_FOR_SHOOTING = 2600; //was 2500
 
 //    public static String SHOOTER_SENSOR_READY_NAME = "sensor_lift_ball_color";
 //    public static double SHOOTER_SENSOR_READY_THRESHOLD_LIGHT = 0.3;
@@ -161,10 +160,13 @@ public class DecodeConfiguration extends DefenderBotConfiguration {
 //            0, 0, NautilusConfiguration.WRIST_SERVO_POSITION_TOP
 //    );
 
-    /* AUTONOMOUS -------------------------------------------------------- */
+/* ALL AUTONOMOUS -------------------------------------------------------- */
 
     public static double SHOOTER_MOTOR_POWER_AUTON = 0.985;
     public static long INTAKE_TIME_WAIT_AUTONOMOUS = 1400;
+    public static double DRIVETRAIN_POWER_MAX_AUTONOMOUS = 0.44;
+
+/* BLUE AUTONOMOUS -------------------------------------------------------- */
 
     public static DefenderBotPosition BLUE_LINE1_START = new DefenderBotPosition(8, 32, 90);
     public static DefenderBotPosition BLUE_LINE1_END = new DefenderBotPosition(8, 60, 90);
@@ -176,7 +178,7 @@ public class DecodeConfiguration extends DefenderBotConfiguration {
     public static DefenderBotPosition BLUE_LINE3_END = new DefenderBotPosition(-34, 59, 90);
 
 
-    public static double BLUE1_DRIVETRAIN_POWER_INTAKE = 0.38;
+    public static double BLUE1_DRIVETRAIN_POWER_INTAKE = 0.4;
     public static double BLUE2_DRIVETRAIN_POWER_INTAKE = BLUE1_DRIVETRAIN_POWER_INTAKE;
     public static double BLUE3_DRIVETRAIN_POWER_INTAKE = BLUE1_DRIVETRAIN_POWER_INTAKE;
     public static double BLUE4_DRIVETRAIN_POWER_INTAKE = BLUE1_DRIVETRAIN_POWER_INTAKE;
@@ -228,6 +230,69 @@ public class DecodeConfiguration extends DefenderBotConfiguration {
     public static DefenderBotPosition BLUE6_LINE2_END = new DefenderBotPosition(-10, 58, 90);
     public static DefenderBotPosition BLUE6_END = new DefenderBotPosition(-35, 8, 23);
 
+/* RED AUTONOMOUS -------------------------------------------------------- */
+
+    public static DefenderBotPosition RED_LINE1_START = new DefenderBotPosition(8, -32, -90);
+    public static DefenderBotPosition RED_LINE1_END = new DefenderBotPosition(8, -60, -90);
+
+    public static DefenderBotPosition RED_LINE2_START = new DefenderBotPosition(-15, -32, -90);
+    public static DefenderBotPosition RED_LINE2_END = new DefenderBotPosition(-15, -66, -90);
+
+    public static DefenderBotPosition RED_LINE3_START = new DefenderBotPosition(-34, -24, -90);
+    public static DefenderBotPosition RED_LINE3_END = new DefenderBotPosition(-34, -59, -90);
+
+
+    public static double RED1_DRIVETRAIN_POWER_INTAKE = 0.4;
+    public static double RED2_DRIVETRAIN_POWER_INTAKE = RED1_DRIVETRAIN_POWER_INTAKE;
+    public static double RED3_DRIVETRAIN_POWER_INTAKE = RED1_DRIVETRAIN_POWER_INTAKE;
+    public static double RED4_DRIVETRAIN_POWER_INTAKE = RED1_DRIVETRAIN_POWER_INTAKE;
+    public static double RED5_DRIVETRAIN_POWER_INTAKE = RED1_DRIVETRAIN_POWER_INTAKE;
+    public static double RED6_DRIVETRAIN_POWER_INTAKE = RED1_DRIVETRAIN_POWER_INTAKE;
+
+    public static double RED1_SHOOTER_MOTOR_POWER = 0.985;
+    public static double RED2_SHOOTER_MOTOR_POWER = RED1_SHOOTER_MOTOR_POWER;
+    public static double RED3_SHOOTER_MOTOR_POWER = RED1_SHOOTER_MOTOR_POWER;
+    public static double RED4_SHOOTER_MOTOR_POWER = 0.78;
+    public static double RED5_SHOOTER_MOTOR_POWER = RED4_SHOOTER_MOTOR_POWER;
+    public static double RED6_SHOOTER_MOTOR_POWER = RED4_SHOOTER_MOTOR_POWER;
+
+
+
+    public static DefenderBotPosition RED0N_START = new DefenderBotPosition(50, -50, 135);
+    public static DefenderBotPosition RED0N_END = new DefenderBotPosition(43, -33, 135);
+
+    public static DefenderBotPosition RED1_START = new DefenderBotPosition(50, -50, 135);
+    public static DefenderBotPosition RED1_SHOOT_PRELOAD = new DefenderBotPosition(41, -41, 135);
+    public static DefenderBotPosition RED1_END = new DefenderBotPosition(43, -33, 135);
+
+    public static DefenderBotPosition RED2_START = RED1_START;
+    public static DefenderBotPosition RED2_SHOOT_PRELOAD = RED1_SHOOT_PRELOAD;
+    public static DefenderBotPosition RED2_END = RED1_END;
+
+    public static DefenderBotPosition RED3_START = RED1_START;
+    public static DefenderBotPosition RED3_SHOOT_PRELOAD = RED1_SHOOT_PRELOAD;
+    public static DefenderBotPosition RED3_END = RED1_END;
+
+    public static DefenderBotPosition RED0F_START = new DefenderBotPosition(-60, -14, 0);
+    public static DefenderBotPosition RED0F_END = new DefenderBotPosition(-35, -8, -23);
+
+    public static DefenderBotPosition RED4_START = new DefenderBotPosition(-60, -14, 0);
+    public static DefenderBotPosition RED4_SHOOT_PRELOAD = new DefenderBotPosition(-54, -8, -23);
+    public static DefenderBotPosition RED4_END = new DefenderBotPosition(-35, -8, 23);
+
+    public static double RED5_SHOOTER_BOOST_SECOND_SET = 0.1;
+    public static DefenderBotPosition RED5_START = RED4_START;
+    public static DefenderBotPosition RED5_SHOOT_PRELOAD = RED4_SHOOT_PRELOAD;
+    public static DefenderBotPosition RED5_END = new DefenderBotPosition(-35, -8, -23);
+
+
+    public static double RED6_SHOOTER_BOOST_SECOND_SET = 0.02;
+    public static double RED6_SHOOTER_BOOST_THIRD_SET = 0.02;
+    public static DefenderBotPosition RED6_START = RED4_START;
+    public static DefenderBotPosition RED6_SHOOT_PRELOAD = RED4_SHOOT_PRELOAD;
+    public static DefenderBotPosition RED6_LINE2_START = new DefenderBotPosition(-10, -26, -90);
+    public static DefenderBotPosition RED6_LINE2_END = new DefenderBotPosition(-10, -58, -90);
+    public static DefenderBotPosition RED6_END = new DefenderBotPosition(-35, -8, -23);
 
     /* METHODS -------------------------------------------------------- */
 
