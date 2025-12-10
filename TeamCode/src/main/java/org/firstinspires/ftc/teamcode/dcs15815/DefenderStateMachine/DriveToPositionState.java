@@ -133,7 +133,7 @@ public class DriveToPositionState extends DefenderState {
 				isFinished = true;
 				if (holdTime > 0) {
 					if (stateMachine.isDebugging) {
-						stateMachine.addTelemetryLine("Holding" + holdTime);
+						stateMachine.addTelemetryLine("Holding: " + holdTime);
 					}
 					bot.sleep(holdTime);
 				}
