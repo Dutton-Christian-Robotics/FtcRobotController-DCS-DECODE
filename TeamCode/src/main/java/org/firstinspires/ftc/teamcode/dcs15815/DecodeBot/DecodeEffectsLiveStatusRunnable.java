@@ -11,6 +11,7 @@ public class DecodeEffectsLiveStatusRunnable implements Runnable {
 	private DecodeShooter shooter;
 	private DecodeEffects effects;
 	private boolean doStop = false;
+	private boolean lightsForOverload = false;
 
 	public void setEffects(DecodeEffects e) {
 		effects = e;
@@ -35,7 +36,7 @@ public class DecodeEffectsLiveStatusRunnable implements Runnable {
 		DecodeBot bot  = (DecodeBot) intake.bot;
 		ElapsedTime overloadTimer = new ElapsedTime();
 		while (keepRunning()) {
-			if (intake.areTooManyArtifactsLoaded()) {
+			if (lightsForOverload && intake.areTooManyArtifactsLoaded()) {
 				if (bot.useSpeech && overloadTimer.milliseconds() > 5000) bot.telemetry.speak("Little Tut is too full!");
 				overloadTimer.reset();
 				effects.solidPurple();

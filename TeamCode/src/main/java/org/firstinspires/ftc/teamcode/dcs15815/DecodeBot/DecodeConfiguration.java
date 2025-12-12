@@ -107,7 +107,7 @@ public class DecodeConfiguration extends DefenderBotConfiguration {
 
     /* NAVIGATION -------------------------------------------------------- */
 
-//    public static String IMU_SENSOR_NAME = "imu";
+    //    public static String IMU_SENSOR_NAME = "imu";
 //    public static AxesOrder IMU_AXES_ORDER = AxesOrder.XYZ;
 //
     public static double NAVIGATION_TOLERANCE = 1.0;
@@ -160,13 +160,13 @@ public class DecodeConfiguration extends DefenderBotConfiguration {
 //            0, 0, NautilusConfiguration.WRIST_SERVO_POSITION_TOP
 //    );
 
-/* ALL AUTONOMOUS -------------------------------------------------------- */
+    /* ALL AUTONOMOUS -------------------------------------------------------- */
 
     public static double SHOOTER_MOTOR_POWER_AUTON = 0.985;
     public static long INTAKE_TIME_WAIT_AUTONOMOUS = 1400;
     public static double DRIVETRAIN_POWER_MAX_AUTONOMOUS = 0.44;
 
-/* BLUE AUTONOMOUS -------------------------------------------------------- */
+    /* BLUE AUTONOMOUS -------------------------------------------------------- */
 
     public static DefenderBotPosition BLUE_LINE1_START = new DefenderBotPosition(8, 32, 90);
     public static DefenderBotPosition BLUE_LINE1_END = new DefenderBotPosition(8, 60, 90);
@@ -188,7 +188,7 @@ public class DecodeConfiguration extends DefenderBotConfiguration {
     public static double BLUE1_SHOOTER_MOTOR_POWER = 0.985;
     public static double BLUE2_SHOOTER_MOTOR_POWER = BLUE1_SHOOTER_MOTOR_POWER;
     public static double BLUE3_SHOOTER_MOTOR_POWER = BLUE1_SHOOTER_MOTOR_POWER;
-    public static double BLUE4_SHOOTER_MOTOR_POWER = 0.78;
+    public static double BLUE4_SHOOTER_MOTOR_POWER = 0.85;
     public static double BLUE5_SHOOTER_MOTOR_POWER = BLUE4_SHOOTER_MOTOR_POWER;
     public static double BLUE6_SHOOTER_MOTOR_POWER = BLUE4_SHOOTER_MOTOR_POWER;
 
@@ -213,7 +213,7 @@ public class DecodeConfiguration extends DefenderBotConfiguration {
     public static DefenderBotPosition BLUE0F_END = new DefenderBotPosition(-35, 8, 23);
 
     public static DefenderBotPosition BLUE4_START = new DefenderBotPosition(-60, 14, 0);
-    public static DefenderBotPosition BLUE4_SHOOT_PRELOAD = new DefenderBotPosition(-54, 8, 23);
+    public static DefenderBotPosition BLUE4_SHOOT_PRELOAD = new DefenderBotPosition(-54, 8, 24);
     public static DefenderBotPosition BLUE4_END = new DefenderBotPosition(-35, 8, 23);
 
     public static double BLUE5_SHOOTER_BOOST_SECOND_SET = 0.1;
@@ -230,7 +230,7 @@ public class DecodeConfiguration extends DefenderBotConfiguration {
     public static DefenderBotPosition BLUE6_LINE2_END = new DefenderBotPosition(-10, 58, 90);
     public static DefenderBotPosition BLUE6_END = new DefenderBotPosition(-35, 8, 23);
 
-/* RED AUTONOMOUS -------------------------------------------------------- */
+    /* RED AUTONOMOUS -------------------------------------------------------- */
 
     public static DefenderBotPosition RED_LINE1_START = new DefenderBotPosition(8, -32, -90);
     public static DefenderBotPosition RED_LINE1_END = new DefenderBotPosition(8, -60, -90);
@@ -252,7 +252,7 @@ public class DecodeConfiguration extends DefenderBotConfiguration {
     public static double RED1_SHOOTER_MOTOR_POWER = 0.985;
     public static double RED2_SHOOTER_MOTOR_POWER = RED1_SHOOTER_MOTOR_POWER;
     public static double RED3_SHOOTER_MOTOR_POWER = RED1_SHOOTER_MOTOR_POWER;
-    public static double RED4_SHOOTER_MOTOR_POWER = 0.78;
+    public static double RED4_SHOOTER_MOTOR_POWER = 0.85;
     public static double RED5_SHOOTER_MOTOR_POWER = RED4_SHOOTER_MOTOR_POWER;
     public static double RED6_SHOOTER_MOTOR_POWER = RED4_SHOOTER_MOTOR_POWER;
 
@@ -270,6 +270,7 @@ public class DecodeConfiguration extends DefenderBotConfiguration {
     public static DefenderBotPosition RED2_END = RED1_END;
 
     public static DefenderBotPosition RED3_START = RED1_START;
+
     public static DefenderBotPosition RED3_SHOOT_PRELOAD = RED1_SHOOT_PRELOAD;
     public static DefenderBotPosition RED3_END = RED1_END;
 
@@ -277,7 +278,7 @@ public class DecodeConfiguration extends DefenderBotConfiguration {
     public static DefenderBotPosition RED0F_END = new DefenderBotPosition(-35, -8, -23);
 
     public static DefenderBotPosition RED4_START = new DefenderBotPosition(-60, -14, 0);
-    public static DefenderBotPosition RED4_SHOOT_PRELOAD = new DefenderBotPosition(-54, -8, -23);
+    public static DefenderBotPosition RED4_SHOOT_PRELOAD = new DefenderBotPosition(-54, -9, -24); // -54, -8, -23
     public static DefenderBotPosition RED4_END = new DefenderBotPosition(-35, -8, 23);
 
     public static double RED5_SHOOTER_BOOST_SECOND_SET = 0.1;
