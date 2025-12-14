@@ -211,9 +211,24 @@ public class TwoGamepadDriverOp extends LinearOpMode {
 
 
 		/* ----------------------------------------------------------------------------------------
-			This is the only code that
-			what controls now make which changes.
+			Code for controller 1
 		   ---------------------------------------------------------------------------------------- */
+
+			if (gamepad1.a) {
+				if (DefenderAlliance.getInstance().isRed()) {
+					if (bot.navigation.driveToFromCurrent(DecodeConfiguration.RED4_SHOOT_PRELOAD.asPose2D(), 1, 0)) {
+						bot.stopDriving();
+					}
+
+				} else if (DefenderAlliance.getInstance().isBlue()) {
+					if (bot.navigation.driveToFromCurrent(DecodeConfiguration.BLUE4_SHOOT_PRELOAD.asPose2D(), 1, 0)) {
+						bot.stopDriving();
+					}
+
+				} else {
+
+				}
+			}
 
 
 			bot.drivetrain.driveNoProportional(gamepad1.left_stick_y, (gamepad1.right_trigger - gamepad1.left_trigger), gamepad1RightStickXModifier.modify(gamepad1.right_stick_x));

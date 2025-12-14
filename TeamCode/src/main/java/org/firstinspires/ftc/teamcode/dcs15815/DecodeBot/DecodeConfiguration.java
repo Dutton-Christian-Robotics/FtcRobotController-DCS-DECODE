@@ -188,7 +188,7 @@ public class DecodeConfiguration extends DefenderBotConfiguration {
     public static double BLUE1_SHOOTER_MOTOR_POWER = 0.985;
     public static double BLUE2_SHOOTER_MOTOR_POWER = BLUE1_SHOOTER_MOTOR_POWER;
     public static double BLUE3_SHOOTER_MOTOR_POWER = BLUE1_SHOOTER_MOTOR_POWER;
-    public static double BLUE4_SHOOTER_MOTOR_POWER = 0.85;
+    public static double BLUE4_SHOOTER_MOTOR_POWER = 0.79;
     public static double BLUE5_SHOOTER_MOTOR_POWER = BLUE4_SHOOTER_MOTOR_POWER;
     public static double BLUE6_SHOOTER_MOTOR_POWER = BLUE4_SHOOTER_MOTOR_POWER;
 
@@ -213,7 +213,7 @@ public class DecodeConfiguration extends DefenderBotConfiguration {
     public static DefenderBotPosition BLUE0F_END = new DefenderBotPosition(-35, 8, 23);
 
     public static DefenderBotPosition BLUE4_START = new DefenderBotPosition(-60, 14, 0);
-    public static DefenderBotPosition BLUE4_SHOOT_PRELOAD = new DefenderBotPosition(-54, 8, 24);
+    public static DefenderBotPosition BLUE4_SHOOT_PRELOAD = new DefenderBotPosition(-54, 8, 22);
     public static DefenderBotPosition BLUE4_END = new DefenderBotPosition(-35, 8, 23);
 
     public static double BLUE5_SHOOTER_BOOST_SECOND_SET = 0.1;
@@ -252,7 +252,7 @@ public class DecodeConfiguration extends DefenderBotConfiguration {
     public static double RED1_SHOOTER_MOTOR_POWER = 0.985;
     public static double RED2_SHOOTER_MOTOR_POWER = RED1_SHOOTER_MOTOR_POWER;
     public static double RED3_SHOOTER_MOTOR_POWER = RED1_SHOOTER_MOTOR_POWER;
-    public static double RED4_SHOOTER_MOTOR_POWER = 0.85;
+    public static double RED4_SHOOTER_MOTOR_POWER = 0.79;
     public static double RED5_SHOOTER_MOTOR_POWER = RED4_SHOOTER_MOTOR_POWER;
     public static double RED6_SHOOTER_MOTOR_POWER = RED4_SHOOTER_MOTOR_POWER;
 
